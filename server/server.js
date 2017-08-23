@@ -20,6 +20,7 @@ app.post('/account/login', (req, res) => {
 });
 
 app.get('*', (req, res) => {
+  console.log(req.path, req.originalUrl);
   res.sendFile(path.resolve(__dirname, '../client/index.html'));
 });
 
