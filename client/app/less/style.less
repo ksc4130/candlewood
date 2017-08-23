@@ -1,0 +1,185 @@
+@import "variables.less";
+@import "mixins.less";
+
+// Global Components
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    .body-font;
+}
+
+a {
+    .transition-all;
+    color: @theme-primary;
+    &:hover,
+    &:focus {
+        color: darken(@theme-primary, 10%);
+    }
+}
+
+hr {
+    max-width: 100px;
+    border-width: 1px;
+    border-color: fade(@gray-darker, 10%);
+}
+
+hr.light {
+    border-color: white;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    .heading-font;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+
+// Sections
+
+section {
+    padding: 100px 0;
+    h2 {
+        font-size: 50px;
+    }
+}
+
+footer {
+    background-color: @gray-darker;
+    padding: 25px 0;
+    color: fade(white, 30%);
+    text-align: center;
+    p {
+        font-size: 12px;
+        margin: 0;
+    }
+    ul {
+        margin-bottom: 0;
+        li {
+            a {
+                font-size: 12px;
+                color: fade(white, 30%);
+                &:hover,
+                &:focus,
+                &:active,
+                &.active {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+// Bootstrap Overrides
+
+.bg-primary {
+    background: @theme-secondary;
+    background: -webkit-linear-gradient(@theme-secondary , darken(@theme-secondary, 5%));
+    background: linear-gradient(@theme-secondary , darken(@theme-secondary, 5%));
+}
+
+.text-primary {
+    color: @theme-primary;
+}
+.text-secondary {
+    color: @theme-secondary;
+}
+.text-white {
+    color: #fff;
+}
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
+// Button Styles
+.btn-outline {
+    color: white;
+    border-color: white;
+    border: 1px solid;
+    background: transparent;
+    outline: none !important;
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+        color: white;
+        background-color: @theme-primary;
+        border-color: @theme-primary;
+    }
+}
+
+.btn {
+    .alt-font;
+    border-radius: 300px;
+}
+
+.btn-xl {
+    padding: 15px 45px;
+    font-size: 11px;
+}
+
+.navbar-default .navbar-nav>.open li.active{
+    a {
+        text-decoration: none !important;
+    }
+    background-color: #eee;
+}
+.navbar-default {
+    .navbar-nav>.open {
+        ul.list-unstyled li{
+            padding: 5px 10px 5px 20px;
+        }
+        li {
+            a {
+                text-decoration: none !important;
+            }
+        }
+    }
+}
+
+
+// Extras
+// -- Highlight Color Customization
+::-moz-selection {
+    color: white;
+    text-shadow: none;
+    background: @gray-darker;
+}
+
+::selection {
+    color: white;
+    text-shadow: none;
+    background: @gray-darker;
+}
+
+img::selection {
+    color: white;
+    background: transparent;
+}
+
+img::-moz-selection {
+    color: white;
+    background: transparent;
+}
+
+body {
+    webkit-tap-highlight-color: @gray-darker;
+}

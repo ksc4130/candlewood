@@ -1,0 +1,121 @@
+<div class="container">
+    <div class="row" ng-show="!user.isAuthenticated()">
+        <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12 col-xs-offset-0">
+            <h1 ng-show="tab === 1" class="text-center">Login</h1>
+            <h1 ng-show="tab === 2" class="text-center">Register</h1>
+            <h1 ng-show="tab === 3" class="text-center">Recover Password</h1>
+            <div ng-show="tab === 1">
+                <form autocomplete="off" ng-submit="login()">
+                    <fieldset>
+                        <div class="form-group label-floating is-empty">
+                            <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                    </span>
+                                <label class="control-label" for="login-username">Username</label>
+                                <input type="text" ng-model="user.username" id="login-username" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group label-floating is-empty">
+                            <div class="input-group">
+                   <span class="input-group-addon">
+                      <i class="fa fa-lock"></i>
+                   </span>
+                                <label class="control-label" for="login-password">Password</label>
+                                <input type="password" id="login-password" ng-model="user.password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <a href="" ng-click="tab = 3" class="pull-left"><em>Forgot Password?</em></a>
+                                <a href="" ng-click="tab = 2" class="pull-right">Register an Account</a><br>
+                                <button class="btn btn-raised btn-block btn-primary" type="submit">Login</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+                <div ng-show="tab === 2">
+                    <form autocomplete="off" ng-submit="register()">
+                        <fieldset>
+                            <div class="form-group label-floating is-empty">
+                                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </span>
+                                    <label class="control-label" for="register-username">Username</label>
+                                    <input type="text" id="register-username" ng-model="user.username" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group label-floating is-empty">
+                                <div class="input-group">
+                        <span class="input-group-addon">
+                             <i class="fa fa-envelope"></i>
+                         </span>
+                                    <label class="control-label" for="register-email">Email</label>
+                                    <input type="email" id="register-email" ng-model="user.email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group label-floating is-empty">
+                                <div class="input-group">
+                         <span class="input-group-addon">
+                               <i class="fa fa-lock"></i>
+                         </span>
+                                    <label class="control-label" for="register-password">Password</label>
+                                    <input type="password" id="register-password" ng-model="user.password" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group label-floating is-empty">
+                                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                                    <label class="control-label" for="register-password-confirm">Re-type Password</label>
+                                    <input type="password" id="register-password-confirm" ng-model="user.passwordConfirm" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-sm-12">
+                                    <a href="" ng-click="tab = 3" class="pull-left"><em>Forgot Password?</em></a>
+                                    <a href="" ng-click="tab = 1" class="pull-right">Have an Account?</a><br>
+                                </div>
+                            </div>
+                            <button class="btn btn-raised btn-block btn-primary" type="submit">Register Now</button>
+                        </fieldset>
+                    </form>
+                </div>
+                <div ng-show="tab === 3">
+                    <form autocomplete="off" ng-submit="forgotPassword()">
+                        <fieldset>
+                            <div class="form-group label-floating is-empty">
+                                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                    </span>
+                                    <label class="control-label" for="forgot-username">Username</label>
+                                    <input type="text" id="forgot-username" ng-model="forgot.username" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group label-floating is-empty">
+                                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                        </span>
+                                    <label class="control-label" for="forgot-email">Email</label>
+                                    <input type="email" id="forgot-email" ng-model="forgot.email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-sm-12">
+                                    <a href="" ng-click="tab = 2" class="pull-left">Register an Account</a>
+                                    <a href="" ng-click="tab = 1" class="pull-right">Have an Account?</a><br>
+                                </div>
+                            </div>
+                            <button class="btn btn-raised btn-block btn-primary" type="submit">Send Password</button>
+                        </fieldset>
+                    </form>
+                </div><br><br>
+            </div>
+        </div>
+    </div>
+</div>

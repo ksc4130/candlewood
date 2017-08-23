@@ -1,0 +1,69 @@
+
+<div class="ms-slidebar sb-slidebar sb-left sb-style-overlay sb-active">
+    <div class="sb-slidebar-container">
+        <header class="ms-slidebar-header">
+            <div class="ms-slidebar-login">
+                <a href="#" class="withripple" ng-click="go(1)">
+                    <i class="fa fa-user"></i> Login
+                </a>
+                <a href="#" class="withripple" ng-click="go(2)">
+                    <i class="fa fa-user-plus"></i> Register
+                </a>
+            </div>
+            <div class="ms-slidebar-title">
+                <div class="ms-slidebar-t">
+                    <h3>Candlewood
+                        <span>Lake</span>
+                    </h3>
+                </div>
+            </div>
+        </header>
+        <ul class="ms-slidebar-menu" id="slidebar-menu" role="tablist" aria-multiselectable="true">
+            <li class="panel" >
+                <a ng-class="{'collapsed': isCollapsed}" role="button" ng-click="isCollapsed = !isCollapsed">
+                    <i class="fa fa-home"></i> Home
+                </a>
+                <ul class="panel-collapse" uib-collapse="!isCollapsed">
+                    <li>
+                        <a href="page-about.html">About US</a>
+                    </li>
+                    <li>
+                        <a href="page-team.html">Our Team</a>
+                    </li>
+                    <li>
+                        <a href="page-product.html">Products</a>
+                    </li>
+                    <li>
+                        <a href="page-services.html">Services</a>
+                    </li>
+                    <li>
+                        <a href="page-faq.html">FAQ</a>
+                    </li>
+                    <li>
+                        <a href="page-timeline_left.html">Timeline</a>
+                    </li>
+                    <li>
+                        <a href="page-contact.html">Contact Option</a>
+                    </li>
+                    <li>
+                        <a href="page-login.html">Login</a>
+                    </li>
+                    <li>
+                        <a href="page-pricing.html">Pricing</a>
+                    </li>
+                    <li>
+                        <a href="page-coming.html">Coming Soon</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="link" href="/login" ng-click="close()">
+                    <i class="fa fa-user"></i> Login</a>
+            </li>
+            <li>
+                <a class="link" href="/">
+                    <i class="fa fa-tachometer"></i> All Pages</a>
+            </li>
+        </ul>
+    </div>
+</div>

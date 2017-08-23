@@ -1,0 +1,32 @@
+{
+  "name": "candlewood",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node --debug --presets es2015 -- ./server/server.js",
+    "debug": "babel-node --debug --presets es2015 -- ./server/server.js --debug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ksc4130/candlewood.git"
+  },
+  "author": "Kyle Curren",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ksc4130/candlewood/issues"
+  },
+  "homepage": "https://github.com/ksc4130/candlewood#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "jshint": "^2.9.5"
+  },
+  "dependencies": {
+    "argon2": "^0.16.1",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.7"
+  }
+}
