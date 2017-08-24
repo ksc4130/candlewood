@@ -18,6 +18,7 @@
                 }
             });
         };
+        $scope.authSrv = authSrv;
         $scope.openAside = function() {
             var modalInstance = $aside.open({
                 templateUrl: '/app/views/menuAside.html',

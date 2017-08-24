@@ -27,6 +27,7 @@
     "argon2": "^0.16.1",
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
-    "mongoose": "^4.11.7"
+    "mongoose": "^4.11.7",
+    "uglify-js": "^2.8.16"
   }
 }

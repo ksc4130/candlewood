@@ -10,10 +10,10 @@
                         <div class="form-group label-floating is-empty">
                             <div class="input-group">
                     <span class="input-group-addon">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-envelope"></i>
                     </span>
-                                <label class="control-label" for="login-username">Username</label>
-                                <input type="text" ng-model="user.username" id="login-username" class="form-control">
+                                <label class="control-label" for="login-email">Email</label>
+                                <input type="text" ng-model="user.email" id="login-email" class="form-control">
                             </div>
                         </div>
                         <div class="form-group label-floating is-empty">
@@ -40,45 +40,51 @@
                         <fieldset>
                             <div class="form-group label-floating is-empty">
                                 <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-user"></i>
-                        </span>
-                                    <label class="control-label" for="register-username">Username</label>
-                                    <input type="text" id="register-username" ng-model="user.username" class="form-control">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </span>
+                                    <label class="control-label" for="register-firstName" ng-show="showFirstName">First Name</label>
+                                    <input type="text" id="register-firstName" ng-model="user.firstName" ng-change="showFirstName = !user.firstName" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group label-floating is-empty">
                                 <div class="input-group">
-                        <span class="input-group-addon">
-                             <i class="fa fa-envelope"></i>
-                         </span>
-                                    <label class="control-label" for="register-email">Email</label>
-                                    <input type="email" id="register-email" ng-model="user.email" class="form-control">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </span>
+                                    <label class="control-label" for="register-lastname" ng-show="showLastName">Last Name</label>
+                                    <input type="text" id="register-lastname" ng-model="user.lastName" ng-change="showLastName = !user.lastName" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group label-floating is-empty">
                                 <div class="input-group">
-                         <span class="input-group-addon">
-                               <i class="fa fa-lock"></i>
-                         </span>
-                                    <label class="control-label" for="register-password">Password</label>
-                                    <input type="password" id="register-password" ng-model="user.password" class="form-control">
+                            <span class="input-group-addon">
+                                 <i class="fa fa-envelope"></i>
+                             </span>
+                                    <!--<label class="control-label" for="register-email" ng-show="showEmail">Email</label>-->
+                                    <input type="email" id="register-email" ng-model="user.email" placeholder="Email" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group label-floating is-empty">
                                 <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-lock"></i>
-                        </span>
-                                    <label class="control-label" for="register-password-confirm">Re-type Password</label>
-                                    <input type="password" id="register-password-confirm" ng-model="user.passwordConfirm" class="form-control">
+                             <span class="input-group-addon">
+                                   <i class="fa fa-lock"></i>
+                             </span>
+                                    <label class="control-label" for="register-password" ng-show="showPass">Password</label>
+                                    <input type="password" id="register-password" ng-model="user.pwd" ng-change="showPass = !user.pwd" class="form-control">
                                 </div>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-sm-12">
-                                    <a href="" ng-click="tab = 3" class="pull-left"><em>Forgot Password?</em></a>
-                                    <a href="" ng-click="tab = 1" class="pull-right">Have an Account?</a><br>
+                            <div class="form-group label-floating is-empty">
+                                <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                                    <label class="control-label" for="register-password-confirm" ng-show="showConfirm">Re-type Password</label>
+                                    <input type="password" id="register-password-confirm" ng-model="user.passwordConfirm" ng-change="showConfirm = !user.passwordConfirm" class="form-control">
                                 </div>
+                            </div>
+                            <div class="alert alert-danger" ng-show="error">
+                                {{error}}
                             </div>
                             <button class="btn btn-raised btn-block btn-primary" type="submit">Register Now</button>
                         </fieldset>

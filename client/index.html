@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <base href="/">
-    <title><%=title%></title>
+    <title>Candlewood Lake</title>
 
     <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@
             </a>
         </div>
         <div class="header-right">
-            <a href="" class="btn-circle btn-circle-primary" ng-click="login()">
+            <a href="" ng-hide="authSrv.user()" class="btn-circle btn-circle-primary" ng-click="login()">
                 <i class="fa fa-user"></i>
             </a>
             <form class="search-form">
