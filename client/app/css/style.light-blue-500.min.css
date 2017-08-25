@@ -7372,7 +7372,7 @@ label.color-white {
     position: static!important;
     overflow: hidden!important;
     width: auto!important;
-    height: auto!important;
+    height: auto;
     padding-right: 0!important
 }
 .ms-header {

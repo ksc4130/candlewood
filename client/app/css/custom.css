@@ -8,3 +8,23 @@
 .ms-slidebar .ms-slidebar-header{
     background: #03a9f4;
 }
+html,
+body {
+    height: 100% !important;
+    margin: 0;
+    padding: 0;
+}
+#main-wrapper {
+    box-sizing: border-box;
+    min-height: 100%;
+    padding: 0 0 100px;
+    position: relative;
+}
+
+footer {
+    bottom: 0;
+    height: 100px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
