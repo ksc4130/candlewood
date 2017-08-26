@@ -44,7 +44,9 @@
                 return _user ? {
                     firstName: _user.firstName,
                     lastName: _user.lastName,
-                    email: _user.email
+                    email: _user.email,
+                    isAdmin: _user.isAdmin,
+                    isActive: _user.isActive
                 } : null;
             }
         }
