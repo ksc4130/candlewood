@@ -8,6 +8,10 @@
             $location.path('/login');
         }
         $scope.user = authSrv.user();
+        $scope.newUser = {
+            isAdmin: false,
+            isActive: true
+        };
         $scope.uploader = new FileUploader({
             formData: [],
             url: '/fakeurl'
@@ -64,6 +68,26 @@
         $scope.submit = function(){
             $scope.uploader.formData.push($scope.newDoc);
             console.log($scope.uploader, $scope.newDoc);
+        };
+
+        $scope.register = function(){
+            if($scope.newUser.firstName && $scope.newUser.lastName && $scope.newUser.email && $scope.newUser.pwd && $scope.newUser.passwordConfirm){
+                if($scope.newUser.pwd !== $scope.newUser.passwordConfirm){
+                    $scope.error = 'Passwords do not match.';
+                    return;
+                }
+                authSrv.register($scope.newUser).then(function(data){
+                    if(data && !data.message){
+                        $scope.users.push(data);
+                        $scope.newUser = {
+                            isActive: true,
+                            isAdmin: false
+                        };
+                    }
+                });
+            } else {
+                $scope.error = 'Please fill out all fields.';
+            }
         };
 
     }
