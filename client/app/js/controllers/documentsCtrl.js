@@ -7,7 +7,7 @@
         if(!authSrv.user()){
             $location.path('/login');
         }
-        $scope.authSrv = authSrv;
+        $scope.user = authSrv.user();
         $scope.selectedDocument = null;
         $scope.select = function(document){
             $scope.selectedDocument = angular.copy(document);
@@ -16,7 +16,7 @@
             return document && $scope.selectedDocument && document.name === $scope.selectedDocument.name;
         };
         $scope.filterDocs = {};
-        if(authSrv.user()){ //TODO lock out unapproved users
+        if($scope.user){ //TODO lock out unapproved users
             $scope.documents = [
                 {
                     name: 'The Candlewood Chronicle',
