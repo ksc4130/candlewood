@@ -17,7 +17,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 //   console.log('connected');
 // });
 
-function register(user){
+function register(user, cb){
   const pwd = user.pwd;
   delete user.pwd;
 
@@ -30,11 +30,14 @@ function register(user){
     test.save((err, test) => {
       if(err) {
         console.log('error saving user', err);
+        return cb(err, null);
       }
       console.log(test._id);
+      return cb(err, test);
     })
   }).catch(err => {
     console.log('failed to create hash', err);
+    return cb(err, null);
   });
 }
 

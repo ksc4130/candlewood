@@ -6,4 +6,6 @@ module.exports = mongoose.model('User', {
   email: String,
   phash: String,
   created: Date,
+  isAdmin: Boolean,
+  isActive: Boolean
 });
