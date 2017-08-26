@@ -47,7 +47,7 @@
             </a>
         </div>
         <div class="header-right">
-            <a class="btn-circle btn-circle-primary pointer" href="/admin" title="Administrative Settings">
+            <a class="btn-circle btn-circle-primary pointer" href="/admin" title="Administrative Settings" ng-show="authSrv.user() && authSrv.user().isAdmin">
                 <i class="fa fa-cog"></i>
             </a>
             <!--<form class="search-form">
