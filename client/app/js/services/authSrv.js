@@ -2,14 +2,15 @@
     'use strict';
     angular.module('cwl.core')
         .factory('authSrv', authSrv);
-    authSrv.$inject = ['$http', '$q'];
-    function authSrv($http, $q){
+    authSrv.$inject = ['$http', '$q', '$rootScope'];
+    function authSrv($http, $q, $rootScope){
         var _user;
         function login(user){
             var df = $q.defer();
             $http.post('/account/login', user).then(function(resp){
                 if(resp.status === 200){
                     _user = resp.data.user;
+                    $rootScope.$broadcast('auth');
                     df.resolve(resp.data);
                 } else {
                     console.log(resp);

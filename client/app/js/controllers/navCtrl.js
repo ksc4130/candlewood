@@ -18,7 +18,10 @@
                 }
             });
         };
-        $scope.authSrv = authSrv;
+        $scope.user = authSrv.user();
+        $scope.$on('auth', function(){
+            $scope.user = authSrv.user();
+        });
         $scope.openAside = function() {
             var modalInstance = $aside.open({
                 templateUrl: '/app/views/menuAside.html',
