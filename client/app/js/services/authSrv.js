@@ -26,7 +26,7 @@
             var df = $q.defer();
             $http.post('/account/user', {user: user}).then(function(resp){
                 if(resp.status === 200){
-                    df.resolve(resp.data);
+                    df.resolve(resp.data.user);
                 } else {
                     console.log(resp);
                     df.reject(resp);

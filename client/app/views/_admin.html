@@ -68,7 +68,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </span>
-                                    <input type="text" id="register-firstName" ng-model="user.firstName" placeholder="First Name" class="form-control">
+                                    <input type="text" id="register-firstName" ng-model="newUser.firstName" placeholder="First Name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group is-empty">
@@ -76,7 +76,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </span>
-                                    <input type="text" id="register-lastname" ng-model="user.lastName" placeholder="Last Name" class="form-control">
+                                    <input type="text" id="register-lastname" ng-model="newUser.lastName" placeholder="Last Name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group is-empty">
@@ -84,32 +84,27 @@
                                     <span class="input-group-addon">
                                          <i class="fa fa-envelope"></i>
                                      </span>
-                                    <input type="email" id="register-email" name="regEmail" ng-model="user.email" placeholder="Email" class="form-control">
+                                    <input type="email" id="register-email" name="regEmail" ng-model="newUser.email" placeholder="Email" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group is-empty">
                                 <div class="input-group">
-                             <span class="input-group-addon">
-                                   <i class="fa fa-lock"></i>
-                             </span>
-                                    <!--<label class="control-label" for="register-password" ng-show="showPass">Password</label>-->
-                                    <input type="password" id="register-password" ng-model="user.pwd" placeholder="Password" class="form-control">
+                                     <span class="input-group-addon">
+                                           <i class="fa fa-lock"></i>
+                                     </span>
+                                    <input type="password" id="register-password" ng-model="newUser.pwd" placeholder="Password" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group is-empty">
                                 <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-lock"></i>
-                            </span>
-                                    <!--<label class="control-label" for="register-password-confirm" ng-show="showConfirm">Re-type Password</label>-->
-                                    <input type="password" id="register-password-confirm" ng-model="user.passwordConfirm" placeholder="Confirm Password" class="form-control">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-lock"></i>
+                                    </span>
+                                    <input type="password" id="register-password-confirm" ng-model="newUser.passwordConfirm" placeholder="Confirm Password" class="form-control">
                                 </div>
                             </div>
                             <div class="alert alert-danger" ng-show="error">
                                 {{error}}
-                            </div>
-                            <div class="alert alert-success" ng-show="registrationSent">
-                                Your registration has been submitted! An administrator will need to approve your account before you can log into the system. Thank you!
                             </div>
                             <button class="btn btn-raised btn-block btn-primary" type="submit">Add User</button>
                         </fieldset>
