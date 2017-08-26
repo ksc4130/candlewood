@@ -9,7 +9,7 @@
             var df = $q.defer();
             $http.post('/account/login', user).then(function(resp){
                 if(resp.status === 200){
-                    _user = resp.data;
+                    _user = resp.data.user;
                     df.resolve(resp.data);
                 } else {
                     console.log(resp);
