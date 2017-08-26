@@ -21,6 +21,10 @@
         $scope.user = authSrv.user();
         $scope.$on('auth', function(){
             $scope.user = authSrv.user();
+            console.log($scope.user);
+            if($scope.user && $scope.user.user){
+                $scope.user = $scope.user.user;
+            }
         });
         $scope.openAside = function() {
             var modalInstance = $aside.open({
