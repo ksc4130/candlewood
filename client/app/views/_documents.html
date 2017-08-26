@@ -1,47 +1,45 @@
-<div class="container">
+<div class="container" ng-show="authSrv.user()">
     <div class="row" style="padding-bottom: 10%">
         <div class="col-sm-12">
-            <h3 class="text-center">Welcome back {{user.name}}!</h3>
-            <hr>
+            <br>
             <h3 class="text-center">Available Documents</h3><br>
         </div>
-        <div class="col-md-4 col-sm-5">
-            <div class="list-group">
-                <div class="list-group-item pointer" ng-click="filterDocs = {}" ng-class="{'active': !filterDocs.type}">
-                    <p style="margin-bottom: 0">All</p>
-                </div>
-                <div class="list-group-item pointer" ng-click="filterDocs.type = 'handbook'" ng-class="{'active': filterDocs.type === 'handbook'}">
-                    <p style="margin-bottom: 0">Handbook</p>
-                </div>
-                <div class="list-group-item pointer" ng-click="filterDocs.type = 'minutes'" ng-class="{'active': filterDocs.type === 'minutes'}">
-                    <p style="margin-bottom: 0">Monthly Meeting Minutes</p>
-                </div>
-            </div>
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li ng-class="{'active': !filterDocs.type}">
+                    <a href="" ng-click="filterDocs = {}">All</a>
+                </li>
+                <li ng-class="{'active': filterDocs.type === 'policies'}">
+                    <a ng-click="filterDocs.type = 'policies'" href="">Policies</a>
+                </li>
+                <li ng-class="{'active': filterDocs.type === 'minutes'}">
+                    <a ng-click="filterDocs.type = 'minutes'" href="">Monthly Meeting Minutes</a>
+                </li>
+                <li ng-class="{'active': filterDocs.type === 'chronicle'}">
+                    <a ng-click="filterDocs.type = 'chronicle'" href="">Candlewood Chronicle</a>
+                </li>
+                <li ng-class="{'active': filterDocs.type === 'security'}">
+                    <a ng-click="filterDocs.type = 'security'" href="">Security</a>
+                </li>
+                <li ng-class="{'active': filterDocs.type === 'non-permits'}">
+                    <a ng-click="filterDocs.type = 'non-permits'" href="">Non ERC Permits</a>
+                </li>
+                <li ng-class="{'active': filterDocs.type === 'erc-permits'}">
+                    <a ng-click="filterDocs.type = 'erc-permits'" href="">ERC Permits</a>
+                </li>
+            </ul>
         </div>
-        <div class="col-md-8 col-sm-7">
+        <div class="clearfix"></div><br>
+        <div class="col-md-4 col-sm-6">
             <div class="list-group" ng-show="documents && documents.length">
-                <div class="list-group-item" ng-repeat="document in documents | filter:filterDocs">
-                    <h4>{{document.name}} <span class="pull-right"><a href="#" ng-click="save(document)"><i class="fa fa-download"></i></a></span></h4>
-                    <div class="clearfix"></div>
+                <div class="list-group-item pointer" ng-class="{'document-selected': selected(document)}" ng-repeat="document in documents | filter:filterDocs" ng-click="select(document)">
+                    <h4>{{document.name}} <i class="fa fa-angle-double-right pull-right clearfix"></i></h4>
                 </div>
             </div>
         </div>
-        <!--<hr>-->
-        <!--<h3 class="text-center">New Document</h3>-->
-        <!--<form ng-submit="upload()">-->
-        <!--<div class="form-group">-->
-        <!--<label>Document (PDF)</label>-->
-        <!--<input class="form-control input-lg" type="file" ng-model="newFile.data" name="docData" title="File" required>-->
-        <!--</div>-->
-        <!--<label>Document Name</label>-->
-        <!--<div class="input-group input-group-lg">-->
-        <!--<input class="form-control input-lg" ng-model="newFile.name" placeholder="Document Name" title="Document Name" name="docName" required>-->
-        <!--<div class="input-group-btn">-->
-        <!--<button class="btn btn-lg btn-primary" type="submit">-->
-        <!--<i class="fa fa-save"></i>-->
-        <!--</button>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</form>-->
+        <div class="col-md-8">
+            <h3 class="text-center" ng-hide="selectedDocument">Select a document to preview</h3>
+            <div ng-show="selectedDocument"><object data="{{selectedDocument.src}}" height="700px" width="100%"></object></div>
+        </div>
     </div>
 </div>

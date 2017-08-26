@@ -47,10 +47,10 @@
             </a>
         </div>
         <div class="header-right">
-            <a href="" ng-hide="authSrv.user()" class="btn-circle btn-circle-primary" ng-click="login()">
-                <i class="fa fa-user"></i>
+            <a class="btn-circle btn-circle-primary pointer" href="/admin" title="Administrative Settings">
+                <i class="fa fa-cog"></i>
             </a>
-            <form class="search-form">
+            <!--<form class="search-form">
                 <input id="search-box" type="text" class="search-input" placeholder="Search..." name="q">
                 <label for="search-box">
                     <i class="fa fa-search"></i>
@@ -58,11 +58,11 @@
             </form>
             <a href="" class="btn-circle btn-circle-primary hidden-lg hidden-md" ng-click="openAside()">
                 <i class="fa fa-bars"></i>
-            </a>
+            </a>-->
         </div>
     </div>
 </header>
-<nav class="navbar yamm ms-navbar ms-navbar-primary navbar-static-top">
+<!--<nav class="navbar yamm ms-navbar ms-navbar-primary navbar-static-top">
     <div class="container container-full">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
@@ -259,14 +259,14 @@
             <i class="fa fa-bars"></i>
         </a>
     </div>
-</nav>
+</nav>-->
 <div class="sb-site-container">
     <ui-view></ui-view>
 </div>
 
 
 <footer class="ms-footer text-center">
-    <a class="text-muted" href="https://www.facebook.com/candlewoodlake.oh" target="_blank"><i class="fa fa-2x fa-facebook-official"></i></a>
+    <!--<a class="text-muted" href="https://www.facebook.com/candlewoodlake.oh" target="_blank"><i class="fa fa-2x fa-facebook-official"></i></a>-->
     <br>
     Copyright {{today | date:'yyyy'}} Candlewood Lake Association. All Rights Reserved.
 </footer>
@@ -279,6 +279,7 @@
 <script src="vendor/angular-bootstrap/ui-bootstrap.min.js"></script>
 <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="vendor/angular-aside/dist/js/angular-aside.min.js"></script>
+<script src="vendor/angular-file-upload/dist/angular-file-upload.min.js"></script>
 <script src="/app/js/app.min.js"></script>
 </body>
 

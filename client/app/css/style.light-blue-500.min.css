@@ -211,7 +211,7 @@ body .container-fluid .jumbotron-royal {
 .btn:not(.btn-raised).btn-default,
 .input-group-btn .btn:not(.btn-raised),
 .input-group-btn .btn:not(.btn-raised).btn-default {
-    color: rgba(0, 0, 0, .87)
+    /*color: rgba(0, 0, 0, .87)*/
 }
 .btn:not(.btn-raised).btn-inverse,
 .input-group-btn .btn:not(.btn-raised).btn-inverse {
@@ -2705,7 +2705,7 @@ fieldset[disabled] .navbar .btn-link:focus {
     color: #4caf50
 }
 .text-info {
-    color: #00bcd4
+    /*color: #00bcd4*/
 }
 .nav-tabs {
     background: #03a9f4
@@ -9519,7 +9519,7 @@ pre.line-numbers>code {
     font-weight: 400;
     padding: 17px 20px;
     padding: 1.7rem 2rem;
-    color: rgba(255, 255, 255, .8)!important;
+    color: #ddd!important;
     text-align: center
 }
 .nav.nav-tabs li a i {
@@ -9533,7 +9533,8 @@ pre.line-numbers>code {
     cursor: pointer;
     position: relative;
     transition: all cubic-bezier(0, 0, .2, 1) .5s;
-    color: #fff!important
+    color: #fff!important;
+    font-weight: 600;
 }
 .nav.nav-tabs li.active a i {
     -webkit-transform: rotate(360deg);

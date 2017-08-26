@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row" ng-show="!user.isAuthenticated()">
+    <div class="row" ng-show="!user.isAuthenticated()"><br>
         <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12 col-xs-offset-0">
             <h1 ng-show="tab === 1" class="text-center">Login</h1>
             <h1 ng-show="tab === 2" class="text-center">Register</h1>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-12">
-                                <a href="" ng-click="tab = 3" class="pull-left"><em>Forgot Password?</em></a>
+                                <!--<a href="" ng-click="tab = 3" class="pull-left"><em>Forgot Password?</em></a>-->
                                 <a href="" ng-click="tab = 2" class="pull-right">Register an Account</a><br>
                                 <button class="btn btn-raised btn-block btn-primary" type="submit">Login</button>
                             </div>
@@ -85,6 +85,9 @@
                             </div>
                             <div class="alert alert-danger" ng-show="error">
                                 {{error}}
+                            </div>
+                            <div class="alert alert-success" ng-show="registrationSent">
+                                Your registration has been submitted! An administrator will need to approve your account before you can log into the system. Thank you!
                             </div>
                             <button class="btn btn-raised btn-block btn-primary" type="submit">Register Now</button>
                         </fieldset>

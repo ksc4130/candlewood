@@ -1,4 +1,4 @@
-var app = angular.module('cwl.core', ['ui.router', 'ui.bootstrap','ngAside']);
+var app = angular.module('cwl.core', ['ui.router', 'ui.bootstrap','ngAside','angularFileUpload']);
 
 app.run(["$rootScope", function($rootScope){
     $rootScope.today = new Date();
@@ -7,12 +7,8 @@ app.run(["$rootScope", function($rootScope){
 app.config(config);
 config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 function config($stateProvider, $urlRouterProvider, $locationProvider) {
-    $urlRouterProvider.otherwise('/');
-    $stateProvider.state('home', {
-        url: '/',
-        templateUrl: '/app/views/_home.html',
-        controller: 'homeCtrl'
-    }).state('login', {
+    $urlRouterProvider.otherwise('/login');
+    $stateProvider.state('login', {
         url: '/login',
         templateUrl: '/app/views/_login.html',
         controller: 'loginCtrl',
@@ -22,9 +18,18 @@ function config($stateProvider, $urlRouterProvider, $locationProvider) {
             }]
         }
     }).state('documents', {
-        url: '/documents',
+        url: '/members/documents',
         templateUrl: '/app/views/_documents.html',
         controller: 'documentsCtrl'
+    }).state('admin', {
+        url: '/admin',
+        templateUrl: '/app/views/_admin.html',
+        controller: 'adminCtrl'
     });
+        //.state('home', {
+        //url: '/',
+        //templateUrl: '/app/views/_home.html',
+        //controller: 'homeCtrl'
+    //});
     $locationProvider.html5Mode(true);
 }
