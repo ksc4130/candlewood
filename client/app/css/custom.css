@@ -28,3 +28,11 @@ footer {
     position: absolute;
     width: 100%;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+.list-group .list-group-item.document-selected {
+    background: #ddd;
+}
