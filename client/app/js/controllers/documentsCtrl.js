@@ -16,7 +16,7 @@
             return document && $scope.selectedDocument && document.name === $scope.selectedDocument.name;
         };
         $scope.filterDocs = {};
-        if($scope.user.isAuthenticated()){
+        if(authSrv.user()){ //TODO lock out unapproved users
             $scope.documents = [
                 {
                     name: 'The Candlewood Chronicle',
