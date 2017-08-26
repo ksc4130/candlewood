@@ -7,7 +7,7 @@
         if(!authSrv.user()){
             $location.path('/login');
         }
-        $scope.authSrv = authSrv;
+        $scope.user = authSrv.user();
         $scope.uploader = new FileUploader({
             formData: [],
             url: '/fakeurl'
