@@ -1,0 +1,121 @@
+<div class="container" ng-show="user">
+    <div class="row"><br>
+        <h1 class="text-center">Administrator Dashboard</h1><br>
+        <div class="col-lg-4 col-md-5 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Upload A New Document
+                </div>
+                <div class="panel-body">
+                    <form ng-submit="submit()">
+                        <div>
+                            <input class="form-control" placeholder="Name" ng-model="newDoc.name">
+                        </div>
+                        <div class="form-group">
+                            <p class="input-group" style="margin-bottom: 0">
+                                <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newDoc.time" is-open="open"/>
+                                <span class="input-group-btn" style="padding: 0">
+                                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open = !open" style="padding: 6px 12px; margin-bottom: 0;">
+                                        <i class="fa fa-calendar" style="margin-right: 0"></i>
+                                    </button>
+                                  </span>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" ng-options="type.type as type.name for type in types" ng-model="newDoc.type">
+                                <option value="">Select a Document Type</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="file" nv-file-select uploader="uploader">
+                        </div>
+                        <button class="btn btn-block btn-raised btn-primary" type="submit">Upload</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-7 col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Manage Users
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <div class="list-group-item" ng-repeat="user in users">
+                            {{user.firstName}} {{user.lastName}} {{user.email}}
+                            <span class="pull-right">
+                                Approved <input type="checkbox" class="checkbox-inline" ng-model="user.isActive" style="margin: 0 10px 0">
+                                Admin Account <input type="checkbox" class="checkbox-inline" ng-model="user.isAdmin" style="margin-right: 10px; margin-top: 0">
+                            </span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <button class="btn btn-raised btn-primary pull-right">
+                        Save
+                    </button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Add New User
+                </div>
+                <div class="panel-body">
+                    <form autocomplete="off" ng-submit="register()">
+                        <fieldset>
+                            <div class="form-group is-empty" style="margin-top: 0">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <input type="text" id="register-firstName" ng-model="user.firstName" placeholder="First Name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group is-empty">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <input type="text" id="register-lastname" ng-model="user.lastName" placeholder="Last Name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group is-empty">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                         <i class="fa fa-envelope"></i>
+                                     </span>
+                                    <input type="email" id="register-email" name="regEmail" ng-model="user.email" placeholder="Email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group is-empty">
+                                <div class="input-group">
+                             <span class="input-group-addon">
+                                   <i class="fa fa-lock"></i>
+                             </span>
+                                    <!--<label class="control-label" for="register-password" ng-show="showPass">Password</label>-->
+                                    <input type="password" id="register-password" ng-model="user.pwd" placeholder="Password" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group is-empty">
+                                <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                                    <!--<label class="control-label" for="register-password-confirm" ng-show="showConfirm">Re-type Password</label>-->
+                                    <input type="password" id="register-password-confirm" ng-model="user.passwordConfirm" placeholder="Confirm Password" class="form-control">
+                                </div>
+                            </div>
+                            <div class="alert alert-danger" ng-show="error">
+                                {{error}}
+                            </div>
+                            <div class="alert alert-success" ng-show="registrationSent">
+                                Your registration has been submitted! An administrator will need to approve your account before you can log into the system. Thank you!
+                            </div>
+                            <button class="btn btn-raised btn-block btn-primary" type="submit">Add User</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

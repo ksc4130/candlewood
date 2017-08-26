@@ -5,7 +5,7 @@
     loginCtrl.$inject = ['$scope', 'authSrv', '$location', 'tab'];
     function loginCtrl($scope, authSrv, $location, tab){
         if(authSrv.user()){
-            $location.path('/');
+            $location.path('/members/documents');
         }
         $scope.tab = tab ? tab : 1;
         $scope.showPass = true;
@@ -18,7 +18,7 @@
         $scope.login = function(){
             authSrv.login($scope.user).then(function(data){
                 if(data && !data.message){
-                    console.log(data);
+                    $location.path('/members/documents');
                 }
             });
         };
@@ -31,6 +31,7 @@
             authSrv.register($scope.user).then(function(data){
                 if(data && !data.message){
                     console.log(data);
+                    $scope.registrationSent = true;
                 }
             });
         };

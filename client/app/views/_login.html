@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row" ng-show="!user.isAuthenticated()">
+    <div class="row"><br>
         <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12 col-xs-offset-0">
             <h1 ng-show="tab === 1" class="text-center">Login</h1>
             <h1 ng-show="tab === 2" class="text-center">Register</h1>
@@ -9,25 +9,22 @@
                     <fieldset>
                         <div class="form-group label-floating is-empty">
                             <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="fa fa-envelope"></i>
-                    </span>
-                                <!--<label class="control-label" for="login-email">Email</label>-->
+                                <span class="input-group-addon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
                                 <input type="text" ng-model="user.email" id="login-email" placeholder="Email" class="form-control">
                             </div>
                         </div>
                         <div class="form-group label-floating is-empty">
                             <div class="input-group">
-                   <span class="input-group-addon">
-                      <i class="fa fa-lock"></i>
-                   </span>
-                                <!--<label class="control-label" for="login-password">Password</label>-->
+                               <span class="input-group-addon">
+                                  <i class="fa fa-lock"></i>
+                               </span>
                                 <input type="password" id="login-password" ng-model="user.pwd" placeholder="Password" class="form-control">
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-12">
-                                <a href="" ng-click="tab = 3" class="pull-left"><em>Forgot Password?</em></a>
                                 <a href="" ng-click="tab = 2" class="pull-right">Register an Account</a><br>
                                 <button class="btn btn-raised btn-block btn-primary" type="submit">Login</button>
                             </div>
@@ -40,37 +37,33 @@
                         <fieldset>
                             <div class="form-group label-floating is-empty">
                                 <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-user"></i>
-                            </span>
-                                    <!--<label class="control-label" for="register-firstName" ng-show="showFirstName">First Name</label>-->
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
                                     <input type="text" id="register-firstName" ng-model="user.firstName" placeholder="First Name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group label-floating is-empty">
                                 <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-user"></i>
-                            </span>
-                                    <!--<label class="control-label" for="register-lastname" ng-show="showLastName">Last Name</label>-->
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
                                     <input type="text" id="register-lastname" ng-model="user.lastName" placeholder="Last Name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group label-floating is-empty">
                                 <div class="input-group">
-                            <span class="input-group-addon">
-                                 <i class="fa fa-envelope"></i>
-                             </span>
-                                    <!--<label class="control-label" for="register-email" ng-show="showEmail">Email</label>        -->
+                                    <span class="input-group-addon">
+                                         <i class="fa fa-envelope"></i>
+                                     </span>
                                     <input type="email" id="register-email" name="regEmail" ng-model="user.email" placeholder="Email" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group label-floating is-empty">
                                 <div class="input-group">
-                             <span class="input-group-addon">
-                                   <i class="fa fa-lock"></i>
-                             </span>
-                                    <!--<label class="control-label" for="register-password" ng-show="showPass">Password</label>-->
+                                     <span class="input-group-addon">
+                                           <i class="fa fa-lock"></i>
+                                     </span>
                                     <input type="password" id="register-password" ng-model="user.pwd" placeholder="Password" class="form-control">
                                 </div>
                             </div>
@@ -85,6 +78,15 @@
                             </div>
                             <div class="alert alert-danger" ng-show="error">
                                 {{error}}
+                            </div>
+                            <div class="alert alert-success" ng-show="registrationSent">
+                                Your registration has been submitted! An administrator will need to approve your account before you can log into the system. Thank you!
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-sm-12">
+                                    <!--<a href="" ng-click="tab = 2" class="pull-left">Register an Account</a>-->
+                                    <a href="" ng-click="tab = 1" class="pull-right">Have an Account?</a><br>
+                                </div>
                             </div>
                             <button class="btn btn-raised btn-block btn-primary" type="submit">Register Now</button>
                         </fieldset>
