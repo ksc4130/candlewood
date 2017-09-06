@@ -7,7 +7,8 @@ mongoose.connect('mongodb://192.168.1.11/cwdev');
 
 module.exports = {
   register,
-  login
+  login,
+  getAll
 };
 
 var db = mongoose.connection;
@@ -16,6 +17,17 @@ db.on('error', console.error.bind(console, 'connection error:'));
 //   // we're connected!
 //   console.log('connected');
 // });
+
+function getAll(cb) {
+  UserModel.find({}, (err, data) => {
+    if(err) return cb(err, null);
+
+    cb(null, data.map(x => {
+      delete x.phash;
+      return x;
+    }));
+  });
+}
 
 function register(user, cb){
   const pwd = user.pwd;
@@ -49,6 +61,10 @@ function login(email, pwd, cb) {
     if(err || !data) {
       return cb ? cb(err, null) : err || null;
     }
-    argon2.verify(data.phash, `${pwd}${salt}`).then((m) => m ? cb(null, data) : cb(null, null));
+    argon2.verify(data.phash, `${pwd}${salt}`).then((m) => {
+      delete data.phash;
+      console.log(data.phash);
+      return m ? cb(null, data) : cb(null, null);
+    });
   });
 }
