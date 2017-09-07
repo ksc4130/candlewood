@@ -2,8 +2,8 @@
     'use strict';
     angular.module('cwl.core')
         .controller('adminCtrl', adminCtrl);
-    adminCtrl.$inject = ['$scope', 'authSrv', 'documentSrv', 'FileUploader', '$location'];
-    function adminCtrl($scope, authSrv, documentSrv, FileUploader, $location) {
+    adminCtrl.$inject = ['$scope', 'authSrv', 'FileUploader', '$location', 'docs'];
+    function adminCtrl($scope, authSrv, FileUploader, $location, docs) {
         if(!authSrv.user()){
             $location.path('/login');
         }
@@ -60,6 +60,28 @@
                 name: 'Other'
             }
         ];
+
+        $scope.prettyDoc = function(x){
+          return x && $scope.types.filter(function(sItem){
+            return sItem.type === x;
+          })[0] ? ($scope.types.filter(function(sItem){
+            return sItem.type === x;
+          })[0]).name : null;
+        };
+
+        $scope.removeDoc = function(doc){
+          var found = $scope.documents.filter(function(sItem){
+            return sItem.id === doc.id;
+          })[0];
+          if(found){
+            documentSrv.deleteDocument(doc).then(function(resp){
+              if(resp.status === 200){
+                $scope.documents.splice($scope.documents.indexOf(found), 1);
+              }
+            });
+          }
+        };
+
         $scope.submit = function(){
             $scope.uploader.formData.push($scope.newDoc);
             $scope.uploader.uploadAll();

@@ -9,23 +9,8 @@
                 <li ng-class="{'active': !filterDocs.type}">
                     <a href="" ng-click="filterDocs = {}">All</a>
                 </li>
-                <li ng-class="{'active': filterDocs.type === 'policies'}">
-                    <a ng-click="filterDocs.type = 'policies'" href="">Policies</a>
-                </li>
-                <li ng-class="{'active': filterDocs.type === 'minutes'}">
-                    <a ng-click="filterDocs.type = 'minutes'" href="">Monthly Meeting Minutes</a>
-                </li>
-                <li ng-class="{'active': filterDocs.type === 'chronicle'}">
-                    <a ng-click="filterDocs.type = 'chronicle'" href="">Candlewood Chronicle</a>
-                </li>
-                <li ng-class="{'active': filterDocs.type === 'security'}">
-                    <a ng-click="filterDocs.type = 'security'" href="">Security</a>
-                </li>
-                <li ng-class="{'active': filterDocs.type === 'non-permits'}">
-                    <a ng-click="filterDocs.type = 'non-permits'" href="">Non ERC Permits</a>
-                </li>
-                <li ng-class="{'active': filterDocs.type === 'erc-permits'}">
-                    <a ng-click="filterDocs.type = 'erc-permits'" href="">ERC Permits</a>
+                <li ng-class="{'active': filterDocs.type === type.type}" ng-repeat="type in types">
+                    <a ng-click="filterDocs.type = type.type" href="">{{type.name}}</a>
                 </li>
             </ul>
         </div>
@@ -39,7 +24,7 @@
         </div>
         <div class="col-md-8">
             <h3 class="text-center" ng-hide="selectedDocument">Select a document to preview</h3>
-            <div ng-show="selectedDocument"><object data="/doc/{{selectedDocument.src}}" height="700px" width="100%"></object></div>
+            <div ng-show="selectedDocument"><object data="{{selectedDocument.src}}" height="700px" width="100%"></object></div>
         </div>
     </div>
 </div>
