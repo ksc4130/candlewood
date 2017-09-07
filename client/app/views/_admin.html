@@ -13,7 +13,7 @@
                         </div>
                         <div class="form-group">
                             <p class="input-group" style="margin-bottom: 0">
-                                <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newDoc.time" is-open="open"/>
+                                <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newDoc.when" is-open="open"/>
                                 <span class="input-group-btn" style="padding: 0">
                                     <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open = !open" style="padding: 6px 12px; margin-bottom: 0;">
                                         <i class="fa fa-calendar" style="margin-right: 0"></i>
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="col-lg-8 col-md-7 col-sm-12">
-          <div class="panel panel-default">
+          <div class="panel panel-default" ng-show="!editUser">
             <div class="panel-heading">
               Add New User
             </div>
@@ -90,6 +90,51 @@
               </form>
             </div>
           </div>
+          <div class="panel panel-default" ng-show="editUser">
+            <div class="panel-heading">
+              Edit User
+            </div>
+            <div class="panel-body">
+              <form autocomplete="off" ng-submit="updateUser()">
+                <fieldset>
+                  <div class="form-group is-empty" style="margin-top: 0">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                          <i class="fa fa-user"></i>
+                      </span>
+                      <input type="text" ng-model="editUser.firstName" placeholder="First Name" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group is-empty">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                          <i class="fa fa-user"></i>
+                      </span>
+                      <input type="text" ng-model="editUser.lastName" placeholder="Last Name" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group is-empty">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                           <i class="fa fa-envelope"></i>
+                       </span>
+                      <input type="email" ng-model="editUser.email" placeholder="Email" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group is-empty">
+                      Admin Account <input type="checkbox" class="checkbox-inline" ng-model="user.isAdmin" style="margin-right: 10px; margin-top: 0">
+                  </div>
+                  <div class="form-group is-empty">
+                    Approved <input type="checkbox" class="checkbox-inline" ng-model="user.isActive" style="margin: 0 10px 0">
+                  </div>
+                  <div class="alert alert-danger" ng-show="editUser.error">
+                    An error occurred.
+                  </div>
+                  <button class="btn btn-raised btn-block btn-primary" type="submit">Update User</button>
+                </fieldset>
+              </form>
+            </div>
+          </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Manage Users
@@ -99,15 +144,15 @@
                         <div class="list-group-item" ng-repeat="user in users">
                             {{user.firstName}} {{user.lastName}} {{user.email}}
                             <span class="pull-right">
-                                Approved <input type="checkbox" class="checkbox-inline" ng-model="user.isActive" style="margin: 0 10px 0">
-                                Admin Account <input type="checkbox" class="checkbox-inline" ng-model="user.isAdmin" style="margin-right: 10px; margin-top: 0">
+                              <span class="text-muted" ng-show="user.saving && !user.successfulSave">Saving</span>
+                              <span class="text-success" ng-show="user.successfulSave">Saved!</span>
+                              <span class="text-danger" ng-show="user.error">An error occurred.</span>
+
+                              <button class="btn btn-xs btn-danger" ng-click="deleteUser(user)"><i class="fa" ng-class="{'fa-times': !user.deleting, 'fa-spinner fa-pulse': user.deleting}"></i></button>
                             </span>
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                    <button class="btn btn-raised btn-primary pull-right">
-                        Save
-                    </button>
                     <div class="clearfix"></div>
                 </div>
             </div>

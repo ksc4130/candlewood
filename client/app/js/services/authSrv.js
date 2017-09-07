@@ -22,8 +22,36 @@
     function getUsers() {
       const df = $q.defer();
       $http.get('/user').then(function(resp) {
-        if(resp.status === 200 && resp.data) {
-          return df.resolve(resp);
+        if(resp.status === 200) {
+          df.resolve(resp.data);
+        } else {
+          df.reject(resp);
+        }
+      }, function(resp){
+        df.reject(resp);
+      });
+      return df.promise;
+    }
+
+    function updateUser(obj) {
+      const df = $q.defer();
+      $http.put('/user', obj).then(function(resp) {
+        if(resp.status === 200) {
+          df.resolve(resp.data);
+        } else {
+          df.reject(resp);
+        }
+      }, function(resp){
+        df.reject(resp);
+      });
+      return df.promise;
+    }
+
+    function deleteUser(obj) {
+      const df = $q.defer();
+      $http.delete('/user/' + obj.id).then(function(resp) {
+        if(resp.status === 200) {
+          df.resolve(resp);
         } else {
           df.reject(resp);
         }
@@ -80,6 +108,8 @@
       fillCurrentUser: fillCurrentUser,
       logout: logout,
       getUsers: getUsers,
+      updateUser: updateUser,
+      deleteUser: deleteUser,
       user: function () {
         return _user ? {
           firstName: _user.firstName,
