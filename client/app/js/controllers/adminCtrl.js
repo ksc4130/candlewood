@@ -8,6 +8,7 @@
             $location.path('/login');
         }
         $scope.user = authSrv.user();
+        $scope.editUser = null;
         authSrv.getUsers().then(function(data){
           if(data && data.length){
             $scope.users = data;
@@ -24,9 +25,9 @@
         });
         $scope.uploader.onBeforeUploadItem = function (file) {
           file.formData.push($scope.newDoc);
-        }
+        };
         $scope.newDoc = {
-            time: new Date()
+            when: new Date()
         };
 
         $scope.types = [
@@ -62,6 +63,49 @@
         $scope.submit = function(){
             $scope.uploader.formData.push($scope.newDoc);
             $scope.uploader.uploadAll();
+        };
+
+        $scope.updateUser = function(){
+          $scope.editUser.saving = true;
+          authSrv.updateUser($scope.editUser).then(function(data){
+            if(data && !data.message){
+              var found = $scope.users.filter(function(sItem){
+                return sItem.id === user.id;
+              })[0];
+              if(found){
+                $scope.users[$scope.users.indexOf(found)] = data;
+              }
+              $scope.editUser = null;
+            } else {
+              $scope.editUser.error = true;
+              console.log('Error', data);
+              $scope.editUser.saving = false;
+            }
+          },function(data){
+            console.log('error', data);
+            $scope.editUser.error = true;
+            $scope.editUser.saving = false;
+          });
+        };
+
+        $scope.deleteUser = function(user){
+          user.deleting = true;
+          authSrv.deleteUser(user).then(function(resp){
+            if(resp.status === 200){
+              var found = $scope.users.filter(function(sItem){
+                return sItem.id === user.id;
+              })[0];
+              if(found){
+                $scope.users.splice($scope.users.indexOf(found), 1);
+              }
+            } else {
+              console.log('error', resp);
+              user.deleting = false;
+            }
+          }, function(resp){
+            console.log('error', resp);
+            user.deleting = false;
+          });
         };
 
         $scope.register = function(){
