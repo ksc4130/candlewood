@@ -17,7 +17,7 @@
         <div class="clearfix"></div><br>
         <div class="col-md-4 col-sm-6">
             <div class="list-group" ng-show="documents && documents.length">
-                <div class="list-group-item pointer" ng-class="{'document-selected': selected(document)}" ng-repeat="document in documents | filter:filterDocs" ng-click="select(document)">
+                <div class="list-group-item pointer" ng-class="{'document-selected': selected(document)}" ng-repeat="document in documents track by $index| filter:filterDocs" ng-click="select(document)">
                     <h4>{{document.name}} <i class="fa fa-angle-double-right pull-right clearfix"></i></h4>
                 </div>
             </div>
