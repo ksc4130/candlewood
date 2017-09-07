@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 module.exports = mongoose.model('Doc', {
   name: String,
   type: String,
-  src: Boolean,
+  src: String,
   when: Date,
+  created: Date
 });

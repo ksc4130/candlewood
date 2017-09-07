@@ -6,19 +6,13 @@ const DocModel = require('./models/DocModel');
 mongoose.connect('mongodb://192.168.1.11/cwdev');
 
 module.exports = {
-  register,
-  login,
   getAll,
   remove,
-  update
+  create
 };
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-//   // we're connected!
-//   console.log('connected');
-// });
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
 
 function getAll(cb) {
   DocModel.find({}, (err, data) => {
@@ -36,10 +30,11 @@ function remove(id, cb) {
 }
 
 function create(doc, cb){
+  doc.created = new Date();
   const test = new DocModel(doc);
   test.save((err, test) => {
     if(err) {
-      console.log('error saving user', err);
+      console.log('error saving doc', err);
       return cb(err, null);
     }
     console.log(test._id);

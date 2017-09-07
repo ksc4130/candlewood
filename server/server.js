@@ -8,8 +8,11 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 bodyParser.urlencoded({extended: true});
 const clientPath = path.resolve(__dirname, '../client/');
+const fs = require('fs');
+const mongoose = require('mongoose');
 
 const userRepo = require('./data/userRepo');
+const docRepo = require('./data/docRepo');
 
 //TODO: move to db or cache
 const userTokens = [];
@@ -19,6 +22,9 @@ app.use(express.static(clientPath));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+
 app.post('/account/user', (req, res) => {
   //TODO: check authorized
   userRepo.register(req.body.user, (err, user) => res.json({err, user}));
@@ -27,7 +33,7 @@ app.post('/account/user', (req, res) => {
 //let errrrbody know who they be
 app.get('/account/user', (req, res) => {
   console.log('current user');
-  const token = req.headers['x-session-token']; console.log(token);
+  const token = req.cookies.t;
   const somebody = userTokens.filter(x => token && x.token === token)[0];
   console.log('cuser', token, somebody);
 
@@ -104,15 +110,25 @@ app.delete('/user/:id', (req, res) => {
 });
 
 //admin remove file
-
-app.get('/doc/:doc', (req, res) => {
-  res.json({});
+app.delete('/doc/:id', isAuthenticated, (req, res) => {
+  docRepo.remove(req.param.id);
 });
 
-//get all docs
-app.get('doc', (req, res) => {
 
+//get doc
+app.get('doc/:doc', (req, res) => {
+  res.sendFile(path.resolve(__dirname, `/req.param/doc`));
 });
+
+app.get('doc', isAuthenticated, (req, res) => {
+  docRepo.getAll((err, found) => {
+    if(err) return res.status(500).json(err);
+
+    res.json(found);
+  });
+});
+
+
 
 app.post('/upload', isAuthenticated, function(req, res) {
   console.log('upload', req.body, req.files);
@@ -120,19 +136,28 @@ app.post('/upload', isAuthenticated, function(req, res) {
     return res.status(400).send('No files were uploaded.');
 
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  let doc = req.files.doc;
+  const fname = `${uuidv1()}.${req.files.file.name.split('.').reverse()[0]}`;
+
 
   // Use the mv() method to place the file somewhere on your server
-  doc.mv('/filename.jpg', function(err) {
-    if (err)
-      return res.status(500).send(err);
+  fs.writeFile(`${__dirname}/uploads/${fname}`, req.files.file.data, (err) => {
+    if (err) return res.status(500).json(err);
 
-    res.send('File uploaded!');
+    docRepo.create({
+      name: req.body.name,
+      type: req.body.type,
+      src: fname,
+      when: req.body.when,
+    }, (err, newDoc) => {
+      if(err) return res.status(500).json(err);
+
+      res.json(newDoc);
+    })
   });
 });
 
 app.get('*', (req, res) => {
-  console.log('knock knock',req.path, req.originalUrl);
+  //console.log('knock knock',req.path, req.originalUrl);
   res.sendFile(path.resolve(__dirname, '../client/index.html'));
 });
 
