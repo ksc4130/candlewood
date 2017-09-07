@@ -8,33 +8,24 @@
             $location.path('/login');
         }
         $scope.user = authSrv.user();
+        authSrv.getUsers().then(function(data){
+          if(data && data.length){
+            $scope.users = data;
+          }
+        });
         $scope.newUser = {
             isAdmin: false,
             isActive: true
         };
         $scope.uploader = new FileUploader({
             formData: [],
-            url: '/fakeurl'
+            url: '/fakeurl',
+            queueLimit: 1
         });
         $scope.newDoc = {
             time: new Date()
         };
-        $scope.users = [
-            {
-                firstName: 'Jane',
-                lastName: 'Doe',
-                email: 'jdoe@example.com',
-                isActive: true,
-                isAdmin: true
-            },
-            {
-                firstName: 'John',
-                lastName: 'Doe',
-                email: 'jdoe@yahoo.com',
-                isActive: false,
-                isAdmin: false
-            }
-        ];
+
         $scope.types = [
             {
                 type: 'policies',
@@ -67,7 +58,7 @@
         ];
         $scope.submit = function(){
             $scope.uploader.formData.push($scope.newDoc);
-            console.log($scope.uploader, $scope.newDoc);
+            $scope.uploader.uploadAll();
         };
 
         $scope.register = function(){

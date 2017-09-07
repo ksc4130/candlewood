@@ -19,6 +19,20 @@
       return df.promise;
     }
 
+    function getUsers() {
+      const df = $q.defer();
+      $http.get('/user').then(function(resp) {
+        if(resp.status === 200 && resp.data) {
+          return df.resolve(resp);
+        } else {
+          df.reject(resp);
+        }
+      }, function(resp){
+        df.reject(resp);
+      });
+      return df.promise;
+    }
+
     function logout() {
       console.log('logout');
       $cookies.remove('t');
@@ -65,6 +79,7 @@
       register: register,
       fillCurrentUser: fillCurrentUser,
       logout: logout,
+      getUsers: getUsers,
       user: function () {
         return _user ? {
           firstName: _user.firstName,
