@@ -9,3 +9,4 @@ module.exports = mongoose.model('User', {
   isAdmin: Boolean,
   isActive: Boolean
 });
+//TODO: add last active and last login
