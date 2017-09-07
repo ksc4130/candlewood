@@ -25,11 +25,21 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
   }).state('documents', {
     url: '/members/documents',
     templateUrl: '/app/views/_documents.html',
-    controller: 'documentsCtrl'
+    controller: 'documentsCtrl',
+    resolve: {
+      docs: ['documentSrv', function(documentSrv){
+        return documentSrv.getDocuments();
+      }]
+    }
   }).state('admin', {
     url: '/admin',
     templateUrl: '/app/views/_admin.html',
-    controller: 'adminCtrl'
+    controller: 'adminCtrl',
+    resolve: {
+      docs: ['documentSrv', function(documentSrv){
+        return documentSrv.getDocuments();
+      }]
+    }
   });
   //.state('home', {
   //url: '/',

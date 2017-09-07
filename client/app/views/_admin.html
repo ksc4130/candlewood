@@ -33,6 +33,42 @@
                     </form>
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Manage Documents
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                      <div class="list-group-item">
+                        <div class="row">
+                          <div class="col-md-6 col-sm-12">
+                            <select class="form-control" ng-options="type.type as type.name for type in types" ng-model="typeFilter">
+                              <option value="">Filter Documents</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="list-group-item" ng-repeat="document in documents | filter:{type: typeFilter}">
+                        <div class="row">
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                            Name: {{document.name}}
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                            Type: {{prettyDoc(document.type)}}
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6">
+                            Date: {{document.when | date:'M/d/yyyy'}}
+                          </div>
+                          <div class="col-lg-3 col-md-6 col-sm-6 text-center">
+                            <button class="btn btn-sm btn-danger btn-raised" ng-click="removeDoc(document)" style="margin-right: 0">
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-lg-8 col-md-7 col-sm-12">
           <div class="panel panel-default" ng-show="!editUser">

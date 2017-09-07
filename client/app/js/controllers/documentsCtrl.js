@@ -2,67 +2,51 @@
     'use strict';
     angular.module('cwl.core')
         .controller('documentsCtrl', documentsCtrl);
-    documentsCtrl.$inject = ['$scope', 'authSrv', '$location'];
-    function documentsCtrl($scope, authSrv, $location){
-        if(!authSrv.user()){
-            $location.path('/login');
+    documentsCtrl.$inject = ['$scope', 'authSrv', '$location', 'docs'];
+    function documentsCtrl($scope, authSrv, $location, docs){
+      if(!authSrv.user()){
+          $location.path('/login');
+      }
+      $scope.user = authSrv.user();
+      $scope.types = [
+        {
+          type: 'policies',
+          name: 'Policies'
+        },
+        {
+          type: 'non-permits',
+          name: 'Non ERC Permits'
+        },
+        {
+          type: 'minutes',
+          name: 'Minutes'
+        },
+        {
+          type: 'erc-permits',
+          name: 'ERC Permits'
+        },
+        {
+          type: 'security',
+          name: 'Security'
+        },
+        {
+          type: 'chronicle',
+          name: 'Chronicle'
+        },
+        {
+          type: 'other',
+          name: 'Other'
         }
-        $scope.user = authSrv.user();
-        $scope.selectedDocument = null;
-        $scope.select = function(document){
-            $scope.selectedDocument = angular.copy(document);
-        };
-        $scope.selected = function(document){
-            return document && $scope.selectedDocument && document.name === $scope.selectedDocument.name;
-        };
-        $scope.filterDocs = {};
-        if($scope.user){ //TODO lock out unapproved users
-            $scope.documents = [
-                {
-                    name: 'The Candlewood Chronicle',
-                    type: 'chronicle',
-                    src: '/app/docs/June_2017.pdf'
-                },
-                {
-                    name: 'Incident Report',
-                    type: 'security',
-                    src: '/app/docs/Incident_Report.pdf'
-                },
-                {
-                    name: 'Candlewood Lake Board Policies',
-                    type: 'policies',
-                    src: '/app/docs/Policy_Book.pdf'
-                },
-                {
-                    name: 'Sign Permits',
-                    type: 'non-permits',
-                    src: '/app/docs/sign_permit.pdf'
-                },{
-                    name: 'June Board Meeting Minutes',
-                    type: 'minutes',
-                    src: '/app/docs/June_2017.pdf'
-                },
-                {
-                    name: 'July Board Meeting Minutes',
-                    type: 'minutes',
-                    src: '/app/docs/June_2017.pdf'
-                },
-                {
-                    name: 'Open House Permit',
-                    type: 'non-permits',
-                    src: '/app/docs/open_house_permit.pdf'
-                },
-                {
-                    name: 'Tree Removal',
-                    type: 'erc-permits',
-                    src: '/app/docs/tree_permit.pdf'
-                },
-                {
-                    name: 'Tree Cutting Release of Liability',
-                    type: 'erc-permits',
-                    src: '/app/docs/tree_liability.pdf'
-                }
-            ];
-        }
+      ];
+      $scope.selectedDocument = null;
+      $scope.select = function(document){
+          $scope.selectedDocument = angular.copy(document);
+      };
+      $scope.selected = function(document){
+          return document && $scope.selectedDocument && document.name === $scope.selectedDocument.name;
+      };
+      $scope.filterDocs = {};
+      $scope.documents = docs;
+      console.log($scope.documents);
     }
 }());
