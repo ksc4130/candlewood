@@ -122,15 +122,17 @@
                     </div>
                   </div>
                   <div class="form-group is-empty">
-                      Admin Account <input type="checkbox" class="checkbox-inline" ng-model="user.isAdmin" style="margin-right: 10px; margin-top: 0">
-                  </div>
-                  <div class="form-group is-empty">
-                    Approved <input type="checkbox" class="checkbox-inline" ng-model="user.isActive" style="margin: 0 10px 0">
+                    <input type="checkbox" class="checkbox-inline" ng-model="editUser.isAdmin" style="margin: 0 20px 0 0 ;"> Admin Account
+                    <input type="checkbox" class="checkbox-inline" ng-model="editUser.isActive" style="margin: 0 20px;"> Approved Account
                   </div>
                   <div class="alert alert-danger" ng-show="editUser.error">
                     An error occurred.
                   </div>
-                  <button class="btn btn-raised btn-block btn-primary" type="submit">Update User</button>
+                  <button type="button" class="btn btn-default btn-raised pull-left" ng-click="editUser = null">Cancel</button>
+                  <button class="btn btn-raised btn-primary pull-right" type="submit">
+                    <span ng-show="!editUser.saving">Update User</span>
+                    <i class="fa fa-spinner fa-pulse" ng-show="editUser.saving"></i>
+                  </button>
                 </fieldset>
               </form>
             </div>
@@ -141,14 +143,10 @@
                 </div>
                 <div class="panel-body">
                     <div class="list-group">
-                        <div class="list-group-item" ng-repeat="user in users">
+                        <div class="list-group-item pointer" ng-repeat="user in users" ng-click="editUser = user">
                             {{user.firstName}} {{user.lastName}} {{user.email}}
                             <span class="pull-right">
-                              <span class="text-muted" ng-show="user.saving && !user.successfulSave">Saving</span>
-                              <span class="text-success" ng-show="user.successfulSave">Saved!</span>
-                              <span class="text-danger" ng-show="user.error">An error occurred.</span>
-
-                              <button class="btn btn-xs btn-danger" ng-click="deleteUser(user)"><i class="fa" ng-class="{'fa-times': !user.deleting, 'fa-spinner fa-pulse': user.deleting}"></i></button>
+                              <button class="btn btn-sm btn-raised btn-danger" type="button" style="margin-right: 0" ng-click="$event.stopPropagation(); deleteUser(user)"><i class="fa" ng-class="{'fa-times': !user.deleting, 'fa-spinner fa-pulse': user.deleting}"></i></button>
                             </span>
                             <div class="clearfix"></div>
                         </div>

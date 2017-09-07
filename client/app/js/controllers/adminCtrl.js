@@ -2,12 +2,13 @@
     'use strict';
     angular.module('cwl.core')
         .controller('adminCtrl', adminCtrl);
-    adminCtrl.$inject = ['$scope', 'authSrv', 'documentSrv', 'FileUploader', '$location', '$timeout'];
-    function adminCtrl($scope, authSrv, documentSrv, FileUploader, $location, $timeout) {
+    adminCtrl.$inject = ['$scope', 'authSrv', 'documentSrv', 'FileUploader', '$location'];
+    function adminCtrl($scope, authSrv, documentSrv, FileUploader, $location) {
         if(!authSrv.user()){
             $location.path('/login');
         }
         $scope.user = authSrv.user();
+        $scope.editUser = null;
         authSrv.getUsers().then(function(data){
           if(data && data.length){
             $scope.users = data;
@@ -24,9 +25,9 @@
         });
         $scope.uploader.onBeforeUploadItem = function (file) {
           file.formData.push($scope.newDoc);
-        }
+        };
         $scope.newDoc = {
-            time: new Date()
+            when: new Date()
         };
 
         $scope.types = [
@@ -64,24 +65,26 @@
             $scope.uploader.uploadAll();
         };
 
-        $scope.updateUser = function(user){
-          user.saving = true;
-          authSrv.updateUser(user).then(function(data){
+        $scope.updateUser = function(){
+          $scope.editUser.saving = true;
+          authSrv.updateUser($scope.editUser).then(function(data){
             if(data && !data.message){
-              user.successfulSave = true;
-              $timeout(function(){
-                  user.successfulSave = false;
-              }, 1000);
-              user.saving = false;
+              var found = $scope.users.filter(function(sItem){
+                return sItem.id === user.id;
+              })[0];
+              if(found){
+                $scope.users[$scope.users.indexOf(found)] = data;
+              }
+              $scope.editUser = null;
             } else {
-              user.error = true;
-              user.saving = false;
+              $scope.editUser.error = true;
               console.log('Error', data);
+              $scope.editUser.saving = false;
             }
           },function(data){
             console.log('error', data);
-            user.error = true;
-            user.saving = false;
+            $scope.editUser.error = true;
+            $scope.editUser.saving = false;
           });
         };
 
@@ -97,12 +100,10 @@
               }
             } else {
               console.log('error', resp);
-              user.error = true;
               user.deleting = false;
             }
           }, function(resp){
             console.log('error', resp);
-            user.error = true;
             user.deleting = false;
           });
         };
