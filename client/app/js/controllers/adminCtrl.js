@@ -19,7 +19,8 @@
         };
         $scope.uploader = new FileUploader({
             formData: [],
-            url: '/fakeurl'
+            url: '/fakeurl',
+            queueLimit: 1
         });
         $scope.newDoc = {
             time: new Date()
@@ -57,7 +58,7 @@
         ];
         $scope.submit = function(){
             $scope.uploader.formData.push($scope.newDoc);
-            console.log($scope.uploader, $scope.newDoc);
+            $scope.uploader.uploadAll();
         };
 
         $scope.register = function(){
