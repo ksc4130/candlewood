@@ -8,7 +8,9 @@ mongoose.connect('mongodb://192.168.1.11/cwdev');
 module.exports = {
   register,
   login,
-  getAll
+  getAll,
+  remove,
+  update
 };
 
 var db = mongoose.connection;
@@ -27,6 +29,24 @@ function getAll(cb) {
       return x;
     }));
   });
+}
+
+function update(user, cb) {
+  UserModel.findById(user._id, (err, found) => {
+    if(err || !user) return cb(err, null);
+
+    found.email = user.email;
+    found.lastName = user.lastName;
+    found.firstName = user.firstName;
+    found.isAdmin = user.isAdmin;
+    found.isActive = user.isActive;
+
+    found.save(cb);
+  });
+}
+
+function remove(id, cb) {
+  UserModel.remove(id, cb);
 }
 
 function register(user, cb){

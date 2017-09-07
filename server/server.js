@@ -71,16 +71,47 @@ app.get('user', isAuthenticated, (req, res) => {
   });
 });
 
-//admin update user
+//admin create user ... use reg for now
 app.post('user', isAuthenticated, (req, res) => {
 
+});
+
+//admin update user
+app.put('user', isAuthenticated, (req, res) => {
+  userRepo.update(req.body.user, (err, user) => {
+    if(err) {
+      //TODO: handle
+      res.status(500);
+      return res.json(err);
+    }
+
+    res.json(data);
+  });
+});
+
+app.delete('/user/:id', (req, res) => {
+  userRepo.remove(req.param.id, (err) => {
+    if(err) {
+      //TODO: handle
+      res.status(500);
+      return res.json(err);
+    }
+
+    res.json();
+  });
 });
 
 //admin remove file
 
 app.get('/doc/:doc', (req, res) => {
   res.json({});
-})
+});
+
+//get all docs
+app.get('doc', (req, res) => {
+
+});
+
 app.post('/upload', isAuthenticated, function(req, res) {
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
