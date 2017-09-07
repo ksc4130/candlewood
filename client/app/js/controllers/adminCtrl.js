@@ -19,9 +19,12 @@
         };
         $scope.uploader = new FileUploader({
             formData: [],
-            url: '/fakeurl',
+            url: '/upload',
             queueLimit: 1
         });
+        $scope.uploader.onBeforeUploadItem = function (file) {
+          file.formData.push($scope.newDoc);
+        }
         $scope.newDoc = {
             time: new Date()
         };

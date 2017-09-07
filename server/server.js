@@ -5,6 +5,7 @@ const fileUpload = require('express-fileupload');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 bodyParser.urlencoded({extended: true});
 const clientPath = path.resolve(__dirname, '../client/');
 
@@ -16,6 +17,7 @@ const userTokens = [];
 app.use(fileUpload());
 app.use(express.static(clientPath));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.post('/account/user', (req, res) => {
   //TODO: check authorized
@@ -113,6 +115,7 @@ app.get('doc', (req, res) => {
 });
 
 app.post('/upload', isAuthenticated, function(req, res) {
+  console.log('upload', req.body, req.files);
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
 
@@ -138,12 +141,12 @@ app.listen(3001, () => {
 });
 
 function isAuthenticated(req, res, next) {
-  const token = req.headers['x-session-token']; console.log(token);
+  const token = req.cookies.t;// req.headers['x-session-token'];
   const somebody = token && userTokens.some(x => x.token === token);
-
+  console.log('is auth', token, somebody);
   if(!somebody) {
     res.status('401');
-    return res('no no!');
+    return res.send('no no!');
   }
 
   next();
