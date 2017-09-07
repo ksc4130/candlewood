@@ -71,7 +71,7 @@
 
         $scope.removeDoc = function(doc){
           var found = $scope.documents.filter(function(sItem){
-            return sItem.id === doc.id;
+            return sItem.name === doc.name && sItem.type === doc.type && doc.when === sItem.when;
           })[0];
           if(found){
             documentSrv.deleteDocument(doc).then(function(resp){
