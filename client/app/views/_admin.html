@@ -41,14 +41,14 @@
                     <div class="list-group">
                       <div class="list-group-item">
                         <div class="row">
-                          <div class="col-md-6 col-sm-12">
+                          <div class="col-sm-12">
                             <select class="form-control" ng-options="type.type as type.name for type in types" ng-model="typeFilter">
                               <option value="">Filter Documents</option>
                             </select>
                           </div>
                         </div>
                       </div>
-                      <div class="list-group-item" ng-repeat="document in documents | filter:{type: typeFilter}">
+                      <div class="list-group-item" ng-repeat="document in documents track by $index | filter:{type: typeFilter}">
                         <div class="row">
                           <div class="col-lg-3 col-md-6 col-sm-6">
                             Name: {{document.name}}
@@ -179,7 +179,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="list-group">
-                        <div class="list-group-item pointer" ng-repeat="user in users" ng-click="editUser = user">
+                        <div class="list-group-item pointer" ng-repeat="user in users track by $index" ng-click="editUser = user">
                             {{user.firstName}} {{user.lastName}} {{user.email}}
                             <span class="pull-right">
                               <button class="btn btn-sm btn-raised btn-danger" type="button" style="margin-right: 0" ng-click="$event.stopPropagation(); deleteUser(user)"><i class="fa" ng-class="{'fa-times': !user.deleting, 'fa-spinner fa-pulse': user.deleting}"></i></button>
