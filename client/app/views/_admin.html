@@ -35,6 +35,61 @@
             </div>
         </div>
         <div class="col-lg-8 col-md-7 col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Add New User
+            </div>
+            <div class="panel-body">
+              <form autocomplete="off" ng-submit="register()">
+                <fieldset>
+                  <div class="form-group is-empty" style="margin-top: 0">
+                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                      <input type="text" id="register-firstName" ng-model="newUser.firstName" placeholder="First Name" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group is-empty">
+                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                      <input type="text" id="register-lastname" ng-model="newUser.lastName" placeholder="Last Name" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group is-empty">
+                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                         <i class="fa fa-envelope"></i>
+                                     </span>
+                      <input type="email" id="register-email" name="regEmail" ng-model="newUser.email" placeholder="Email" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group is-empty">
+                    <div class="input-group">
+                                     <span class="input-group-addon">
+                                           <i class="fa fa-lock"></i>
+                                     </span>
+                      <input type="password" id="register-password" ng-model="newUser.pwd" placeholder="Password" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group is-empty">
+                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-lock"></i>
+                                    </span>
+                      <input type="password" id="register-password-confirm" ng-model="newUser.passwordConfirm" placeholder="Confirm Password" class="form-control">
+                    </div>
+                  </div>
+                  <div class="alert alert-danger" ng-show="error">
+                    {{error}}
+                  </div>
+                  <button class="btn btn-raised btn-block btn-primary" type="submit">Add User</button>
+                </fieldset>
+              </form>
+            </div>
+          </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Manage Users
@@ -54,61 +109,6 @@
                         Save
                     </button>
                     <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Add New User
-                </div>
-                <div class="panel-body">
-                    <form autocomplete="off" ng-submit="register()">
-                        <fieldset>
-                            <div class="form-group is-empty" style="margin-top: 0">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <input type="text" id="register-firstName" ng-model="newUser.firstName" placeholder="First Name" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group is-empty">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <input type="text" id="register-lastname" ng-model="newUser.lastName" placeholder="Last Name" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group is-empty">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                         <i class="fa fa-envelope"></i>
-                                     </span>
-                                    <input type="email" id="register-email" name="regEmail" ng-model="newUser.email" placeholder="Email" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group is-empty">
-                                <div class="input-group">
-                                     <span class="input-group-addon">
-                                           <i class="fa fa-lock"></i>
-                                     </span>
-                                    <input type="password" id="register-password" ng-model="newUser.pwd" placeholder="Password" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group is-empty">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-lock"></i>
-                                    </span>
-                                    <input type="password" id="register-password-confirm" ng-model="newUser.passwordConfirm" placeholder="Confirm Password" class="form-control">
-                                </div>
-                            </div>
-                            <div class="alert alert-danger" ng-show="error">
-                                {{error}}
-                            </div>
-                            <button class="btn btn-raised btn-block btn-primary" type="submit">Add User</button>
-                        </fieldset>
-                    </form>
                 </div>
             </div>
         </div>

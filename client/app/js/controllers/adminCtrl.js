@@ -8,6 +8,11 @@
             $location.path('/login');
         }
         $scope.user = authSrv.user();
+        authSrv.getUsers().then(function(data){
+          if(data && data.length){
+            $scope.users = data;
+          }
+        });
         $scope.newUser = {
             isAdmin: false,
             isActive: true
@@ -19,22 +24,7 @@
         $scope.newDoc = {
             time: new Date()
         };
-        $scope.users = [
-            {
-                firstName: 'Jane',
-                lastName: 'Doe',
-                email: 'jdoe@example.com',
-                isActive: true,
-                isAdmin: true
-            },
-            {
-                firstName: 'John',
-                lastName: 'Doe',
-                email: 'jdoe@yahoo.com',
-                isActive: false,
-                isAdmin: false
-            }
-        ];
+
         $scope.types = [
             {
                 type: 'policies',
