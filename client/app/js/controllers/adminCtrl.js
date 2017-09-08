@@ -72,7 +72,7 @@
 
         $scope.removeDoc = function(doc){
           var found = $scope.documents.filter(function(sItem){
-            return sItem.name === doc.name && sItem.type === doc.type && doc.when === sItem.when;
+            return sItem._id === doc._id;
           })[0];
           if(found){
             documentSrv.deleteDocument(doc).then(function(resp){
@@ -93,7 +93,7 @@
           authSrv.updateUser($scope.editUser).then(function(data){
             if(data && !data.message){
               var found = $scope.users.filter(function(sItem){
-                return sItem.id === user.id;
+                return sItem._id === $scope.editUser._id;
               })[0];
               if(found){
                 $scope.users[$scope.users.indexOf(found)] = data;
@@ -116,7 +116,7 @@
           authSrv.deleteUser(user).then(function(resp){
             if(resp.status === 200){
               var found = $scope.users.filter(function(sItem){
-                return sItem.id === user.id;
+                return sItem._id === user._id;
               })[0];
               if(found){
                 $scope.users.splice($scope.users.indexOf(found), 1);
