@@ -35,7 +35,7 @@
 
     function updateUser(obj) {
       const df = $q.defer();
-      $http.put('/user', obj).then(function(resp) {
+      $http.put('/user', {user: obj}).then(function(resp) {
         if(resp.status === 200) {
           df.resolve(resp.data);
         } else {

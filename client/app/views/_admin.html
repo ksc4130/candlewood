@@ -48,7 +48,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="list-group-item" ng-repeat="document in documents track by $index |filter:typeFilter">
+                      <div class="list-group-item" ng-repeat="document in documents track by $index">
                             Name: {{document.name}}<br>
                             Date: {{document.when | date:'M/d/yyyy'}}<br>
                               <i class="fa fa-times text-danger pull-right pointer" ng-click="removeDoc(document)"></i>

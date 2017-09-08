@@ -16,12 +16,12 @@
         </div>
         <div class="clearfix"></div><br>
         <div class="col-md-4 col-sm-6">
-            <div class="list-group hidden-xs hidden-sm" ng-show="documents && documents.length">
+            <div class="list-group hidden-xs hidden-sm hidden-md" ng-show="documents && documents.length">
                 <div class="list-group-item pointer" ng-class="{'document-selected': selected(document)}" ng-repeat="document in documents | filter:filterDocs" ng-click="select(document)">
                     <h4>{{document.name}} <i class="fa fa-angle-double-right pull-right clearfix"></i></h4>
                 </div>
             </div>
-            <ul class="list-unstyled visible-sm visible-xs" ng-show="documents && documents.length">
+            <ul class="list-unstyled visible-sm visible-xs visible-md" ng-show="documents && documents.length">
                 <li ng-repeat="document in documents | filter:filterDocs">
                   <a target="_blank" ng-href="/doc/{{selectedDocument.src}}">
                     {{document.name}} <i class="fa fa-download"></i>
