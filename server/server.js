@@ -45,7 +45,7 @@ app.post('/account/login', (req, res) => {
   userRepo.login(req.body.email, req.body.pwd, (err, data) => {
     if(err || !data || !data.email) {
       res.status(401);
-      res.send('Unauthorized');
+      return res.send('Unauthorized');
     }
     let token = uuidv1();
 
@@ -98,7 +98,7 @@ app.put('/user', isAuthenticated, (req, res) => {
 });
 
 app.delete('/user/:id', (req, res) => {
-  userRepo.remove(req.param.id, (err) => {
+  userRepo.remove(req.query.id, (err) => {
     if(err) {
       //TODO: handle
       res.status(500);
@@ -111,16 +111,17 @@ app.delete('/user/:id', (req, res) => {
 
 //admin remove file
 app.delete('/doc/:id', isAuthenticated, (req, res) => {
-  docRepo.remove(req.param.id);
+  docRepo.remove(req.params.id);
 });
 
 
 //get doc
 app.get('/doc/:doc', (req, res) => {
-  res.sendFile(path.resolve(__dirname, `/req.param/doc`));
+  console.log('doc',  req.params.doc);
+  res.sendFile(`${__dirname}/uploads/${req.params.doc}`);
 });
 
-app.get('/doc', isAuthenticated, (req, res) => {
+app.get('/doc', (req, res) => {
   docRepo.getAll((err, found) => {
     if(err) return res.status(500).json(err);
 
@@ -131,7 +132,6 @@ app.get('/doc', isAuthenticated, (req, res) => {
 
 
 app.post('/upload', isAuthenticated, function(req, res) {
-  console.log('upload', req.body, req.files);
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
 
@@ -168,7 +168,7 @@ app.listen(3001, () => {
 function isAuthenticated(req, res, next) {
   const token = req.cookies.t;// req.headers['x-session-token'];
   const somebody = token && userTokens.some(x => x.token === token);
-  console.log('is auth', token, somebody);
+  console.log('*** is auth', somebody, token, userTokens.length ? userTokens[0].token : '');
   if(!somebody) {
     res.status('401');
     return res.send('no no!');
@@ -180,13 +180,13 @@ function isAuthenticated(req, res, next) {
 //TODO: make test
 setTimeout(() => {
   userRepo.login('test@test.com', 'Test123!', (err, user) => {
-    if(!user) {
+    if(err || !user) {
       userRepo.register({
-        emai: 'test@test.com',
+        email: 'test@test.com',
         firstName: 'test',
         lastName: 'testlast',
         pwd: 'Test123!'
-      });
+      }, (e, u) => console.log(e, u));
     }
   });
 }, 1000);

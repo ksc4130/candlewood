@@ -22,7 +22,7 @@ module.exports = {
 
 function getAll(cb) {
   UserModel.find({}, (err, data) => {
-    if(err) return cb(err, null);
+    if(err) return cb ? cb(err, null) : '';
 
     cb(null, data.map(x => {
       delete x.phash;
@@ -33,7 +33,7 @@ function getAll(cb) {
 
 function update(user, cb) {
   UserModel.findById(user._id, (err, found) => {
-    if(err || !user) return cb(err, null);
+    if(err || !user) return cb ? cb(err, null) : '';
 
     found.email = user.email;
     found.lastName = user.lastName;
@@ -62,13 +62,19 @@ function register(user, cb){
     test.save((err, test) => {
       if(err) {
         console.log('error saving user', err);
+        if(!cb) return;
+
         return cb(err, null);
       }
       console.log(test._id);
+      if(!cb) return;
+
       return cb(err, test);
     })
   }).catch(err => {
     console.log('failed to create hash', err);
+    if(!cb) return;
+
     return cb(err, null);
   });
 }
@@ -79,11 +85,15 @@ function login(email, pwd, cb) {
   }
   UserModel.findOne({email: email}, (err, data) => {
     if(err || !data) {
+      if(!cb) return;
+
       return cb ? cb(err, null) : err || null;
     }
     argon2.verify(data.phash, `${pwd}${salt}`).then((m) => {
       delete data.phash;
       console.log(data.phash);
+      if(!cb) return;
+
       return m ? cb(null, data) : cb(null, null);
     });
   });

@@ -4,8 +4,8 @@
 
   angular.module('cwl.core').factory('authInterceptor', authInterceptor);
 
-  authInterceptor.$inject = ['$cookies'];
-  function authInterceptor($cookies) {
+  authInterceptor.$inject = ['$cookies', '$injector'];
+  function authInterceptor($cookies, $injector) {
     return {
       request: function(config) {
         const token = $cookies.get('t');
@@ -15,6 +15,13 @@
           config.headers['x-session-token'] = token;
         }
 
+        return config;
+      },
+      responseError: function (config) {
+        console.log(config);
+        if(config.status === 401) {
+          return $injector.get('$state').transitionTo('login');
+        }
         return config;
       }
     };

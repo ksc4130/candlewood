@@ -16,7 +16,9 @@ module.exports = {
 
 function getAll(cb) {
   DocModel.find({}, (err, data) => {
-    if(err) return cb(err, null);
+    if(err) return cb ? cb(err, null) : '';
+
+    if(!cb) return;
 
     cb(null, data.map(x => {
       delete x.phash;
@@ -35,9 +37,11 @@ function create(doc, cb){
   test.save((err, test) => {
     if(err) {
       console.log('error saving doc', err);
-      return cb(err, null);
+      return cd ? cb(err, null) : '';
     }
     console.log(test._id);
+    if(!cb) return;
+
     return cb(err, test);
   })
 }
