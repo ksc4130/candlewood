@@ -47,10 +47,10 @@
             </a>
         </div>
         <div class="header-right">
-            <a class="btn-circle btn-circle-primary pointer" href="/admin" title="Administrative Settings" ng-show="user && user.isAdmin && $state.current.name !== 'admin'">
+            <a class="btn-circle btn-circle-primary pointer" href="/admin" title="Administrative Settings" ng-show="user && user.isAdmin && state.current.name !== 'admin'">
                 <i class="fa fa-cog"></i>
             </a>
-            <a class="btn-circle btn-circle-primary pointer" href="/members/documents" title="Documents" ng-show="user && $state.current.name !== 'documents'">
+            <a class="btn-circle btn-circle-primary pointer" href="/members/documents" title="Documents" ng-show="user && state.current.name !== 'documents'">
                 <i class="fa fa-file-pdf-o"></i>
             </a>
             <!--<form class="search-form">
