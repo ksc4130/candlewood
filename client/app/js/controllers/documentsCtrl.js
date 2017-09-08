@@ -2,8 +2,8 @@
     'use strict';
     angular.module('cwl.core')
         .controller('documentsCtrl', documentsCtrl);
-    documentsCtrl.$inject = ['$scope', 'authSrv', '$location', 'docs'];
-    function documentsCtrl($scope, authSrv, $location, docs){
+    documentsCtrl.$inject = ['$scope', 'authSrv', '$location', 'docs', 'documentSrv'];
+    function documentsCtrl($scope, authSrv, $location, docs, documentSrv){
       if(!authSrv.user()){
           $location.path('/login');
       }
