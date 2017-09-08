@@ -2,8 +2,8 @@
     'use strict';
     angular.module('cwl.core')
         .controller('navCtrl', navCtrl);
-    navCtrl.$inject = ['$scope', 'authSrv', '$uibModal', '$aside'];
-    function navCtrl($scope, authSrv, $uibModal, $aside){
+    navCtrl.$inject = ['$scope', 'authSrv', '$uibModal', '$aside', '$state'];
+    function navCtrl($scope, authSrv, $uibModal, $aside, $state){
         $scope.login = function(x){
             $uibModal.open({
                 backdrop: true,
@@ -18,6 +18,7 @@
                 }
             });
         };
+        $scope.state = $state;
         $scope.user = authSrv.user();
         $scope.$on('auth', function(){
             $scope.user = authSrv.user();
