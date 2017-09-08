@@ -9,9 +9,7 @@
         }
         $scope.user = authSrv.user();
         $scope.editUser = null;
-        $scope.typeFilter = {
-          type: ''
-        };
+        $scope.typeFilter = {};
         $scope.documents = docs;
         authSrv.getUsers().then(function(data){
           if(data && data.length){
@@ -64,14 +62,6 @@
                 name: 'Other'
             }
         ];
-
-        $scope.prettyDoc = function(x){
-          return x && $scope.types.filter(function(sItem){
-            return sItem.type === x;
-          })[0] ? ($scope.types.filter(function(sItem){
-            return sItem.type === x;
-          })[0]).name : null;
-        };
 
         $scope.selectUser = function(x){
           $scope.editUser = angular.copy(x);
