@@ -65,7 +65,7 @@ app.post('/account/login', (req, res) => {
 });
 
 //admin get all users
-app.get('user', isAuthenticated, (req, res) => {
+app.get('/user', isAuthenticated, (req, res) => {
   //TODO: make sure user is admin
 
   userRepo.getAll((err, data) => {
@@ -80,12 +80,12 @@ app.get('user', isAuthenticated, (req, res) => {
 });
 
 //admin create user ... use reg for now
-app.post('user', isAuthenticated, (req, res) => {
+app.post('/user', isAuthenticated, (req, res) => {
 
 });
 
 //admin update user
-app.put('user', isAuthenticated, (req, res) => {
+app.put('/user', isAuthenticated, (req, res) => {
   userRepo.update(req.body.user, (err, user) => {
     if(err) {
       //TODO: handle
