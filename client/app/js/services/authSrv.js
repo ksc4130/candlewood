@@ -49,7 +49,7 @@
 
     function deleteUser(obj) {
       const df = $q.defer();
-      $http.delete('/user/' + obj.id).then(function(resp) {
+      $http.delete('/user/' + obj._id).then(function(resp) {
         if(resp.status === 200) {
           df.resolve(resp);
         } else {

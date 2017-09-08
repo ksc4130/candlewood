@@ -40,13 +40,7 @@
       ];
       $scope.selectedDocument = null;
       $scope.select = function(document){
-        documentSrv.getDoc(document._id).then(function(data){
-          if(data){
-            console.log(data);
-            $scope.selectedDocument = angular.copy(document);
-            $scope.selectedDocument.url = data;
-          }
-        });
+          $scope.selectedDocument = angular.copy(document);
       };
 
       $scope.selected = function(document){
