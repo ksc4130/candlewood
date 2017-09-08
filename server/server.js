@@ -49,7 +49,7 @@ app.post('/account/login', (req, res) => {
     }
     let token = uuidv1();
 
-    const user = {
+    const user = !data ? null : {
       email: data.email,
       firstName: data.firstName,
       lastName: data.lastName,
@@ -178,8 +178,17 @@ function isAuthenticated(req, res, next) {
 }
 
 //TODO: make test
-// setTimeout(() => {
-//   userRepo.login('test@test.com', 'Test123!', (err, user) => console.log(user));
-// }, 1000);
+setTimeout(() => {
+  userRepo.login('test@test.com', 'Test123!', (err, user) => {
+    if(!user) {
+      userRepo.register({
+        emai: 'test@test.com',
+        firstName: 'test',
+        lastName: 'testlast',
+        pwd: 'Test123!'
+      });
+    }
+  });
+}, 1000);
 
 
