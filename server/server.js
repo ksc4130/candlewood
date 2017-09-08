@@ -185,7 +185,9 @@ setTimeout(() => {
         email: 'test@test.com',
         firstName: 'test',
         lastName: 'testlast',
-        pwd: 'Test123!'
+        pwd: 'Test123!',
+        isAdmin: true,
+        isActive: true
       }, (e, u) => console.log(e, u));
     }
   });
