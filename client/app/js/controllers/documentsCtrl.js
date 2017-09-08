@@ -40,11 +40,19 @@
       ];
       $scope.selectedDocument = null;
       $scope.select = function(document){
-          $scope.selectedDocument = angular.copy(document);
+        documentSrv.getDoc(document._id).then(function(data){
+          if(data){
+            console.log(data);
+            $scope.selectedDocument = angular.copy(document);
+            $scope.selectedDocument.url = data;
+          }
+        });
       };
+
       $scope.selected = function(document){
-          return document && $scope.selectedDocument && document.name === $scope.selectedDocument.name;
+          return document && $scope.selectedDocument && document._id === $scope.selectedDocument._id;
       };
+
       $scope.filterDocs = {};
       $scope.documents = docs;
       console.log($scope.documents);

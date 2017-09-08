@@ -9,6 +9,7 @@
         }
         $scope.user = authSrv.user();
         $scope.editUser = null;
+        $scope.documents = docs;
         authSrv.getUsers().then(function(data){
           if(data && data.length){
             $scope.users = data;

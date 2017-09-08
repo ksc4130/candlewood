@@ -19,6 +19,20 @@
         return df.promise;
       }
 
+      function getDoc(id){
+        var df = $q.defer();
+        $http.get('/doc/' + id).then(function(resp){
+          if(resp.status === 200){
+            df.resolve(resp.data);
+          } else {
+            df.reject(resp);
+          }
+        }, function(resp){
+          df.reject(resp);
+        });
+        return df.promise;
+      }
+
       function deleteDocument(obj){
         var df = $q.defer();
         $http.delete('/doc/' + obj.id).then(function(resp){
@@ -35,6 +49,7 @@
 
       return {
         getDocuments: getDocuments,
+        getDoc: getDoc,
         deleteDocument: deleteDocument
       }
     }
