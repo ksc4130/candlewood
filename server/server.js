@@ -116,11 +116,11 @@ app.delete('/doc/:id', isAuthenticated, (req, res) => {
 
 
 //get doc
-app.get('doc/:doc', (req, res) => {
+app.get('/doc/:doc', (req, res) => {
   res.sendFile(path.resolve(__dirname, `/req.param/doc`));
 });
 
-app.get('doc', isAuthenticated, (req, res) => {
+app.get('/doc', isAuthenticated, (req, res) => {
   docRepo.getAll((err, found) => {
     if(err) return res.status(500).json(err);
 
