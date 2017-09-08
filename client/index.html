@@ -39,16 +39,19 @@
 <div id="main-wrapper">
 <header class="ms-header ms-header-primary">
     <div class="container container-full">
-        <div class="ms-title">
+        <div class="ms-title hidden-xs">
             <a href="/">
-                <h1 class="animated fadeInRight animation-delay-6">Candlewood
+                <h1 class="animated fadeInRight animation-delay-6 ">Candlewood
                     <span>Lake</span>
                 </h1>
             </a>
         </div>
         <div class="header-right">
-            <a class="btn-circle btn-circle-primary pointer" href="/admin" title="Administrative Settings" ng-show="user && user.isAdmin">
+            <a class="btn-circle btn-circle-primary pointer" href="/admin" title="Administrative Settings" ng-show="user && user.isAdmin && $state.current.name !== 'admin'">
                 <i class="fa fa-cog"></i>
+            </a>
+            <a class="btn-circle btn-circle-primary pointer" href="/members/documents" title="Documents" ng-show="user && $state.current.name !== 'documents'">
+                <i class="fa fa-file-pdf-o"></i>
             </a>
             <!--<form class="search-form">
                 <input id="search-box" type="text" class="search-input" placeholder="Search..." name="q">

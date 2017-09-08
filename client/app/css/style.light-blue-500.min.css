@@ -14567,7 +14567,7 @@ body.lb-disable-scrolling {
         background-color: #0286c2
     }
     .ms-header {
-        display: none
+        /*display: none*/
     }
     .ms-navbar .container .navbar-header {
         display: inline-block
