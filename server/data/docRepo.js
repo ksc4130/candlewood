@@ -28,7 +28,7 @@ function getAll(cb) {
 }
 
 function remove(id, cb) {
-  DocModel.remove(id, cb);
+  DocModel.remove({_id: id }, cb);
 }
 
 function create(doc, cb){

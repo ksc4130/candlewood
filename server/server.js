@@ -98,7 +98,8 @@ app.put('/user', isAuthenticated, (req, res) => {
 });
 
 app.delete('/user/:id', (req, res) => {
-  userRepo.remove(req.query.id, (err) => {
+  console.log(req.params.id);
+  userRepo.remove(req.params.id, (err) => {
     if(err) {
       //TODO: handle
       res.status(500);

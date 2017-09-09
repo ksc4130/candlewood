@@ -46,7 +46,7 @@ function update(user, cb) {
 }
 
 function remove(id, cb) {
-  UserModel.remove(id, cb);
+  UserModel.remove({_id: id}, cb);
 }
 
 function register(user, cb){
