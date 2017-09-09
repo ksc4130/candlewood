@@ -35,7 +35,7 @@
 
       function deleteDocument(obj){
         var df = $q.defer();
-        $http.delete('/doc/' + obj.id).then(function(resp){
+        $http.delete('/doc/' + obj._id).then(function(resp){
           if(resp.status === 200){
             df.resolve(resp);
           } else {
