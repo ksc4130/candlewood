@@ -32,7 +32,7 @@ function getAll(cb) {
 }
 
 function update(user, cb) {
-  UserModel.findById(user._id, (err, found) => {
+  UserModel.findOne({ _id: user._id }, (err, found) => {
     if(err || !user) return cb ? cb(err, null) : '';
 
     found.email = user.email;

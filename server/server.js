@@ -86,6 +86,7 @@ app.post('/user', isAuthenticated, (req, res) => {
 
 //admin update user
 app.put('/user', isAuthenticated, (req, res) => {
+  console.log(req.body.user);
   userRepo.update(req.body.user, (err, user) => {
     if(err) {
       //TODO: handle
@@ -93,7 +94,7 @@ app.put('/user', isAuthenticated, (req, res) => {
       return res.json(err);
     }
 
-    res.json(data);
+    res.json(user);
   });
 });
 
@@ -112,7 +113,15 @@ app.delete('/user/:id', (req, res) => {
 
 //admin remove file
 app.delete('/doc/:id', isAuthenticated, (req, res) => {
-  docRepo.remove(req.params.id);
+  docRepo.remove(req.params.id, (err) => {
+    if(err) {
+      //TODO: handle
+      res.status(500);
+      return res.json(err);
+    }
+
+    res.json();
+  });
 });
 
 
