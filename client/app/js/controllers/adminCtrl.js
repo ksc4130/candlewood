@@ -2,14 +2,13 @@
     'use strict';
     angular.module('cwl.core')
         .controller('adminCtrl', adminCtrl);
-    adminCtrl.$inject = ['$scope', 'authSrv', 'FileUploader', '$location', 'docs'];
-    function adminCtrl($scope, authSrv, FileUploader, $location, docs) {
+    adminCtrl.$inject = ['$scope', 'authSrv', 'FileUploader', '$location', 'docs', 'documentSrv'];
+    function adminCtrl($scope, authSrv, FileUploader, $location, docs, documentSrv) {
         if(!authSrv.user()){
             $location.path('/login');
         }
         $scope.user = authSrv.user();
         $scope.editUser = null;
-        $scope.typeFilter = {};
         $scope.documents = docs;
         authSrv.getUsers().then(function(data){
           if(data && data.length){
@@ -30,6 +29,15 @@
         };
         $scope.newDoc = {
             when: new Date()
+        };
+
+        $scope.filteredDocuments = function(){
+          if($scope.documents){
+            return $scope.typeFilter ? $scope.documents.filter(function(sItem){
+              return sItem.type === $scope.typeFilter;
+            }) : $scope.documents;
+          }
+          return null;
         };
 
         $scope.types = [
