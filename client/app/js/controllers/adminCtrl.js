@@ -22,8 +22,18 @@
         $scope.uploader = new FileUploader({
             formData: [],
             url: '/upload',
-            queueLimit: 1
+            queueLimit: 1,
+            onComplete: function(response, status){
+              console.log(response, status);
+                if(status === 200){
+                  console.log(response);
+                  $scope.documents.push(response);
+                } else {
+                  $scope.uploadError = response;
+                }
+            }
         });
+
         $scope.uploader.onBeforeUploadItem = function (file) {
           file.formData.push($scope.newDoc);
         };
