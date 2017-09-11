@@ -50,7 +50,37 @@
       return {
         getDocuments: getDocuments,
         getDoc: getDoc,
-        deleteDocument: deleteDocument
-      }
+        deleteDocument: deleteDocument,
+        types: [
+            {
+                type: 'policies',
+                name: 'Policies'
+            },
+            {
+                type: 'non-permits',
+                name: 'Non ECC Permits'
+            },
+            {
+                type: 'minutes',
+                name: 'Minutes'
+            },
+            {
+                type: 'ecc-permits',
+                name: 'ECC Permits'
+            },
+            {
+                type: 'security',
+                name: 'Security'
+            },
+            {
+                type: 'chronicle',
+                name: 'Chronicle'
+            },
+            {
+                type: 'other',
+                name: 'Other'
+            }
+        ]
+      };
     }
 }());

@@ -8,36 +8,7 @@
           $location.path('/login');
       }
       $scope.user = authSrv.user();
-      $scope.types = [
-        {
-          type: 'policies',
-          name: 'Policies'
-        },
-        {
-          type: 'non-permits',
-          name: 'Non ERC Permits'
-        },
-        {
-          type: 'minutes',
-          name: 'Minutes'
-        },
-        {
-          type: 'erc-permits',
-          name: 'ERC Permits'
-        },
-        {
-          type: 'security',
-          name: 'Security'
-        },
-        {
-          type: 'chronicle',
-          name: 'Chronicle'
-        },
-        {
-          type: 'other',
-          name: 'Other'
-        }
-      ];
+      $scope.types = documentSrv.types;
       $scope.selectedDocument = null;
       $scope.select = function(document){
           $scope.selectedDocument = angular.copy(document);
