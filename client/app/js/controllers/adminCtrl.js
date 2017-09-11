@@ -23,15 +23,24 @@
             formData: [],
             url: '/upload',
             queueLimit: 1,
+            /*onCompleteItem: function(item, response, status, headers) {
+              console.log(response, status, item);
+              if(status === 200){
+                console.log(response);
+                $scope.documents.push(response);
+              } else {
+                $scope.uploadError = response;
+              }
+            },*/
             onComplete: function(response, status){
-              console.log(response, status);
-                if(status === 200){
-                  console.log(response);
-                  $scope.documents.push(response);
-                } else {
-                  $scope.uploadError = response;
-                }
-            }
+                console.log(response, status);
+                  if(status === 200){
+                    console.log(response);
+                    $scope.documents.push(response);
+                  } else {
+                    $scope.uploadError = response;
+                  }
+              }
         });
 
         $scope.uploader.onBeforeUploadItem = function (file) {

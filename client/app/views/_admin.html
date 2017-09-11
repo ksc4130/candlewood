@@ -32,7 +32,10 @@
                         <div class="alert alert-danger" ng-show="uploadError">
                           {{uploadError.message ? uploadError.message : uploadError}}
                         </div>
-                        <button class="btn btn-block btn-raised btn-primary" type="submit">Upload</button>
+                        <button class="btn btn-block btn-raised btn-primary" type="submit">
+                          <span ng-show="!uploader.isUploading">Upload</span>
+                          <i class="fa fa-spinner fa-pulse" ng-show="uploader.isUploading"></i>
+                        </button>
                     </form>
                 </div>
             </div>
