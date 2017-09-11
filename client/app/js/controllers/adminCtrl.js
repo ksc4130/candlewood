@@ -48,6 +48,7 @@
 
         $scope.selectDoc = function(x){
           $scope.editDoc = angular.copy(x);
+          $scope.editDoc.when = new Date($scope.editDoc.when);
         };
 
         $scope.updateDoc = function(){

@@ -35,7 +35,7 @@
 
       function updateDoc(obj){
         var df = $q.defer();
-        $http.put('/doc/' + {doc: obj}).then(function(resp){
+        $http.put('/doc/', obj).then(function(resp){
           if(resp.status === 200){
             df.resolve(resp.data);
           } else {
