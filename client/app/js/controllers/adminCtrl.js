@@ -24,10 +24,11 @@
             url: '/upload',
             queueLimit: 1,
             onCompleteItem: function(item, response, status, headers) {
-              console.log(response, status, item);
               if(status === 200){
-                console.log(response);
                 $scope.documents.push(response);
+                $scope.newDoc = {
+                  when: new Date()
+                };
               } else {
                 $scope.uploadError = response;
               }
