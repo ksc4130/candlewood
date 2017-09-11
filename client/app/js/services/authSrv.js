@@ -3,8 +3,8 @@
   var _user = null;
   angular.module('cwl.core')
     .factory('authSrv', authSrv);
-  authSrv.$inject = ['$http', '$q', '$rootScope', '$cookies'];
-  function authSrv($http, $q, $rootScope, $cookies) {
+  authSrv.$inject = ['$http', '$q', '$rootScope', '$cookies', '$location'];
+  function authSrv($http, $q, $rootScope, $cookies, $location) {
     function fillCurrentUser() {
       const df = $q.defer();
       $http.get('/account/user').then(function(resp) {
@@ -65,6 +65,8 @@
       console.log('logout');
       $cookies.remove('t');
       _user = null;
+      $location.path('/login');
+
     }
 
     function login(user) {

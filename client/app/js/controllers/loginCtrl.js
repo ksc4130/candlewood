@@ -19,7 +19,11 @@
       authSrv.login($scope.user).then(function (data) {
         if (data && !data.message) {
           $location.path('/members/documents');
+        } else {
+          $scope.error = data;
         }
+      }, function(resp){
+        $scope.error = resp;
       });
     };
     $scope.register = function () {
@@ -32,7 +36,11 @@
         if (data && !data.message) {
           console.log(data);
           $scope.registrationSent = true;
+        } else {
+          $scope.error = data;
         }
+      }, function(resp){
+        $scope.error = resp;
       });
     };
     $scope.forgotPassword = function () {

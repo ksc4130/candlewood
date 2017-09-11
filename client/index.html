@@ -12,10 +12,6 @@
 
     <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
-    <!--<link href="app/css/style.min.css" rel="stylesheet">-->
-
-    <!--<link href="app/css/width-boxed.min.css" rel="stylesheet">-->
     <style>
         [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
             display: none !important;
@@ -53,223 +49,18 @@
             <a class="btn-circle btn-circle-primary pointer" href="/members/documents" title="Documents" ng-show="user && state.current.name !== 'documents'">
                 <i class="fa fa-file-pdf-o"></i>
             </a>
-            <!--<form class="search-form">
-                <input id="search-box" type="text" class="search-input" placeholder="Search..." name="q">
-                <label for="search-box">
-                    <i class="fa fa-search"></i>
-                </label>
-            </form>
-            <a href="" class="btn-circle btn-circle-primary hidden-lg hidden-md" ng-click="openAside()">
-                <i class="fa fa-bars"></i>
-            </a>-->
+            <button class="btn-circle btn-circle-primary pointer" title="Log Out" ng-show="user" ng-click="logout()">
+                <i class="fa fa-sign-out"></i>
+            </button>
         </div>
     </div>
 </header>
-<!--<nav class="navbar yamm ms-navbar ms-navbar-primary navbar-static-top">
-    <div class="container container-full">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">
-                <span class="ms-title">Candlewood
-                <strong>Lake</strong>
-              </span>
-            </a>
-        </div>
-        <span class=" hidden-sm hidden-xs"><div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle animated fadeIn animation-delay-5" data-toggle="dropdown" data-hover="dropdown" data-name="page" aria-expanded="false">Pages
-                        <i class="fa fa-angle-right"></i>
-                        <div class="ripple-container"></div></a>
-                    <ul class="dropdown-menu dropdown-menu-left animated-2x animated fadeIn">
-                        <li class="dropdown-submenu">
-                            <a href="" class="has_children" ng-click="$event.stopPropagation(); showMenu = 1" ng-mouseover="showMenu = 1">About us &amp; Team</a>
-                            <ul class="dropdown-menu dropdown-menu-left" ng-show="showMenu === 1">
-                                <li>
-                                    <a href="page-about.html" ng-click="showMenu = null">About us Option 1</a>
-                                </li>
-                                <li>
-                                    <a href="page-about2.html">About us Option 2</a>
-                                </li>
-                                <li>
-                                    <a href="page-about3.html">About us Option 3</a>
-                                </li>
-                                <li>
-                                    <a href="page-about4.html">About us Option 4</a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="page-team.html">Our Team Option 1</a>
-                                </li>
-                                <li>
-                                    <a href="page-team2.html">Our Team Option 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="" class="has_children" ng-click="$event.stopPropagation(); showMenu = 2" ng-mouseover="showMenu = 2">Form</a>
-                            <ul class="dropdown-menu" ng-show="showMenu === 2">
-                                <li>
-                                    <a href="page-contact.html">Contact Option 1</a>
-                                </li>
-                                <li>
-                                    <a href="page-contact2.html">Contact Option 2</a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="page-login_register.html">Login &amp; Register</a>
-                                </li>
-                                <li>
-                                    <a href="page-login.html">Login Full</a>
-                                </li>
-                                <li>
-                                    <a href="page-login2.html">Login Integrated</a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="page-login_register2.html">Register Option 1</a>
-                                </li>
-                                <li>
-                                    <a href="page-register2.html">Register Option 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="" class="has_children">Profiles</a>
-                            <ul class="dropdown-menu dropdown-menu-left" style="display: none;">
-                                <li>
-                                    <a href="page-profile.html">User Profile Option 1</a>
-                                </li>
-                                <li>
-                                    <a href="page-profile2.html">User Profile Option 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="" class="has_children">Error</a>
-                            <ul class="dropdown-menu dropdown-menu-left" style="display: none;">
-                                <li>
-                                    <a href="page-404.html">Error 404 Full Page</a>
-                                </li>
-                                <li>
-                                    <a href="page-404_2.html">Error 404 Integrated</a>
-                                </li>
-                                <li>
-                                    <a href="page-500.html">Error 500 Full Page</a>
-                                </li>
-                                <li>
-                                    <a href="page-500_2.html">Error 500 Integrated</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="" class="has_children">Bussiness &amp; Products</a>
-                            <ul class="dropdown-menu dropdown-menu-left" style="display: none;">
-                                <li>
-                                    <a href="page-testimonial.html">Testimonials</a>
-                                </li>
-                                <li>
-                                    <a href="page-clients.html">Our Clients</a>
-                                </li>
-                                <li>
-                                    <a href="page-product.html">Products</a>
-                                </li>
-                                <li>
-                                    <a href="page-services.html">Services</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="" class="has_children">Pricing</a>
-                            <ul class="dropdown-menu dropdown-menu-left" style="display: none;">
-                                <li>
-                                    <a href="page-pricing.html">Pricing Box</a>
-                                </li>
-                                <li>
-                                    <a href="page-pricing2.html">Pricing Box 2</a>
-                                </li>
-                                <li>
-                                    <a href="page-princing_table.html">Pricing Mega Table</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="" class="has_children">FAQ &amp; Support</a>
-                            <ul class="dropdown-menu dropdown-menu-left" style="display: none;">
-                                <li>
-                                    <a href="page-support.html">Support Center</a>
-                                </li>
-                                <li>
-                                    <a href="page-faq.html">FAQ Option 1</a>
-                                </li>
-                                <li>
-                                    <a href="page-faq2.html">FAQ Option 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="" class="has_children">Coming Soon</a>
-                            <ul class="dropdown-menu dropdown-menu-left" style="display: none;">
-                                <li>
-                                    <a href="page-coming.html">Coming Soon Option 1</a>
-                                </li>
-                                <li>
-                                    <a href="page-coming2.html">Coming Soon Option 2</a>
-                                </li>
-                                <li>
-                                    <a href="page-coming3.html">Coming Soon Option 3</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="" class="has_children">Timeline</a>
-                            <ul class="dropdown-menu dropdown-menu-left" style="display: none;">
-                                <li>
-                                    <a href="page-timeline_left.html">Timeline Left</a>
-                                </li>
-                                <li>
-                                    <a href="page-timeline_left2.html">Timeline Left 2</a>
-                                </li>
-                                <li>
-                                    <a href="page-timeline.html">Timeline Center</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a href="" class="has_children">Email Templates</a>
-                            <ul class="dropdown-menu dropdown-menu-left" style="display: none;">
-                                <li>
-                                    <a href="page-email.html" class="with-label">Email Template 1
-                                        <span class="label label-success text-right">1.2</span>
-                                    </a>
-
-                                </li>
-                                <li>
-                                    <a href="page-email2.html" class="with-label">Email Template 2
-                                        <span class="label label-success text-right">1.2</span>
-                                    </a>
-
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="page-all.html" class="dropdown-link">All Pages</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div></span>
-        <a href="" class="btn-navbar-menu visible-xs" ng-click="openAside()">
-            <i class="fa fa-bars"></i>
-        </a>
-    </div>
-</nav>-->
 <div class="sb-site-container">
     <ui-view></ui-view>
 </div>
 
 
 <footer class="ms-footer text-center">
-    <!--<a class="text-muted" href="https://www.facebook.com/candlewoodlake.oh" target="_blank"><i class="fa fa-2x fa-facebook-official"></i></a>-->
     <br>
     Copyright {{today | date:'yyyy'}} Candlewood Lake Association. All Rights Reserved.
 </footer>
