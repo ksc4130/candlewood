@@ -33,6 +33,20 @@
         return df.promise;
       }
 
+      function updateDoc(obj){
+        var df = $q.defer();
+        $http.put('/doc/' + {doc: obj}).then(function(resp){
+          if(resp.status === 200){
+            df.resolve(resp.data);
+          } else {
+            df.reject(resp);
+          }
+        }, function(resp){
+          df.reject(resp);
+        });
+        return df.promise;
+      }
+
       function deleteDocument(obj){
         var df = $q.defer();
         $http.delete('/doc/' + obj._id).then(function(resp){
@@ -50,6 +64,7 @@
       return {
         getDocuments: getDocuments,
         getDoc: getDoc,
+        updateDoc: updateDoc,
         deleteDocument: deleteDocument,
         types: [
             {

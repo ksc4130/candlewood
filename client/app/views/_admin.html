@@ -2,7 +2,7 @@
     <div class="row"><br>
         <h1 class="text-center">Administrator Dashboard</h1><br>
         <div class="col-lg-4 col-md-5 col-sm-6">
-            <div class="panel panel-default">
+            <div class="panel panel-default" ng-hide="editDoc">
                 <div class="panel-heading">
                     Upload A New Document
                 </div>
@@ -33,6 +33,41 @@
                     </form>
                 </div>
             </div>
+            <div class="panel panel-default" ng-show="editDoc">
+                <div class="panel-heading">
+                    Update Document
+                </div>
+                <div class="panel-body">
+                    <form ng-submit="updateDoc()">
+                        <div>
+                            <input class="form-control" placeholder="Name" ng-model="editDoc.name">
+                        </div>
+                        <div class="form-group">
+                            <p class="input-group" style="margin-bottom: 0">
+                                <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="editDoc.when" is-open="open2"/>
+                                <span class="input-group-btn" style="padding: 0">
+                                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open2 = !open2" style="padding: 6px 12px; margin-bottom: 0;">
+                                        <i class="fa fa-calendar" style="margin-right: 0"></i>
+                                    </button>
+                                  </span>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" ng-options="type.type as type.name for type in types" ng-model="editDoc.type">
+                                <option value="">Select a Document Type</option>
+                            </select>
+                        </div>
+                        <div class="alert alert-danger" ng-show="editDoc.error">
+                          {{editDoc.error.message ? editDoc.error.message : editDoc.error}}
+                        </div>
+                      <button type="button" class="btn btn-default btn-raised pull-left" ng-click="editDoc = null">Cancel</button>
+                        <button class="btn btn-block btn-raised btn-primary" type="submit">
+                          <span ng-show="!editDoc.saving">Save</span>
+                          <i class="fa fa-spinner fa-pulse" ng-show="editDoc.saving"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Manage Documents
@@ -42,17 +77,19 @@
                       <div class="list-group-item">
                         <div class="row">
                           <div class="col-sm-12">
-                            <select class="form-control" ng-options="type.type as type.name for type in types" ng-model="typeFilter">
+                            <select class="form-control form-group" ng-options="type.type as type.name for type in types" ng-model="typeFilter">
                               <option value="">All Documents</option>
                             </select>
+                            <div class="form-group right has-feedback">
+                              <input type="text" class="form-control" ng-model="search" placeholder="Type to search...">
+                              <span style="right: 15px" class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div class="list-group-item" ng-repeat="document in filteredDocuments()">
-                            Name: {{document.name}}<i class="fa fa-times text-danger pull-right pointer" ng-click="removeDoc(document)"></i><br>
-                            Date: {{document.when | date:'M/d/yyyy'}}<br>
-                        <div class="clearfix">
-                        </div>
+                      <div class="list-group-item" ng-repeat="document in filteredDocuments() | filter:search">
+                        Name: {{document.name}} <i class="fa fa-pencil text-info pull-right pointer" ng-click="selectDoc(document)"></i><div class="clearfix"></div><br>
+                        Date: {{document.when | date:'M/d/yyyy'}} <i class="fa fa-times text-danger pull-right pointer" ng-click="removeDoc(document)"></i><br><div class="clearfix"></div>
                       </div>
                     </div>
                 </div>
@@ -154,7 +191,7 @@
                   </div>
                   <button type="button" class="btn btn-default btn-raised pull-left" ng-click="editUser = null">Cancel</button>
                   <button class="btn btn-raised btn-primary pull-right" type="submit">
-                    <span ng-show="!editUser.saving">Update User</span>
+                    <span ng-show="!editUser.saving">Save</span>
                     <i class="fa fa-spinner fa-pulse" ng-show="editUser.saving"></i>
                   </button>
                 </fieldset>
