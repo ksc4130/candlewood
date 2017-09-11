@@ -80,9 +80,13 @@ function login(email, pwd, cb) {
 
       return cb ? cb(err, null) : err || null;
     }
+
+    if(!data.isActive) {
+      return cb ? cb({msg: 'user is not active'}, null) : err || null;
+    }
+
     argon2.verify(data.phash, `${pwd}${salt}`).then((m) => {
       delete data.phash;
-      console.log(data.phash);
       if(!cb) return;
 
       return m ? cb(null, data) : cb(null, null);
