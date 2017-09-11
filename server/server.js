@@ -14,6 +14,9 @@ const mongoose = require('mongoose');
 const userRepo = require('./data/userRepo');
 const docRepo = require('./data/docRepo');
 
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 //TODO: move to db or cache
 const userTokens = [];
 
