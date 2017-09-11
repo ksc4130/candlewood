@@ -23,6 +23,9 @@
                                 <input type="password" id="login-password" ng-model="user.pwd" placeholder="Password" class="form-control">
                             </div>
                         </div>
+                        <div class="alert alert-danger" ng-show="error">
+                          {{error.message ? error.message : error}}
+                        </div>
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <a href="" ng-click="tab = 2" class="pull-right">Register an Account</a><br>
@@ -72,19 +75,17 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-lock"></i>
                             </span>
-                                    <!--<label class="control-label" for="register-password-confirm" ng-show="showConfirm">Re-type Password</label>-->
                                     <input type="password" id="register-password-confirm" ng-model="user.passwordConfirm" placeholder="Confirm Password" class="form-control">
                                 </div>
                             </div>
                             <div class="alert alert-danger" ng-show="error">
-                                {{error}}
+                                {{error.message ? error.message : error}}
                             </div>
                             <div class="alert alert-success" ng-show="registrationSent">
                                 Your registration has been submitted! An administrator will need to approve your account before you can log into the system. Thank you!
                             </div>
                             <div class="row mt-2">
                                 <div class="col-sm-12">
-                                    <!--<a href="" ng-click="tab = 2" class="pull-left">Register an Account</a>-->
                                     <a href="" ng-click="tab = 1" class="pull-right">Have an Account?</a><br>
                                 </div>
                             </div>

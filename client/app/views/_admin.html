@@ -169,7 +169,7 @@
                     <div class="list-group">
                         <div class="list-group-item" ng-repeat="user in users track by $index">
                             <div class="pull-left" style="margin-top: 12px">
-                              {{user.firstName}} {{user.lastName}} {{user.email}}
+                              <i class="fa fa-user" title="{{user.isActive ? 'Active': 'Inactive'}}" ng-class="{'text-success': user.isActive, 'text-muted': !user.isActive}"></i><i class="fa fa-cog" title="Administrator" ng-show="user.isAdmin"></i> {{user.firstName}} {{user.lastName}} {{user.email}}
                             </div>
                             <span class="pull-right">
                               <button class="btn btn-primary btn-sm btn-raised" ng-click="selectUser(user)">

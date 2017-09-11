@@ -20,6 +20,7 @@
         };
         $scope.state = $state;
         $scope.user = authSrv.user();
+        $scope.logout = authSrv.logout;
         $scope.$on('auth', function(){
             $scope.user = authSrv.user();
         });
