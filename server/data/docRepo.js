@@ -6,7 +6,8 @@ const DocModel = require('./models/DocModel');
 module.exports = {
   getAll,
   remove,
-  create
+  create,
+  update
 };
 
 function getAll(cb) {
@@ -19,6 +20,18 @@ function getAll(cb) {
       delete x.phash;
       return x;
     }));
+  });
+}
+
+function update(doc, cb) {
+  DocModel.findOne({ _id: doc._id }, (err, found) => {
+    if(err || !found) return cb ? cb(err, null) : '';
+
+    found.name = doc.name;
+    found.type = doc.type;
+    found.when = doc.when;
+
+    found.save(cb);
   });
 }
 

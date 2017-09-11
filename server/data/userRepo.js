@@ -24,7 +24,7 @@ function getAll(cb) {
 
 function update(user, cb) {
   UserModel.findOne({ _id: user._id }, (err, found) => {
-    if(err || !user) return cb ? cb(err, null) : '';
+    if(err || !found) return cb ? cb(err, null) : '';
 
     found.email = user.email;
     found.lastName = user.lastName;

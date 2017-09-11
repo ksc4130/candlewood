@@ -119,6 +119,20 @@ app.delete('/user/:id', (req, res) => {
   });
 });
 
+//admin update doc
+app.put('/doc', isAuthenticated, (req, res) => {
+  console.log(req.body.user);
+  docRepo.update(req.body, (err, doc) => {
+    if(err) {
+      //TODO: handle
+      res.status(500);
+      return res.json(err);
+    }
+
+    res.json(doc);
+  });
+});
+
 //admin remove file
 app.delete('/doc/:id', isAuthenticated, (req, res) => {
   docRepo.remove(req.params.id, (err) => {
