@@ -36,3 +36,11 @@ footer {
 .list-group .list-group-item.document-selected {
     background: #ddd;
 }
+
+.text-success {
+  color: #4dd752;
+}
+
+.text-grey {
+  color: #ccc;
+}

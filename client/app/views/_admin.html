@@ -29,6 +29,9 @@
                         <div class="form-group">
                             <input class="form-control" type="file" nv-file-select uploader="uploader">
                         </div>
+                        <div class="alert alert-danger" ng-show="uploadError">
+                          {{uploadError.message ? uploadError.message : uploadError}}
+                        </div>
                         <button class="btn btn-block btn-raised btn-primary" type="submit">Upload</button>
                     </form>
                 </div>
@@ -73,7 +76,7 @@
                     Manage Documents
                 </div>
                 <div class="panel-body">
-                    <div class="list-group">
+                    <div class="list-group" ng-show="documents && documents.length">
                       <div class="list-group-item">
                         <div class="row">
                           <div class="col-sm-12">
@@ -88,8 +91,14 @@
                         </div>
                       </div>
                       <div class="list-group-item" ng-repeat="document in filteredDocuments() | filter:search">
-                        Name: {{document.name}} <i class="fa fa-pencil text-info pull-right pointer" ng-click="selectDoc(document)"></i><div class="clearfix"></div><br>
-                        Date: {{document.when | date:'M/d/yyyy'}} <i class="fa fa-times text-danger pull-right pointer" ng-click="removeDoc(document)"></i><br><div class="clearfix"></div>
+                        Name: {{document.name}}
+                        <button class="btn btn-xs btn-raised btn-primary pull-right" ng-click="selectDoc(document)">
+                          <i class="fa fa-pencil" style="margin-right: 0"></i>
+                        </button><div class="clearfix"></div>
+                        Date: {{document.when | date:'M/d/yyyy'}}
+                        <button class="btn btn-danger btn-xs btn-raised pull-right" ng-click="removeDoc(document)">
+                          <i class="fa fa-times" style="margin-right: 0"></i>
+                        </button><div class="clearfix"></div>
                       </div>
                     </div>
                 </div>
@@ -206,13 +215,13 @@
                     <div class="list-group">
                         <div class="list-group-item" ng-repeat="user in users track by $index">
                             <div class="pull-left" style="margin-top: 12px">
-                              <i class="fa fa-user" title="{{user.isActive ? 'Active': 'Inactive'}}" ng-class="{'text-success': user.isActive, 'text-muted': !user.isActive}"></i><i class="fa fa-cog" title="Administrator" ng-show="user.isAdmin"></i> {{user.firstName}} {{user.lastName}} {{user.email}}
+                              <i class="fa fa-user" title="{{user.isActive ? 'Active': 'Inactive'}}" ng-class="{'text-success': user.isActive, 'text-grey': !user.isActive}" style="font-size: 1.3em"></i><i class="fa fa-cog" title="Administrator" ng-show="user.isAdmin" style="font-size: 1.3em"></i> {{user.firstName}} {{user.lastName}} {{user.email}}
                             </div>
                             <span class="pull-right">
                               <button class="btn btn-primary btn-sm btn-raised" ng-click="selectUser(user)">
                                 <i class="fa fa-pencil" style="margin-right: 0"></i>
                               </button>
-                              <button class="btn btn-sm btn-raised btn-danger" type="button" ng-click="$event.stopPropagation(); deleteUser(user)"><i class="fa" ng-class="{'fa-times': !user.deleting, 'fa-spinner fa-pulse': user.deleting}" style="margin-right: 0"></i></button>
+                              <button class="btn btn-sm btn-raised btn-danger" type="button" ng-click="$event.stopPropagation(); deleteUser(user)"> <i class="fa" ng-class="{'fa-times': !user.deleting, 'fa-spinner fa-pulse': user.deleting}" style="margin-right: 0"></i></button>
                             </span>
                             <div class="clearfix"></div>
                         </div>

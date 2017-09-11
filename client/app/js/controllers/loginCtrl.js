@@ -34,13 +34,14 @@
       }
       authSrv.register($scope.user).then(function (data) {
         if (data && !data.message) {
-          console.log(data);
           $scope.registrationSent = true;
         } else {
-          $scope.error = data;
+          $scope.error = 'Login Failed.';
+          console.log(data);
         }
       }, function(resp){
-        $scope.error = resp;
+        console.log(resp);
+        $scope.error = 'Login Failed.';
       });
     };
     $scope.forgotPassword = function () {
