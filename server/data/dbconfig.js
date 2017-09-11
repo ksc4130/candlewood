@@ -1,5 +1,14 @@
-const isDev = process.env.NODE_ENV === 'development';
+const mongoose = require('mongoose');
 
-module.exports = {
-  url: `mongodb://192.168.1.11/${isDev ? 'cwdev' : 'cwprod'}`
-}
+const isProd = process.env.NODE_ENV === 'production';
+
+const config = {
+  url: `mongodb://192.168.1.11/${isProd ? 'cwprod' : 'cwdev'}`
+};
+
+config.connect = () => {
+  return mongoose.connect(config.url);
+};
+
+module.exports = config;
+

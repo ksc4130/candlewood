@@ -3,16 +3,11 @@ const argon2 = require('argon2');
 const salt = '@do9%lakjsuv^32jcjdSDFHBjiijn12345SXFBWRT45ywFBW^Uthqwe%YU@4w5';
 const DocModel = require('./models/DocModel');
 
-mongoose.connect('mongodb://192.168.1.11/cwdev');
-
 module.exports = {
   getAll,
   remove,
   create
 };
-
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
 
 function getAll(cb) {
   DocModel.find({}, (err, data) => {

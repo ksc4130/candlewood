@@ -13,6 +13,11 @@ const mongoose = require('mongoose');
 
 const userRepo = require('./data/userRepo');
 const docRepo = require('./data/docRepo');
+const dbConfig = require('./data/dbconfig');
+
+dbConfig.connect();
+
+const port = process.env.NODE_ENV === 'production' ? 3000 : 3001;
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
@@ -174,8 +179,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/index.html'));
 });
 
-app.listen(3001, () => {
-  console.log('listening on port 3001!');
+app.listen(port, () => {
+  console.log(`listening on port ${port}!`);
 });
 
 function isAuthenticated(req, res, next) {
@@ -192,18 +197,20 @@ function isAuthenticated(req, res, next) {
 
 //TODO: make test
 setTimeout(() => {
-  userRepo.login('test@test.com', 'Test123!', (err, user) => {
-    if(err || !user) {
-      userRepo.register({
-        email: 'test@test.com',
-        firstName: 'test',
-        lastName: 'testlast',
-        pwd: 'Test123!',
-        isAdmin: true,
-        isActive: true
-      }, (e, u) => console.log(e, u));
-    }
-  });
+  if(process.env.NODE_ENV !== 'production') {
+    userRepo.login('test@test.com', 'Test123!', (err, user) => {
+      if(err || !user) {
+        userRepo.register({
+          email: 'test@test.com',
+          firstName: 'test',
+          lastName: 'testlast',
+          pwd: 'Test123!',
+          isAdmin: true,
+          isActive: true
+        }, (e, u) => console.log(e, u));
+      }
+    });
+  }
 }, 1000);
 
 

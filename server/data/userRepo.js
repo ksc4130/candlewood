@@ -3,8 +3,6 @@ const argon2 = require('argon2');
 const salt = '@do9%lakjsuv^32jcjdSDFHBjiijn12345SXFBWRT45ywFBW^Uthqwe%YU@4w5';
 const UserModel = require('./models/UserModel');
 
-mongoose.connect('mongodb://192.168.1.11/cwdev');
-
 module.exports = {
   register,
   login,
@@ -12,13 +10,6 @@ module.exports = {
   remove,
   update
 };
-
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-//   // we're connected!
-//   console.log('connected');
-// });
 
 function getAll(cb) {
   UserModel.find({}, (err, data) => {

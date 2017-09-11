@@ -31,5 +31,5 @@ npm-debug*.log
 .idea
 client/vendor
 
-
+uploads/*
 
