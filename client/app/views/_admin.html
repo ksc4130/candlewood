@@ -214,7 +214,8 @@
                 <div class="panel-body">
                     <div class="list-group">
                         <div class="list-group-item" ng-repeat="user in users track by $index">
-                          <i class="fa fa-user" title="{{user.isActive ? 'Active': 'Inactive'}}" ng-class="{'text-success': user.isActive, 'text-grey': !user.isActive}" style="font-size: 1.3em"></i><i class="fa fa-cog" title="Administrator" ng-show="user.isAdmin" style="font-size: 1.3em"></i> {{user.firstName}} {{user.lastName}}
+                          <i class="fa fa-user" title="{{user.isActive ? 'Active': 'Inactive'}}" ng-class="{'text-success': user.isActive, 'text-grey': !user.isActive}" style="font-size: 1.3em"></i> &nbsp;
+                          <i class="fa fa-cog" title="Administrator" ng-show="user.isAdmin" style="font-size: 1.3em"></i> {{user.firstName}} {{user.lastName}}
                           <button class="btn btn-xs btn-raised btn-primary pull-right" ng-click="selectUser(user)">
                             <i class="fa fa-pencil" style="margin-right: 0"></i>
                           </button><div class="clearfix"></div>
