@@ -84,12 +84,8 @@
                 name: 'ECC Permits'
             },
             {
-                type: 'security',
-                name: 'Security'
-            },
-            {
-                type: 'chronicle',
-                name: 'Chronicle'
+                type: 'agenda',
+                name: 'Agenda'
             },
             {
                 type: 'other',
