@@ -1,4 +1,5 @@
 /*jslint node: true */
+const moment = require('moment');
 const path = require('path');
 const uuidv1 = require('uuid/v1');
 const fileUpload = require('express-fileupload');
@@ -14,6 +15,7 @@ const mongoose = require('mongoose');
 const userRepo = require('./data/userRepo');
 const docRepo = require('./data/docRepo');
 const dbConfig = require('./data/dbconfig');
+
 
 dbConfig.connect();
 
@@ -174,7 +176,7 @@ app.post('/upload', isAuthenticated, function(req, res) {
   // Use the mv() method to place the file somewhere on your server
   fs.writeFile(`${__dirname}/uploads/${fname}`, req.files.file.data, (err) => {
     if (err) return res.status(500).json(err);
-
+    console.log('****', req.body.when);
     docRepo.create({
       name: req.body.name,
       type: req.body.type,
