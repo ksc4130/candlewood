@@ -20,10 +20,12 @@
         if (data && !data.message) {
           $location.path('/members/documents');
         } else {
-          $scope.error = data;
+          $scope.error = 'Login Failed.';
+          console.log(data);
         }
       }, function(resp){
-        $scope.error = resp;
+        $scope.error = 'Login Failed.';
+        console.log(resp);
       });
     };
     $scope.register = function () {
@@ -36,12 +38,12 @@
         if (data && !data.message) {
           $scope.registrationSent = true;
         } else {
-          $scope.error = 'Login Failed.';
+          $scope.error = 'Registration Failed.';
           console.log(data);
         }
       }, function(resp){
         console.log(resp);
-        $scope.error = 'Login Failed.';
+        $scope.error = 'Registration Failed.';
       });
     };
     $scope.forgotPassword = function () {
