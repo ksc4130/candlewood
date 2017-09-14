@@ -7,6 +7,7 @@ module.exports = mongoose.model('User', {
   phash: String,
   created: Date,
   isAdmin: Boolean,
-  isActive: Boolean
+  isActive: Boolean,
+  lotNumber: String
 });
 //TODO: add last active and last login

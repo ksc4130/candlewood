@@ -43,8 +43,6 @@
 
       $scope.uploader.onCompleteAll = function (file) {
         document.getElementById('uploader').value = null;
-        console.log($scope.uploader);
-        //createUploader();
       };
     }
     createUploader();
