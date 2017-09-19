@@ -36,6 +36,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 app.post('/account/user', (req, res) => {
+  console.log('register route', req.body.user);
   //TODO: check authorized
   userRepo.register(req.body.user, (err, user) => res.json({err, user}));
 });

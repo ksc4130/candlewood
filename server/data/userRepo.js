@@ -44,7 +44,8 @@ function remove(id, cb) {
 function register(user, cb) {
   user.email = user.email.toLowerCase();
   UserModel.findOne({ email: user.email }, (err, data) => {
-    if (err || !data) {
+    console.log('register user repo');
+    if (err) {
       if (!cb) return;
 
       return cb(err, null);
