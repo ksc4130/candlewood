@@ -44,6 +44,9 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
     url: '/',
     templateUrl: '/app/views/_home.html',
     controller: 'homeCtrl'
+  }).state('lake', {
+    url: '/explore/lake',
+    templateUrl: '/app/views/_exploreLake.html'
   });
   $locationProvider.html5Mode(true);
 }
