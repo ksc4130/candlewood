@@ -20,39 +20,116 @@
         </header>
         <ul class="ms-slidebar-menu" id="slidebar-menu" role="tablist" aria-multiselectable="true">
             <li class="panel" >
-                <a ng-class="{'collapsed': isCollapsed}" role="button" ng-click="isCollapsed = !isCollapsed">
-                    <i class="fa fa-home"></i> Home
+                <a class="link" ng-class="{'collapsed': isCollapsed}" role="button" ng-click="isCollapsed = !isCollapsed">
+                    <i class="fa fa-navicon"></i> Explore
                 </a>
                 <ul class="panel-collapse" uib-collapse="!isCollapsed">
                     <li>
-                        <a href="page-about.html">About US</a>
+                        <a class="link" href="/explore/the-lake" ng-click="close()">The Lake</a>
                     </li>
                     <li>
-                        <a href="page-team.html">Our Team</a>
+                        <a class="link" href="/explore/pools" ng-click="close()">Swimming Pools</a>
                     </li>
                     <li>
-                        <a href="page-product.html">Products</a>
+                        <a class="link" href="/explore/beach" ng-click="close()">Beach</a>
                     </li>
                     <li>
-                        <a href="page-services.html">Services</a>
+                        <a class="link" href="/explore/activities" ng-click="close()">More Activities</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a class="link" href="/explore/sites" ng-click="close()">The Sites</a>
                     </li>
                     <li>
-                        <a href="page-faq.html">FAQ</a>
+                        <a class="link" href="/explore/community" ng-click="close()">The Community</a>
                     </li>
                     <li>
-                        <a href="page-timeline_left.html">Timeline</a>
+                        <a class="link" href="/explore/amenities" ng-click="close()">Amenities</a>
                     </li>
                     <li>
-                        <a href="page-contact.html">Contact Option</a>
+                        <a class="link" href="/explore/nearby" ng-click="close()">Nearby</a>
                     </li>
                     <li>
-                        <a href="page-login.html">Login</a>
+                        <a class="link" href="/explore/businesses" ng-click="close()">Local Businesses</a>
                     </li>
                     <li>
-                        <a href="page-pricing.html">Pricing</a>
+                        <a class="link" href="/explore/clubs" ng-click="close()">Clubs &amp; Organizations</a>
                     </li>
                     <li>
-                        <a href="page-coming.html">Coming Soon</a>
+                        <a class="link" href="/explore/attractions" ng-click="close()">Area Attractions</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="panel" >
+                <a class="link" ng-class="{'collapsed': isCollapsed2}" role="button" ng-click="isCollapsed2 = !isCollapsed2">
+                    <i class="fa fa-calendar"></i> Events
+                </a>
+                <ul class="panel-collapse" uib-collapse="!isCollapsed2">
+                    <li>
+                        <a class="link" href="/events/upcoming" ng-click="close()">Upcoming Events</a>
+                    </li>
+                    <li>
+                        <a class="link" href="/events/ongoing" ng-click="close()">Ongoing Events</a>
+                    </li>
+                    <li>
+                        <a class="link" href="/events/july-fourth" ng-click="close()">Fourth of July</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="panel" >
+                <a class="link" ng-class="{'collapsed': isCollapsed3}" role="button" ng-click="isCollapsed3 = !isCollapsed3">
+                    <i class="fa fa-calendar"></i> Real Estate
+                </a>
+                <ul class="panel-collapse" uib-collapse="!isCollapsed3">
+                    <li>
+                        <a class="link" href="/real-estate/information" ng-click="close()">Information</a>
+                    </li>
+                    <li>
+                        <a class="link" href="/real-estate/building-information" ng-click="close()">Building Information</a>
+                    </li>
+                    <li>
+                        <a class="link" href="/real-estate/candlewood" ng-click="close()">For Sale by Candlewood</a>
+                    </li>
+                    <li>
+                        <a class="link" href="/real-estate/realtors" ng-click="close()">For Sale by Realtors &amp; Homeowners</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="panel" >
+                <a class="link" ng-class="{'collapsed': isCollapsed4}" role="button" ng-click="isCollapsed4 = !isCollapsed4">
+                    <i class="fa fa-calendar"></i> News
+                </a>
+                <ul class="panel-collapse" uib-collapse="!isCollapsed4">
+                    <li>
+                        <a class="link" href="/news/chronicle" ng-click="close()">Candlewood Chronicle</a>
+                    </li>
+                    <li>
+                        <a class="link" href="/news/candlewood" ng-click="close()">The Candlewood News</a>
+                    </li>
+                    <li>
+                        <a class="link" href="/news/calendar" ng-click="close()">Monthly Calendar</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="panel" >
+                <a class="link" ng-class="{'collapsed': isCollapsed5}" role="button" ng-click="isCollapsed5 = !isCollapsed5">
+                    <i class="fa fa-calendar"></i> About
+                </a>
+                <ul class="panel-collapse" uib-collapse="!isCollapsed5">
+                    <li>
+                        <a class="link" href="/about/history" ng-click="close()">History</a>
+                    </li>
+                    <li>
+                        <a class="link" href="/about/map" ng-click="close()">Map &amp; Directions</a>
+                    </li>
+                    <li>
+                        <a class="link" href="/about/board" ng-click="close()">Meet the Board</a>
+                    </li>
+                    <li>
+                        <a class="link" href="/about/governance" ng-click="close()">Governance</a>
+                    </li>
+                    <li>
+                        <a class="link" href="/about/faqs" ng-click="close()">FAQs</a>
                     </li>
                 </ul>
             </li>
@@ -61,8 +138,8 @@
                     <i class="fa fa-user"></i> Login</a>
             </li>
             <li>
-                <a class="link" href="/">
-                    <i class="fa fa-tachometer"></i> All Pages</a>
+                <a class="link" href="/contact" ng-click="close()">
+                    <i class="fa fa-envelope"></i> Contact</a>
             </li>
         </ul>
     </div>

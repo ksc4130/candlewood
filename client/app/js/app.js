@@ -12,7 +12,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
   //add auth interceptor to all requests
   $httpProvider.interceptors.push('authInterceptor');
 
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/');
   $stateProvider.state('login', {
     url: '/login',
     templateUrl: '/app/views/_login.html',
@@ -40,11 +40,13 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
         return documentSrv.getDocuments();
       }]
     }
+  }).state('home', {
+    url: '/',
+    templateUrl: '/app/views/_home.html',
+    controller: 'homeCtrl'
+  }).state('lake', {
+    url: '/explore/lake',
+    templateUrl: '/app/views/_exploreLake.html'
   });
-  //.state('home', {
-  //url: '/',
-  //templateUrl: '/app/views/_home.html',
-  //controller: 'homeCtrl'
-  //});
   $locationProvider.html5Mode(true);
 }

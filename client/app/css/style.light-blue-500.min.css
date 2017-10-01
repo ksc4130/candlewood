@@ -11071,7 +11071,7 @@ pre.line-numbers>code {
     overflow: hidden
 }
 .ms-hero-img-city {
-    background-image: url(../img/skyline.jpg);
+    background-image: url(../img/water.jpg);
     background-size: cover;
     background-position: center center
 }
@@ -14145,12 +14145,12 @@ body.lb-disable-scrolling {
 }
 .ms-slidebar .ms-slidebar-menu>li>a.collapsed:after {
     content: '\f106';
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg)
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg)
 }
 .ms-slidebar .ms-slidebar-menu>li>a.link {
     background-color: #fff;
-    color: #616161
+    color: #616161;
 }
 .ms-slidebar .ms-slidebar-menu>li>a.link:after {
     content: "\f105"
