@@ -47,6 +47,18 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
   }).state('lake', {
     url: '/explore/lake',
     templateUrl: '/app/views/_exploreLake.html'
+  }).state('pool', {
+    url: '/explore/pools',
+    templateUrl: '/app/views/_explorePools.html'
+  }).state('beach', {
+    url: '/explore/beach',
+    templateUrl: '/app/views/_exploreBeach.html'
+  }).state('activities', {
+    url: '/explore/activities',
+    templateUrl: '/app/views/_exploreActivities.html'
+  }).state('community', {
+    url: '/explore/community',
+    templateUrl: '/app/views/_exploreCommunity.html'
   });
   $locationProvider.html5Mode(true);
 }
