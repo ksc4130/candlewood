@@ -59,6 +59,15 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
   }).state('community', {
     url: '/explore/community',
     templateUrl: '/app/views/_exploreCommunity.html'
+  }).state('amenities', {
+    url: '/explore/amenities',
+    templateUrl: '/app/views/_exploreAmenities.html'
+  }).state('nearby', {
+    url: '/explore/nearby',
+    templateUrl: '/app/views/_exploreNearby.html'
+  }).state('clubs', {
+    url: '/explore/clubs',
+    templateUrl: '/app/views/_exploreClubs.html'
   });
   $locationProvider.html5Mode(true);
 }
