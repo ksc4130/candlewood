@@ -17,13 +17,13 @@ body {
 #main-wrapper {
     box-sizing: border-box;
     min-height: 100%;
-    padding: 0 0 100px;
+    padding: 0 0 150px;
     position: relative;
 }
 
 footer {
     bottom: 0;
-    height: 100px;
+    height: 150px;
     left: 0;
     position: absolute;
     width: 100%;
