@@ -44,6 +44,18 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
     url: '/',
     templateUrl: '/app/views/_home.html',
     controller: 'homeCtrl'
+  }).state('contact', {
+    url: '/contact',
+    templateUrl: '/app/views/_contact.html'
+  }).state('about', {
+    url: '/about',
+    templateUrl: '/app/views/_about.html'
+  }).state('faqs', {
+    url: '/faqs',
+    templateUrl: '/app/views/_faqs.html'
+  }).state('maps', {
+    url: '/map',
+    templateUrl: '/app/views/_maps.html'
   }).state('lake', {
     url: '/explore/lake',
     templateUrl: '/app/views/_exploreLake.html'
@@ -68,6 +80,21 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
   }).state('clubs', {
     url: '/explore/clubs',
     templateUrl: '/app/views/_exploreClubs.html'
+  }).state('fourth', {
+    url: '/events/july-fourth',
+    templateUrl: '/app/views/_eventsFourth.html'
+  }).state('ongoing', {
+    url: '/events/ongoing',
+    templateUrl: '/app/views/_eventsOnGoing.html'
+  }).state('reinfo', {
+    url: '/real-estate/information',
+    templateUrl: '/app/views/_realEstateInformation.html'
+  }).state('reForSale', {
+    url: '/real-estate/for-sale',
+    templateUrl: '/app/views/_realEstateForSale.html',
+    controller: ['$scope', function($scope){
+      $scope.tab = 2;
+    }]
   });
   $locationProvider.html5Mode(true);
 }

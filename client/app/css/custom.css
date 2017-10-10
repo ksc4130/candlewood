@@ -48,3 +48,13 @@ footer {
 .bg-orange {
     background: #f68028 !important;
 }
+
+.btn.btn-primary:hover{
+    color: #666 !important;
+}
+.btn.btn-primary.active{
+    color: #fff !important;
+}
+.btn.btn-primary.active:focus, .btn.btn-primary.active:hover{
+    color: #666 !important;
+}
