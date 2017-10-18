@@ -22,19 +22,30 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
         return 1;
       }]
     }
-  }).state('documents', {
-    url: '/members/documents',
-    templateUrl: '/app/views/_documents.html',
-    controller: 'documentsCtrl',
-    resolve: {
-      docs: ['documentSrv', function(documentSrv){
-        return documentSrv.getDocuments();
-      }]
-    }
-  }).state('admin', {
+  })
+  // .state('memberDocuments', {
+  //   url: '/members/documents',
+  //   templateUrl: '/app/views/_documents.html',
+  //   controller: 'documentsCtrl',
+  //   resolve: {
+  //     docs: ['documentSrv', function(documentSrv){
+  //       return documentSrv.getDocuments();
+  //     }]
+  //   }
+  // })
+  .state('admin', {
     url: '/admin',
     templateUrl: '/app/views/_admin.html',
     controller: 'adminCtrl',
+    resolve: {
+      docs: ['documentSrv', function(documentSrv){
+        return documentSrv.getDocuments(true);
+      }]
+    }
+  }).state('documents', {
+    url: '/documents',
+    templateUrl: '/app/views/_documents.html',
+    controller: 'documentsCtrl',
     resolve: {
       docs: ['documentSrv', function(documentSrv){
         return documentSrv.getDocuments();

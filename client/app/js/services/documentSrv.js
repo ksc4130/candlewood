@@ -5,10 +5,11 @@
     documentSrv.$inject = ['$http', '$q'];
     function documentSrv($http, $q){
 
-      function getDocuments(){
+      function getDocuments(admin){
         var df = $q.defer();
-        $http.get('/doc').then(function(resp){
+        $http.get((admin ? '/admin' : '') + '/doc').then(function(resp){
           if(resp.status === 200){
+            console.log(resp.data);
             df.resolve(resp.data);
           } else {
             df.reject(resp);
@@ -67,6 +68,14 @@
         updateDoc: updateDoc,
         deleteDocument: deleteDocument,
         types: [
+            {
+              type: 'monthly-calendar',
+              name: 'Monthly Calendar'
+            },
+            {
+              type: 'upcoming-events',
+              name: 'Upcoming Events'
+            },
             {
                 type: 'policies',
                 name: 'Policies'

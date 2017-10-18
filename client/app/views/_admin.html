@@ -11,11 +11,24 @@
                         <div>
                             <input class="form-control" placeholder="Name" ng-model="newDoc.name">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-2">
+                            <label class="text-center">Visibile</label>
+                        </div>
+                        <div class="form-group col-md-5">
                             <p class="input-group" style="margin-bottom: 0">
                                 <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newDoc.when" is-open="open"/>
                                 <span class="input-group-btn" style="padding: 0">
                                     <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open = !open" style="padding: 6px 12px; margin-bottom: 0;">
+                                        <i class="fa fa-calendar" style="margin-right: 0"></i>
+                                    </button>
+                                  </span>
+                            </p>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <p class="input-group" style="margin-bottom: 0">
+                                <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newDoc.until" is-open="open12"/>
+                                <span class="input-group-btn" style="padding: 0">
+                                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open12 = !open12" style="padding: 6px 12px; margin-bottom: 0;">
                                         <i class="fa fa-calendar" style="margin-right: 0"></i>
                                     </button>
                                   </span>
@@ -28,6 +41,9 @@
                         </div>
                         <div class="form-group">
                             <input id="uploader" class="form-control" type="file" nv-file-select uploader="uploader">
+                        </div>
+                        <div class="form-group">
+                            <label>Public <input type="checkbox" ng-model="newDoc.isPublic"></label>
                         </div>
                         <div class="alert alert-danger" ng-show="uploadError">
                           {{uploadError.message ? uploadError.message : uploadError}}
@@ -48,7 +64,10 @@
                         <div>
                             <input class="form-control" placeholder="Name" ng-model="editDoc.name">
                         </div>
-                        <div class="form-group">
+                        <div style="margin-bottom: 0px" class="form-group col-md-12">
+                            <label style="width: 100%;" class="text-center">Visibility Range</label>
+                        </div>
+                        <div class="form-group col-md-6">
                             <p class="input-group" style="margin-bottom: 0">
                                 <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="editDoc.when" is-open="open2"/>
                                 <span class="input-group-btn" style="padding: 0">
@@ -58,10 +77,23 @@
                                   </span>
                             </p>
                         </div>
+                        <div class="form-group col-md-6">
+                            <p class="input-group" style="margin-bottom: 0">
+                                <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="editDoc.until" is-open="open22"/>
+                                <span class="input-group-btn" style="padding: 0">
+                                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open22 = !open22" style="padding: 6px 12px; margin-bottom: 0;">
+                                        <i class="fa fa-calendar" style="margin-right: 0"></i>
+                                    </button>
+                                  </span>
+                            </p>
+                        </div>
                         <div class="form-group">
                             <select class="form-control" ng-options="type.type as type.name for type in types" ng-model="editDoc.type">
                                 <option value="">Select a Document Type</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Public <input type="checkbox" ng-model="editDoc.isPublic"></label>
                         </div>
                         <div class="alert alert-danger" ng-show="editDoc.error">
                           {{editDoc.error.message ? editDoc.error.message : editDoc.error}}
@@ -94,11 +126,11 @@
                         </div>
                       </div>
                       <div class="list-group-item" ng-repeat="document in filteredDocuments() | filter:search">
-                        Name: {{document.name}}
+                        <span ng-show="document.expired" class="text-warning">Expired </span><i ng-show="document.isPublic" title="This document is visible to the public" class="fa fa-users"></i> Name: {{document.name}}
                         <button class="btn btn-xs btn-raised btn-primary pull-right" ng-click="selectDoc(document)">
                           <i class="fa fa-pencil" style="margin-right: 0"></i>
                         </button><div class="clearfix"></div>
-                        Date: {{document.when | date:'M/d/yyyy'}}
+                        Visible: {{document.when | date:'M/d/yyyy'}} - <span ng-show="document.until">{{document.until | date:'M/d/yyyy'}}</span><span ng-hide="document.until">forever</span>
                         <button class="btn btn-danger btn-xs btn-raised pull-right" ng-click="removeDoc(document)">
                           <i class="fa fa-times" style="margin-right: 0"></i>
                         </button><div class="clearfix"></div>

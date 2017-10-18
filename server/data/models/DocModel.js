@@ -5,5 +5,7 @@ module.exports = mongoose.model('Doc', {
   type: String,
   src: String,
   when: Date,
+  until: Date,
+  isPublic: Boolean,
   created: Date
 });

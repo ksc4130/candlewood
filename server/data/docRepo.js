@@ -30,6 +30,8 @@ function update(doc, cb) {
     found.name = doc.name;
     found.type = doc.type;
     found.when = doc.when;
+    found.until = doc.until;
+    found.isPublic = doc.isPublic;
 
     found.save(cb);
   });

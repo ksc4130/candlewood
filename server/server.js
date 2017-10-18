@@ -11,6 +11,7 @@ bodyParser.urlencoded({extended: true});
 const clientPath = path.resolve(__dirname, '../client/');
 const fs = require('fs');
 const mongoose = require('mongoose');
+const util = require('util');
 
 const userRepo = require('./data/userRepo');
 const docRepo = require('./data/docRepo');
@@ -76,7 +77,7 @@ app.post('/account/login', (req, res) => {
 });
 
 //admin get all users
-app.get('/user', isAuthenticated, (req, res) => {
+app.get('/user', isAdmin, (req, res) => {
   //TODO: make sure user is admin
 
   userRepo.getAll((err, data) => {
@@ -96,7 +97,7 @@ app.post('/user', isAuthenticated, (req, res) => {
 });
 
 //admin update user
-app.put('/user', isAuthenticated, (req, res) => {
+app.put('/user', isAdmin, (req, res) => {
   console.log(req.body.user);
   userRepo.update(req.body.user, (err, user) => {
     if(err) {
@@ -109,7 +110,7 @@ app.put('/user', isAuthenticated, (req, res) => {
   });
 });
 
-app.delete('/user/:id', (req, res) => {
+app.delete('/user/:id', isAdmin, (req, res) => {
   console.log(req.params.id);
   userRepo.remove(req.params.id, (err) => {
     if(err) {
@@ -123,8 +124,8 @@ app.delete('/user/:id', (req, res) => {
 });
 
 //admin update doc
-app.put('/doc', isAuthenticated, (req, res) => {
-  console.log(req.body.user);
+app.put('/doc', isAdmin, (req, res) => {
+  console.log('update doc', req.body);
   docRepo.update(req.body, (err, doc) => {
     if(err) {
       //TODO: handle
@@ -137,7 +138,7 @@ app.put('/doc', isAuthenticated, (req, res) => {
 });
 
 //admin remove file
-app.delete('/doc/:id', isAuthenticated, (req, res) => {
+app.delete('/doc/:id', isAdmin, (req, res) => {
   docRepo.remove(req.params.id, (err) => {
     if(err) {
       //TODO: handle
@@ -157,10 +158,36 @@ app.get('/doc/:doc', (req, res) => {
 });
 
 app.get('/doc', (req, res) => {
+  const somebody = getCurrentUser(req);
   docRepo.getAll((err, found) => {
     if(err) return res.status(500).json(err);
 
-    res.json(found);
+      return res.json(found.filter(doc => {
+        const now = moment();
+        const nowForExpires = !doc.until ? moment().add(1, 'day') : moment(doc.until);
+        doc.expired =  !now.isBetween(moment(doc.when), nowForExpires);
+        if(!somebody) {
+          return doc.isPublic && (!doc.until || !doc.expired);
+        } else {
+          return !doc.until || !doc.expired;
+        }
+      }));
+  });
+});
+
+//admin get docs
+app.get('/admin/doc', isAdmin, (req, res) => {
+  docRepo.getAll((err, found) => {
+    if(err) return res.status(500).json(err);
+      const toReturn = found.map(doc => {
+        const now = moment();
+        const nowForExpires = !doc.until ? moment().add(1, 'day') : moment(doc.until);
+        const n = util._extend({}, doc._doc);
+        n.expired = !now.isBetween(moment(doc.when), nowForExpires);
+        return n;
+      });
+      console.log(toReturn);
+      return res.json(toReturn);
   });
 });
 
@@ -183,11 +210,13 @@ app.post('/upload', isAuthenticated, function(req, res) {
       type: req.body.type,
       src: fname,
       when: req.body.when,
+      until: req.body.until || null,
+      isPublic: req.body.isPublic || false,
     }, (err, newDoc) => {
       if(err) return res.status(500).json(err);
 
       res.json(newDoc);
-    })
+    });
   });
 });
 
@@ -201,15 +230,28 @@ app.listen(port, () => {
 });
 
 function isAuthenticated(req, res, next) {
-  const token = req.cookies.t;// req.headers['x-session-token'];
-  const somebody = token && userTokens.some(x => x.token === token);
-  console.log('*** is auth', somebody, token, userTokens.length ? userTokens[0].token : '');
+  const somebody = getCurrentUser(req);;
   if(!somebody) {
     res.status('401');
     return res.send('no no!');
   }
 
   next();
+}
+
+function isAdmin(req, res, next) {
+  const somebody = getCurrentUser(req);
+  if(!somebody || !somebody.isAdmin) {
+    res.status('401');
+    return res.send('no no!');
+  }
+
+  next();
+}
+
+function getCurrentUser(req) {
+  const token = req.cookies.t;// req.headers['x-session-token'];
+  return !token ? null : userTokens.filter(x => x.token === token)[0];
 }
 
 //TODO: make test

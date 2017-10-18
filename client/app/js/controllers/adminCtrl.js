@@ -48,7 +48,8 @@
     createUploader();
 
     $scope.newDoc = {
-      when: new Date()
+      when: new Date(),
+      until: null
     };
 
     $scope.filteredDocuments = function () {
@@ -69,9 +70,11 @@
     $scope.selectDoc = function (x) {
       $scope.editDoc = angular.copy(x);
       $scope.editDoc.when = new Date($scope.editDoc.when);
+      $scope.editDoc.until = new Date($scope.editDoc.until);
     };
 
     $scope.updateDoc = function () {
+      console.log($scope.editDoc);
       if ($scope.editDoc.name && $scope.editDoc.when && $scope.editDoc.type) {
         $scope.editDoc.saving = true;
         documentSrv.updateDoc($scope.editDoc).then(function (data) {
