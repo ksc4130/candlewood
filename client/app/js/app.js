@@ -80,9 +80,9 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
         return documentSrv.getDocumentsByType('chronicle');
       }]
     }
-  }).state('upcomingEvents', {
+  }).state('eventsUpcoming', {
     url: '/events/upcoming',
-    templateUrl: '/app/views/_documents.html',
+    templateUrl: '/app/views/_eventsUpcoming.html',
     controller: ['$scope', 'docs', function ($scope, docs) {
       $scope.docs = docs;
     }],
