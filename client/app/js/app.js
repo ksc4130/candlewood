@@ -58,6 +58,17 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
   }).state('contact', {
     url: '/contact',
     templateUrl: '/app/views/_contact.html'
+  }).state('calendar', {
+    url: '/news/calendar',
+    templateUrl: '/app/views/_calendar.html',
+    controller: ['$scope', 'calendar', function ($scope, calendar) {
+      $scope.calendar = calendar;
+    }],
+    resolve: {
+      calendar: ['documentSrv', function (documentSrv) {
+        return documentSrv.getCalendar();
+      }]
+    }
   }).state('about', {
     url: '/about',
     templateUrl: '/app/views/_about.html'

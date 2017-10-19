@@ -9,7 +9,20 @@
         var df = $q.defer();
         $http.get((admin ? '/admin' : '') + '/doc').then(function(resp){
           if(resp.status === 200){
-            console.log(resp.data);
+            df.resolve(resp.data);
+          } else {
+            df.reject(resp);
+          }
+        }, function(resp){
+          df.reject(resp);
+        });
+        return df.promise;
+      }
+
+      function getCalendar() {
+        var df = $q.defer();
+        $http.get('/calendar').then(function(resp){
+          if(resp.status === 200){
             df.resolve(resp.data);
           } else {
             df.reject(resp);
@@ -67,6 +80,7 @@
         getDoc: getDoc,
         updateDoc: updateDoc,
         deleteDocument: deleteDocument,
+        getCalendar: getCalendar,
         types: [
             {
               type: 'monthly-calendar',

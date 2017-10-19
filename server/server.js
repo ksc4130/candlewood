@@ -7,7 +7,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-bodyParser.urlencoded({extended: true});
+bodyParser.urlencoded({ extended: true });
 const clientPath = path.resolve(__dirname, '../client/');
 const fs = require('fs');
 const mongoose = require('mongoose');
@@ -17,13 +17,12 @@ const userRepo = require('./data/userRepo');
 const docRepo = require('./data/docRepo');
 const dbConfig = require('./data/dbconfig');
 
-
 dbConfig.connect();
 
 const port = process.env.NODE_ENV === 'production' ? 3000 : 3001;
 
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 //TODO: move to db or cache
 const userTokens = [];
@@ -39,7 +38,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 app.post('/account/user', (req, res) => {
   console.log('register route', req.body.user);
   //TODO: check authorized
-  userRepo.register(req.body.user, (err, user) => res.json({err, user}));
+  userRepo.register(req.body.user, (err, user) => res.json({ err, user }));
 });
 
 //let errrrbody know who they be
@@ -55,7 +54,7 @@ app.get('/account/user', (req, res) => {
 app.post('/account/login', (req, res) => {
   //TODO: validate
   userRepo.login(req.body.email, req.body.pwd, (err, data) => {
-    if(err || !data || !data.email) {
+    if (err || !data || !data.email) {
       res.status(401);
       return res.send('Unauthorized');
     }
@@ -72,7 +71,7 @@ app.post('/account/login', (req, res) => {
 
     //TODO: expire
     userTokens.push(user);
-    res.json({err, user});
+    res.json({ err, user });
   });
 });
 
@@ -81,7 +80,7 @@ app.get('/user', isAdmin, (req, res) => {
   //TODO: make sure user is admin
 
   userRepo.getAll((err, data) => {
-    if(err) {
+    if (err) {
       //TODO: handle
       res.status(500);
       return res.json(err);
@@ -100,7 +99,7 @@ app.post('/user', isAuthenticated, (req, res) => {
 app.put('/user', isAdmin, (req, res) => {
   console.log(req.body.user);
   userRepo.update(req.body.user, (err, user) => {
-    if(err) {
+    if (err) {
       //TODO: handle
       res.status(500);
       return res.json(err);
@@ -113,7 +112,7 @@ app.put('/user', isAdmin, (req, res) => {
 app.delete('/user/:id', isAdmin, (req, res) => {
   console.log(req.params.id);
   userRepo.remove(req.params.id, (err) => {
-    if(err) {
+    if (err) {
       //TODO: handle
       res.status(500);
       return res.json(err);
@@ -127,7 +126,7 @@ app.delete('/user/:id', isAdmin, (req, res) => {
 app.put('/doc', isAdmin, (req, res) => {
   console.log('update doc', req.body);
   docRepo.update(req.body, (err, doc) => {
-    if(err) {
+    if (err) {
       //TODO: handle
       res.status(500);
       return res.json(err);
@@ -140,7 +139,7 @@ app.put('/doc', isAdmin, (req, res) => {
 //admin remove file
 app.delete('/doc/:id', isAdmin, (req, res) => {
   docRepo.remove(req.params.id, (err) => {
-    if(err) {
+    if (err) {
       //TODO: handle
       res.status(500);
       return res.json(err);
@@ -152,48 +151,88 @@ app.delete('/doc/:id', isAdmin, (req, res) => {
 
 
 //get doc
-app.get('/doc/:doc', (req, res) => {
-  console.log('doc',  req.params.doc);
-  res.sendFile(`${__dirname}/uploads/${req.params.doc}`);
+app.get('/doc/:id', (req, res) => {
+  console.log('doc', req.params.doc);
+  docRepo.getById(req.params.id, (err, doc) => {
+    if (err) {
+      //TODO: handle
+      res.status(500);
+      return res.json(err);
+    }
+
+    const now = moment();
+    const nowForExpires = !doc.until ? moment().add(1, 'day') : moment(doc.until);
+    doc.expired = !now.isBetween(moment(doc.when), nowForExpires);
+
+    if (doc.expired) {
+      res.status(400);
+      return res.json({ msg: 'request document has expired' });
+    }
+
+    if (doc.isPublic || doc.type === 'monthly-calendar') {
+      res.sendFile(`${__dirname}/uploads/${req.params.doc}`);
+    }
+    const somebody = getCurrentUser(req);
+
+    if (somebody) {
+      res.sendFile(`${__dirname}/uploads/${req.params.doc}`);
+    } else {
+      res.status(401);
+      return res.json({ msg: 'Please login to view requested document' });
+    }
+  });
+});
+
+app.get('/calendar', (req, res) => {
+  docRepo.getAll((err, found) => {
+    if (err) return res.status(500).json(err);
+
+    return res.json(found.filter(doc => {
+      const now = moment();
+      const nowForExpires = !doc.until ? moment().add(1, 'day') : moment(doc.until);
+      doc.expired = !now.isBetween(moment(doc.when), nowForExpires);
+      return doc.type === 'monthly-calendar' && (!doc.until || !doc.expired);
+    })[0]);
+  });
 });
 
 app.get('/doc', (req, res) => {
   const somebody = getCurrentUser(req);
   docRepo.getAll((err, found) => {
-    if(err) return res.status(500).json(err);
+    if (err) return res.status(500).json(err);
 
-      return res.json(found.filter(doc => {
-        const now = moment();
-        const nowForExpires = !doc.until ? moment().add(1, 'day') : moment(doc.until);
-        doc.expired =  !now.isBetween(moment(doc.when), nowForExpires);
-        if(!somebody) {
-          return doc.isPublic && (!doc.until || !doc.expired);
-        } else {
-          return !doc.until || !doc.expired;
-        }
-      }));
+    return res.json(found.filter(doc => {
+      const now = moment();
+      const nowForExpires = !doc.until ? moment().add(1, 'day') : moment(doc.until);
+      doc.expired = !now.isBetween(moment(doc.when), nowForExpires);
+      if (!somebody) {
+        return doc.isPublic && (!doc.until || !doc.expired);
+      } else {
+        return !doc.until || !doc.expired;
+      }
+    }));
   });
 });
 
 //admin get docs
 app.get('/admin/doc', isAdmin, (req, res) => {
   docRepo.getAll((err, found) => {
-    if(err) return res.status(500).json(err);
-      const toReturn = found.map(doc => {
-        const now = moment();
-        const nowForExpires = !doc.until ? moment().add(1, 'day') : moment(doc.until);
-        const n = util._extend({}, doc._doc);
-        n.expired = !now.isBetween(moment(doc.when), nowForExpires);
-        return n;
-      });
-      console.log(toReturn);
-      return res.json(toReturn);
+    if (err) return res.status(500).json(err);
+    const toReturn = found.map(doc => {
+      const now = moment();
+      const nowForExpires = !doc.until ? moment().add(1, 'day') : moment(doc.until);
+      const n = util._extend({}, doc._doc);
+      n.expired = !now.isBetween(moment(doc.when), nowForExpires);
+      return n;
+    });
+    console.log(toReturn);
+    return res.json(toReturn);
   });
 });
 
 
 
-app.post('/upload', isAuthenticated, function(req, res) {
+app.post('/upload', isAuthenticated, function (req, res) {
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
 
@@ -213,7 +252,7 @@ app.post('/upload', isAuthenticated, function(req, res) {
       until: req.body.until || null,
       isPublic: req.body.isPublic || false,
     }, (err, newDoc) => {
-      if(err) return res.status(500).json(err);
+      if (err) return res.status(500).json(err);
 
       res.json(newDoc);
     });
@@ -231,7 +270,7 @@ app.listen(port, () => {
 
 function isAuthenticated(req, res, next) {
   const somebody = getCurrentUser(req);;
-  if(!somebody) {
+  if (!somebody) {
     res.status('401');
     return res.send('no no!');
   }
@@ -241,7 +280,7 @@ function isAuthenticated(req, res, next) {
 
 function isAdmin(req, res, next) {
   const somebody = getCurrentUser(req);
-  if(!somebody || !somebody.isAdmin) {
+  if (!somebody || !somebody.isAdmin) {
     res.status('401');
     return res.send('no no!');
   }
@@ -256,9 +295,9 @@ function getCurrentUser(req) {
 
 //TODO: make test
 setTimeout(() => {
-  if(process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production') {
     userRepo.login('test@test.com', 'Test123!', (err, user) => {
-      if(err || !user) {
+      if (err || !user) {
         userRepo.register({
           email: 'test@test.com',
           firstName: 'test',
