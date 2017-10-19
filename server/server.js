@@ -170,7 +170,7 @@ app.get('/doc/:id', (req, res) => {
     }
 
     if (doc.isPublic || doc.type === 'monthly-calendar') {
-      res.sendFile(`${__dirname}/uploads/${req.params.doc}`);
+      return res.sendFile(`${__dirname}/uploads/${req.params.doc}`);
     }
     const somebody = getCurrentUser(req);
 
