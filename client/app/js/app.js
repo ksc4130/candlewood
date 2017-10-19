@@ -69,6 +69,15 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
         return documentSrv.getCalendar();
       }]
     }
+  }).state('chronicle', {
+    url: '/news/chronicle',
+    templateUrl: '/app/views/_documents.html',
+    controller: 'documentsCtrl',
+    resolve: {
+      docs: ['documentSrv', '$q', function(documentSrv){
+        return documentSrv.getDocumentsByType('chronicle');
+      }]
+    }
   }).state('about', {
     url: '/about',
     templateUrl: '/app/views/_about.html'

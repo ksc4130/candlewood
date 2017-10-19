@@ -19,6 +19,18 @@
         return df.promise;
       }
 
+      function getDocumentsByType(t) {
+        var df = $q.defer();
+        getDocuments().then(function(docs) {
+          var byType = doc.filter(function (doc) {
+            return doc.type === t;
+          });
+          df.resolve(byType);
+        }, function (err) { df.reject(err); });
+
+        return df.promise;
+      }
+
       function getCalendar() {
         var df = $q.defer();
         $http.get('/calendar').then(function(resp){
@@ -77,6 +89,7 @@
 
       return {
         getDocuments: getDocuments,
+        getDocumentsByType: getDocumentsByType,
         getDoc: getDoc,
         updateDoc: updateDoc,
         deleteDocument: deleteDocument,
@@ -85,6 +98,10 @@
             {
               type: 'monthly-calendar',
               name: 'Monthly Calendar'
+            },
+            {
+              type: 'chronicle',
+              name: 'Chronicle'
             },
             {
               type: 'upcoming-events',

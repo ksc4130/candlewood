@@ -131,8 +131,9 @@ app.put('/doc', isAdmin, (req, res) => {
       res.status(500);
       return res.json(err);
     }
-
-    res.json(doc);
+    const n = util._extend({}, doc._doc);
+    n.expired = doc.expired;
+    res.json(n);
   });
 });
 
@@ -160,16 +161,12 @@ app.get('/doc/:id', (req, res) => {
       return res.json(err);
     }
 
-    const now = moment();
-    const nowForExpires = !doc.until ? moment().add(1, 'day') : moment(doc.until);
-    doc.expired = !now.isBetween(moment(doc.when), nowForExpires);
-
     if (doc.expired) {
       res.status(400);
       return res.json({ msg: 'request document has expired' });
     }
 
-    if (doc.isPublic || doc.type === 'monthly-calendar') {
+    if (doc.isPub()) {
       return res.sendFile(`${__dirname}/uploads/${doc.src}`);
     }
     const somebody = getCurrentUser(req);
@@ -188,9 +185,6 @@ app.get('/calendar', (req, res) => {
     if (err) return res.status(500).json(err);
 
     return res.json(found.filter(doc => {
-      const now = moment();
-      const nowForExpires = !doc.until ? moment().add(1, 'day') : moment(doc.until);
-      doc.expired = !now.isBetween(moment(doc.when), nowForExpires);
       return doc.type === 'monthly-calendar' && (!doc.until || !doc.expired);
     })[0]);
   });
@@ -202,11 +196,8 @@ app.get('/doc', (req, res) => {
     if (err) return res.status(500).json(err);
 
     return res.json(found.filter(doc => {
-      const now = moment();
-      const nowForExpires = !doc.until ? moment().add(1, 'day') : moment(doc.until);
-      doc.expired = !now.isBetween(moment(doc.when), nowForExpires);
       if (!somebody) {
-        return doc.isPublic && (!doc.until || !doc.expired);
+        return doc.isPub() && (!doc.until || !doc.expired);
       } else {
         return !doc.until || !doc.expired;
       }
@@ -219,10 +210,8 @@ app.get('/admin/doc', isAdmin, (req, res) => {
   docRepo.getAll((err, found) => {
     if (err) return res.status(500).json(err);
     const toReturn = found.map(doc => {
-      const now = moment();
-      const nowForExpires = !doc.until ? moment().add(1, 'day') : moment(doc.until);
       const n = util._extend({}, doc._doc);
-      n.expired = !now.isBetween(moment(doc.when), nowForExpires);
+      n.expired = doc.expired;
       return n;
     });
     console.log(toReturn);
