@@ -4,10 +4,6 @@
         .controller('documentsCtrl', documentsCtrl);
     documentsCtrl.$inject = ['$scope', 'authSrv', '$location', 'docs', 'documentSrv'];
     function documentsCtrl($scope, authSrv, $location, docs, documentSrv){
-      // if(!authSrv.user()){
-      //     $location.path('/login');
-      // }
-      // $scope.user = authSrv.user();
       $scope.types = documentSrv.types;
       $scope.selectedDocument = null;
       $scope.select = function(document){

@@ -22,7 +22,7 @@
       function getDocumentsByType(t) {
         var df = $q.defer();
         getDocuments().then(function(docs) {
-          var byType = doc.filter(function (doc) {
+          var byType = docs.filter(function (doc) {
             return doc.type === t;
           });
           df.resolve(byType);
