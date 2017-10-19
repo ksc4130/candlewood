@@ -47,6 +47,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
     templateUrl: '/app/views/_documents.html',
     controller: 'documentsCtrl',
     resolve: {
+      hideTypeNav: function () {return false;},
       docs: ['documentSrv', function(documentSrv){
         return documentSrv.getDocuments();
       }]
@@ -74,6 +75,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
     templateUrl: '/app/views/_documents.html',
     controller: 'documentsCtrl',
     resolve: {
+      hideTypeNav: function () {return true;},
       docs: ['documentSrv', '$q', function(documentSrv){
         return documentSrv.getDocumentsByType('chronicle');
       }]

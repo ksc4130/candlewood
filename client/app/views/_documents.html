@@ -1,10 +1,10 @@
 <div class="container">
     <div class="row" style="padding-bottom: 10%">
-        <div class="col-sm-12">
+        <div ng-hide="hideTypeNav" class="col-sm-12">
             <br>
             <h3 class="text-center">Available Documents</h3><br>
         </div>
-        <div class="col-md-12">
+        <div ng-hide="hideTypeNav" class="col-md-12">
             <ul class="nav nav-tabs">
                 <li ng-class="{'active': !filterDocs.type}">
                     <a href="" ng-click="filterDocs = {}">All</a>
@@ -14,9 +14,9 @@
                 </li>
             </ul>
         </div>
-        <div class="clearfix"></div><br>
+        <div ng-hide="hideTypeNav" class="clearfix"></div><br>
 
-        <div ng-show="!documents || !documents.length" class="col-md-12">
+        <div ng-show="(!documents || !documents.length) && !hideTypeNav" class="col-md-12">
           <h3 class="text-center">No documents available</h3>
         </div>
 
