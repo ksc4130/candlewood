@@ -1,6 +1,8 @@
 # Logs
 logs
 *.log
+client/app/js/app.min.js
+client/app/js/app.min.js.map
 
 # Runtime data
 pids
