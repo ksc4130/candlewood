@@ -170,12 +170,12 @@ app.get('/doc/:id', (req, res) => {
     }
 
     if (doc.isPublic || doc.type === 'monthly-calendar') {
-      return res.sendFile(`${__dirname}/uploads/${req.params.doc}`);
+      return res.sendFile(`${__dirname}/uploads/${doc.src}`);
     }
     const somebody = getCurrentUser(req);
 
     if (somebody) {
-      res.sendFile(`${__dirname}/uploads/${req.params.doc}`);
+      res.sendFile(`${__dirname}/uploads/${doc.src}`);
     } else {
       res.status(401);
       return res.json({ msg: 'Please login to view requested document' });
