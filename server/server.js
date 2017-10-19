@@ -190,6 +190,16 @@ app.get('/calendar', (req, res) => {
   });
 });
 
+app.get('/calendar', (req, res) => {
+  docRepo.getAll((err, found) => {
+    if (err) return res.status(500).json(err);
+
+    return res.json(found.filter(doc => {
+      return doc.type === 'monthly-calendar' && (!doc.until || !doc.expired);
+    })[0]);
+  });
+});
+
 app.get('/doc', (req, res) => {
   const somebody = getCurrentUser(req);
   docRepo.getAll((err, found) => {

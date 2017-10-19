@@ -1,0 +1,19 @@
+<header style="margin-bottom: 20px;" class="ms-hero-page ms-hero-bg-dark-light ms-hero-img-city">
+  <div class="container">
+    <div class="text-center">
+      <h1 class="color-primary mb-4 animated fadeInDown animation-delay-4">Upcoming Events</h1>
+      <!-- <p class="lead lead-xl center-block color-medium mb-2 animated fadeInDown animation-delay-4">{{calendar.name}}</p> -->
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="text-left">
+    <div class="row">
+      <div class="col-sm-12">
+        <img style="margin-top: 20px;" ng-repeat-start="doc in docs" ng-show="doc.name.indexOf('pdf') < 0" src="/doc/{{doc._id}}">
+        <object style="margin-top: 20px;" ng-repeat-end ng-show="doc.name.indexOf('pdf') > -1" ng-attr-data="/doc/{{doc._id}}" height="1200px" width="100%"></object>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>

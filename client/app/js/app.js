@@ -80,6 +80,17 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
         return documentSrv.getDocumentsByType('chronicle');
       }]
     }
+  }).state('upcomingEvents', {
+    url: '/events/upcoming',
+    templateUrl: '/app/views/_documents.html',
+    controller: ['$scope', 'docs', function ($scope, docs) {
+      $scope.docs = docs;
+    }],
+    resolve: {
+      docs: ['documentSrv', '$q', function(documentSrv){
+        return documentSrv.getDocumentsByType('upcoming-events');
+      }]
+    }
   }).state('about', {
     url: '/about',
     templateUrl: '/app/views/_about.html'

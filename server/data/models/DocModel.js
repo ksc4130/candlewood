@@ -12,7 +12,7 @@ const schema = new mongoose.Schema({
 });
 
 schema.methods.isPub = function () {
-  return this.isPublic || this.type === 'monthly-calendar' || this.type === 'chronicle';
+  return this.isPublic || this.type === 'upcoming-events' || this.type === 'monthly-calendar' || this.type === 'chronicle';
 };
 
 schema.virtual('expired').
