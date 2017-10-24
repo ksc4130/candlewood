@@ -131,9 +131,8 @@ app.put('/doc', isAdmin, (req, res) => {
       res.status(500);
       return res.json(err);
     }
-    const n = util._extend({}, doc._doc);
-    n.expired = doc.expired;
-    res.json(n);
+
+    res.json(doc);
   });
 });
 
@@ -219,13 +218,8 @@ app.get('/doc', (req, res) => {
 app.get('/admin/doc', isAdmin, (req, res) => {
   docRepo.getAll((err, found) => {
     if (err) return res.status(500).json(err);
-    const toReturn = found.map(doc => {
-      const n = util._extend({}, doc._doc);
-      n.expired = doc.expired;
-      return n;
-    });
-    console.log(toReturn);
-    return res.json(toReturn);
+
+    return res.json(found);
   });
 });
 
@@ -242,13 +236,12 @@ app.post('/upload', isAuthenticated, function (req, res) {
   // Use the mv() method to place the file somewhere on your server
   fs.writeFile(`${__dirname}/uploads/${fname}`, req.files.file.data, (err) => {
     if (err) return res.status(500).json(err);
-    console.log('****', req.body.when);
     docRepo.create({
       name: req.body.name,
       type: req.body.type,
       src: fname,
       when: req.body.when,
-      until: req.body.until || null,
+      until: req.body.until || '',
       isPublic: req.body.isPublic || false,
     }, (err, newDoc) => {
       if (err) return res.status(500).json(err);

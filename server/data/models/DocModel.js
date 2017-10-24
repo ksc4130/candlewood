@@ -6,7 +6,7 @@ const schema = new mongoose.Schema({
   type: String,
   src: String,
   when: Date,
-  until: Date,
+  untilStr: String,
   isPublic: Boolean,
   created: Date
 });
@@ -18,8 +18,13 @@ schema.methods.isPub = function () {
 schema.virtual('expired').
 get(function() {
   const now = moment();
-  const nowForExpires = !this.until ? moment().add(1, 'day') : moment(this.until);
-  return !now.isBetween(moment(this.when), nowForExpires);
+  const nowForExpires = !this.untilStr ? moment().add(1, 'day') : moment(this.untilStr);
+  return !now.isBetween(moment(new Date(this.when)), nowForExpires);
  });
+
+ schema.virtual('until')
+  .get(function() {
+    return this.untilStr ? moment(new Date(this.untilStr)) : null;
+  });
 
 module.exports = mongoose.model('Doc', schema);
