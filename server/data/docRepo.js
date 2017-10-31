@@ -10,17 +10,21 @@ module.exports = {
   getById
 };
 
+function mapModelToObj(doc) {
+    const n = util._extend({}, doc._doc);
+    n.expired = doc.expired;
+    n.until = doc.until;
+    n.isPub = doc.isPub();
+    return n;
+}
+
 function getAll(cb) {
   DocModel.find({}, (err, data) => {
     if(err) return cb ? cb(err, null) : '';
 
     if(!cb) return;
-    const toReturn = data.map(doc => {
-      const n = util._extend({}, doc._doc);
-      n.expired = doc.expired;
-      n.until = doc.until;
-      return n;
-    });
+
+    const toReturn = data.map(mapModelToObj);
 
     cb(null, toReturn);
   });
@@ -32,11 +36,7 @@ function getById(id, cb) {
 
     if(!cb) return;
 
-    const n = util._extend({}, data._doc);
-    n.expired = data.expired;
-    n.until = data.until;
-
-    cb(null, n);
+    cb(null, mapModelToObj(data));
   });
 }
 
@@ -64,11 +64,7 @@ function update(doc, cb) {
       console.log(saved._id);
       if(!cb) return;
 
-      const n = util._extend({}, saved._doc);
-      n.expired = saved.expired;
-      n.until = saved.until;
-
-      return cb(err, n);
+      return cb(err, mapModelToObj(saved));
     });
   });
 }
@@ -95,10 +91,6 @@ function create(doc, cb){
     console.log(test._id);
     if(!cb) return;
 
-    const n = util._extend({}, test._doc);
-    n.expired = test.expired;
-    n.until = test.until;
-
-    return cb(err, n);
+    return cb(err, mapModelToObj(test));
   });
 }

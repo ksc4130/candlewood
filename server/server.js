@@ -1,5 +1,4 @@
 /*jslint node: true */
-const moment = require('moment');
 const path = require('path');
 const uuidv1 = require('uuid/v1');
 const fileUpload = require('express-fileupload');
@@ -11,7 +10,6 @@ bodyParser.urlencoded({ extended: true });
 const clientPath = path.resolve(__dirname, '../client/');
 const fs = require('fs');
 const mongoose = require('mongoose');
-const util = require('util');
 
 const userRepo = require('./data/userRepo');
 const docRepo = require('./data/docRepo');
@@ -91,9 +89,9 @@ app.get('/user', isAdmin, (req, res) => {
 });
 
 //admin create user ... use reg for now
-app.post('/user', isAuthenticated, (req, res) => {
+// app.post('/user', isAuthenticated, (req, res) => {
 
-});
+// });
 
 //admin update user
 app.put('/user', isAdmin, (req, res) => {
@@ -165,7 +163,7 @@ app.get('/doc/:id', (req, res) => {
       return res.json({ msg: 'request document has expired' });
     }
 
-    if (doc.isPub()) {
+    if (doc.isPub) {
       return res.sendFile(`${__dirname}/uploads/${doc.src}`);
     }
     const somebody = getCurrentUser(req);
@@ -206,7 +204,7 @@ app.get('/doc', (req, res) => {
 
     return res.json(found.filter(doc => {
       if (!somebody) {
-        return doc.isPub() && (!doc.until || !doc.expired);
+        return doc.isPub && (!doc.until || !doc.expired);
       } else {
         return !doc.until || !doc.expired;
       }
@@ -261,7 +259,7 @@ app.listen(port, () => {
 });
 
 function isAuthenticated(req, res, next) {
-  const somebody = getCurrentUser(req);;
+  const somebody = getCurrentUser(req);
   if (!somebody) {
     res.status('401');
     return res.send('no no!');

@@ -16,14 +16,14 @@ schema.methods.isPub = function () {
 };
 
 schema.virtual('expired').
-get(function() {
-  const now = moment();
-  const nowForExpires = !this.untilStr ? moment().add(1, 'day') : moment(this.untilStr);
-  return !now.isBetween(moment(new Date(this.when)), nowForExpires);
- });
+  get(function () {
+    const now = moment();
+    const nowForExpires = !this.untilStr ? moment().add(1, 'day') : moment(this.untilStr);
+    return !now.isBetween(moment(new Date(this.when)), nowForExpires);
+  });
 
- schema.virtual('until')
-  .get(function() {
+schema.virtual('until')
+  .get(function () {
     return this.untilStr ? moment(new Date(this.untilStr)) : null;
   });
 

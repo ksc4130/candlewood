@@ -1,6 +1,5 @@
 (function() {
   'use strict';
-  var quitCheckingUser = false;
 
   angular.module('cwl.core').factory('authInterceptor', authInterceptor);
 
