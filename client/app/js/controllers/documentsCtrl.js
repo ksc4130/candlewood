@@ -5,8 +5,8 @@
   documentsCtrl.$inject = ['$scope', 'authSrv', '$location', 'docs', 'documentSrv', 'hideTypeNav'];
   function documentsCtrl($scope, authSrv, $location, docs, documentSrv, hideTypeNav) {
     $scope.hideTypeNav = hideTypeNav;
-    $scope.types = documentSrv.types.filter(t => {
-      return docs.length && docs.some(d => t.type === d.type);
+    $scope.types = documentSrv.types.filter(function(t) {
+      return docs.length && docs.some(function(d) {t.type === d.type;});
     });
     $scope.selectedDocument = docs[0];
     $scope.select = function (document) {
