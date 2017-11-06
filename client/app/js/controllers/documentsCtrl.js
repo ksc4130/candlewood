@@ -6,7 +6,7 @@
   function documentsCtrl($scope, authSrv, $location, docs, documentSrv, hideTypeNav) {
     $scope.hideTypeNav = hideTypeNav;
     $scope.types = documentSrv.types.filter(function(t) {
-      return docs.length && docs.some(function(d) {t.type === d.type;});
+      return docs.length && docs.some(function(d) {return t.type === d.type;});
     });
     $scope.selectedDocument = docs[0];
     $scope.select = function (document) {
