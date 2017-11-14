@@ -109,6 +109,10 @@
           name: 'Upcoming Events'
         },
         {
+          type: 'unit-maps',
+          name: 'Unit Maps'
+        },
+        {
           type: 'policies',
           name: 'Policies'
         },
