@@ -11,18 +11,18 @@ module.exports = {
 };
 
 function mapModelToObj(doc) {
-    const n = util._extend({}, doc._doc);
-    n.expired = doc.expired;
-    n.until = doc.until;
-    n.isPub = doc.isPub();
-    return n;
+  const n = util._extend({}, doc._doc);
+  n.expired = doc.expired;
+  n.until = doc.until;
+  n.isPub = doc.isPub();
+  return n;
 }
 
 function getAll(cb) {
   DocModel.find({}, (err, data) => {
-    if(err) return cb ? cb(err, null) : '';
+    if (err) return cb ? cb(err, null) : '';
 
-    if(!cb) return;
+    if (!cb) return;
 
     const toReturn = data.map(mapModelToObj);
 
@@ -32,9 +32,9 @@ function getAll(cb) {
 
 function getById(id, cb) {
   DocModel.findById(id, (err, data) => {
-    if(err) return cb ? cb(err, null) : '';
+    if (err) return cb ? cb(err, null) : '';
 
-    if(!cb) return;
+    if (!cb) return;
 
     cb(null, mapModelToObj(data));
   });
@@ -42,10 +42,10 @@ function getById(id, cb) {
 
 function update(doc, cb) {
   DocModel.findOne({ _id: doc._id }, (err, found) => {
-    if(err || !found) return cb ? cb(err, null) : '';
+    if (err || !found) return cb ? cb(err, null) : '';
 
     const d = doc.until ? new Date(doc.until) : null;
-    if(d && moment(d).isValid()) {
+    if (d && moment(d).isValid()) {
       found.untilStr = moment(d).format('MM/DD/YYYY');
     } else {
       found.untilStr = null;
@@ -57,12 +57,12 @@ function update(doc, cb) {
     found.isPublic = doc.isPublic;
 
     found.save((err, saved) => {
-      if(err) {
+      if (err) {
         console.log('error saving doc', err);
         return cb ? cb(err, null) : '';
       }
       console.log(saved._id);
-      if(!cb) return;
+      if (!cb) return;
 
       return cb(err, mapModelToObj(saved));
     });
@@ -70,12 +70,12 @@ function update(doc, cb) {
 }
 
 function remove(id, cb) {
-  DocModel.remove({_id: id }, cb);
+  DocModel.remove({ _id: id }, cb);
 }
 
-function create(doc, cb){
+function create(doc, cb) {
   const d = doc.until ? new Date(doc.until) : null;
-  if(d && moment(d).isValid()) {
+  if (d && moment(d).isValid()) {
     doc.untilStr = moment(d).format('MM/DD/YYYY');
   } else {
     doc.untilStr = null;
@@ -84,12 +84,12 @@ function create(doc, cb){
   doc.created = new Date();
   const test = new DocModel(doc);
   test.save((err, test) => {
-    if(err) {
+    if (err) {
       console.log('error saving doc', err);
       return cb ? cb(err, null) : '';
     }
     console.log(test._id);
-    if(!cb) return;
+    if (!cb) return;
 
     return cb(err, mapModelToObj(test));
   });
