@@ -11,7 +11,7 @@ module.exports = {
 };
 
 function mapModelToObj(doc) {
-  const n = util._extend({}, doc._doc);
+  const n = util._extend({}, (doc._doc || {}));
   n.expired = doc.expired;
   n.until = doc.until;
   n.isPub = doc.isPub();
