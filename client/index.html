@@ -2,161 +2,213 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <base href="/">
-    <title>Candlewood Lake</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <base href="/">
+  <title>Candlewood Lake</title>
 
-    <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <style>
-        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-            display: none !important;
-        }
-
-    </style>
-    <link href="app/css/preload.min.css" rel="stylesheet">
-    <link href="app/css/style.light-blue-500.min.css" rel="stylesheet">
-    <link href="app/css/custom.css" rel="stylesheet">
-    <link href="vendor/angular-aside/dist/css/angular-aside.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+  <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    [ng\:cloak],
+    [ng-cloak],
+    [data-ng-cloak],
+    [x-ng-cloak],
+    .ng-cloak,
+    .x-ng-cloak {
+      display: none !important;
+    }
+  </style>
+  <link href="app/css/preload.min.css" rel="stylesheet">
+  <link href="app/css/style.light-blue-500.min.css" rel="stylesheet">
+  <link href="app/css/custom.css" rel="stylesheet">
+  <link href="vendor/angular-aside/dist/css/angular-aside.min.css" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <body ng-cloak class="ng-cloak" ng-controller="navCtrl">
-<div id="main-wrapper">
-<header class="ms-header ms-header-primary">
-    <div class="container container-full">
+  <div id="main-wrapper">
+    <header class="ms-header ms-header-primary">
+      <div class="container container-full">
         <div class="ms-title hidden-xs">
-            <a href="/">
-                <h1 class="animated fadeInRight animation-delay-6 ">Candlewood
-                    <span>Lake</span>
-                </h1>
-            </a>
+          <a href="/">
+            <h1 class="animated fadeInRight animation-delay-6 ">Candlewood
+              <span>Lake</span>
+            </h1>
+          </a>
         </div>
         <div class="header-right">
-            <a class="btn-circle btn-circle-primary pointer" href="/admin" title="Administrative Settings" ng-show="user && user.isAdmin && state.current.name !== 'admin'">
-                <i class="fa fa-cog"></i>
-            </a>
-            <!-- <a class="btn-circle btn-circle-primary pointer" href="/members/documents" title="Documents" ng-show="user && state.current.name !== 'documents'">
+          <a class="btn-circle btn-circle-primary pointer" href="/admin" title="Administrative Settings" ng-show="user && user.isAdmin && state.current.name !== 'admin'">
+            <i class="fa fa-cog"></i>
+          </a>
+          <!-- <a class="btn-circle btn-circle-primary pointer" href="/members/documents" title="Documents" ng-show="user && state.current.name !== 'documents'">
                 <i class="fa fa-file-pdf-o"></i>
             </a> -->
-            <button class="btn-circle btn-circle-primary pointer" title="Log Out" ng-show="user" ng-click="logout()">
-                <i class="fa fa-sign-out"></i>
-            </button>
-            <a class="btn-circle btn-circle-primary pointer" title="Login" ng-show="!user" href="/login">
-              Sign in
-                <!-- <i class="fa fa-lock"></i> -->
-            </a>
+          <button class="btn-circle btn-circle-primary pointer" title="Log Out" ng-show="user" ng-click="logout()">
+            <i class="fa fa-sign-out"></i>
+          </button>
+          <a class="btn-circle btn-circle-primary pointer" title="Login" ng-show="!user" href="/login">
+            Sign in
+            <!-- <i class="fa fa-lock"></i> -->
+          </a>
         </div>
-    </div>
-</header>
-<nav class="navbar yamm ms-navbar ms-navbar-primary navbar-static-top">
-    <div class="container container-full">
-      <div class="row">
+      </div>
+    </header>
+    <nav class="navbar yamm ms-navbar ms-navbar-primary navbar-static-top">
+      <div class="container container-full">
+        <div class="row">
           <div class="navbar-header">
-              <a class="navbar-brand" href="/">
-                <span class="ms-title">Candlewood
+            <a class="navbar-brand" href="/">
+              <span class="ms-title">Candlewood
                 <strong>Lake</strong>
               </span>
-              </a>
+            </a>
           </div>
           <span class="hidden-sm hidden-xs">
-              <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/about">About</a></li>
-                    <li class="dropdown">
-                        <a href="" class="dropdown-toggle animated fadeIn animation-delay-5" data-toggle="dropdown" data-hover="dropdown" data-name="page" aria-expanded="false">Explore
-                            <i class="fa fa-angle-right"></i>
-                            <div class="ripple-container"></div>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-left animated-2x animated fadeIn">
-                            <li><a href="/explore/lake">The Lake</a></li>
-                            <li><a href="/explore/pools">Swimming Pools</a></li>
-                            <li><a href="/explore/beach">Beach</a></li>
-                            <li><a href="/explore/activities">More Activities</a></li>
-                            <li class="divider"></li>
-                            <li><a href="/explore/community">The Community</a></li>
-                            <li><a href="/explore/amenities">Amenities</a></li>
-                            <li><a href="/explore/nearby">Nearby</a></li>
-                            <li><a href="/explore/clubs">Clubs &amp; Organizations</a></li>
-                        </ul>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li>
+                  <a href="/about">About</a>
+                </li>
+                <li class="dropdown">
+                  <a href="" class="dropdown-toggle animated fadeIn animation-delay-5" data-toggle="dropdown" data-hover="dropdown" data-name="page"
+                    aria-expanded="false">Explore
+                    <i class="fa fa-angle-right"></i>
+                    <div class="ripple-container"></div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-left animated-2x animated fadeIn">
+                    <li>
+                      <a href="/explore/lake">The Lake</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="" class="dropdown-toggle animated fadeIn animation-delay-5" data-toggle="dropdown" data-hover="dropdown" data-name="page" aria-expanded="false">Events
-                            <i class="fa fa-angle-right"></i>
-                            <div class="ripple-container"></div>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-left animated-2x animated fadeIn">
-                            <li><a href="/events/upcoming">Upcoming Events</a></li>
-                            <li><a href="/events/ongoing">Ongoing Events</a></li>
-                            <li><a href="/events/july-fourth">Fourth of July</a></li>
-                        </ul>
+                    <li>
+                      <a href="/explore/pools">Swimming Pools</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="" class="dropdown-toggle animated fadeIn animation-delay-5" data-toggle="dropdown" data-hover="dropdown" data-name="page" aria-expanded="false">Real Estate
-                            <i class="fa fa-angle-right"></i>
-                            <div class="ripple-container"></div></a>
-                        <ul class="dropdown-menu dropdown-menu-left animated-2x animated fadeIn">
-                            <li><a href="/real-estate/information">Information</a></li>
-                            <li><a href="/real-estate/for-sale">For Sale</a></li>
-                        </ul>
+                    <li>
+                      <a href="/explore/beach">Beach</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="" class="dropdown-toggle animated fadeIn animation-delay-5" data-toggle="dropdown" data-hover="dropdown" data-name="page" aria-expanded="false">News
-                            <i class="fa fa-angle-right"></i>
-                            <div class="ripple-container"></div>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-left animated-2x animated fadeIn">
-                            <li><a href="/news/chronicle">Candlewood Chronicle</a></li>
-                            <!-- <li><a href="/news/candlewood">The Candlewood News</a></li> -->
-                            <li><a href="/news/calendar">Monthly Calendar</a></li>
-                        </ul>
+                    <li>
+                      <a href="/explore/activities">More Activities</a>
                     </li>
-                    <li><a href="/map">Map &amp; Directions</a></li>
-                    <li><a href="/documents">Documents</a></li>
-                    <li><a href="/faqs">FAQs</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                </ul>
-              </div>
+                    <li class="divider"></li>
+                    <li>
+                      <a href="/explore/community">The Community</a>
+                    </li>
+                    <li>
+                      <a href="/explore/amenities">Amenities</a>
+                    </li>
+                    <li>
+                      <a href="/explore/nearby">Nearby</a>
+                    </li>
+                    <li>
+                      <a href="/explore/clubs">Clubs &amp; Organizations</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="" class="dropdown-toggle animated fadeIn animation-delay-5" data-toggle="dropdown" data-hover="dropdown" data-name="page"
+                    aria-expanded="false">Events
+                    <i class="fa fa-angle-right"></i>
+                    <div class="ripple-container"></div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-left animated-2x animated fadeIn">
+                    <li>
+                      <a href="/events/upcoming">Upcoming Events</a>
+                    </li>
+                    <li>
+                      <a href="/events/ongoing">Ongoing Events</a>
+                    </li>
+                    <li>
+                      <a href="/events/july-fourth">Fourth of July</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="" class="dropdown-toggle animated fadeIn animation-delay-5" data-toggle="dropdown" data-hover="dropdown" data-name="page"
+                    aria-expanded="false">Real Estate
+                    <i class="fa fa-angle-right"></i>
+                    <div class="ripple-container"></div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-left animated-2x animated fadeIn">
+                    <li>
+                      <a href="/real-estate/information">Information</a>
+                    </li>
+                    <li>
+                      <a href="/real-estate/for-sale">For Sale</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="" class="dropdown-toggle animated fadeIn animation-delay-5" data-toggle="dropdown" data-hover="dropdown" data-name="page"
+                    aria-expanded="false">News
+                    <i class="fa fa-angle-right"></i>
+                    <div class="ripple-container"></div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-left animated-2x animated fadeIn">
+                    <li>
+                      <a href="/news/chronicle">Candlewood Chronicle</a>
+                    </li>
+                    <!-- <li><a href="/news/candlewood">The Candlewood News</a></li> -->
+                    <li>
+                      <a href="/news/calendar">Monthly Calendar</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="/map">Map &amp; Directions</a>
+                </li>
+                <li>
+                  <a href="/documents">Documents</a>
+                </li>
+                <li>
+                  <a href="/faqs">FAQs</a>
+                </li>
+                <li>
+                  <a href="/contact">Contact</a>
+                </li>
+              </ul>
+            </div>
           </span>
           <a href="" class="btn-navbar-menu visible-sm visible-xs" ng-click="openAside()">
-              <i class="fa fa-bars"></i>
+            <i class="fa fa-bars"></i>
           </a>
+        </div>
       </div>
+    </nav>
+
+    <div class="sb-site-container">
+      <ui-view></ui-view>
     </div>
-</nav>
-<div class="sb-site-container">
-    <ui-view></ui-view>
-</div>
 
 
-<footer class="ms-footer text-center">
-    <br>
-    Copyright {{today | date:'yyyy'}} Candlewood Lake Association. All Rights Reserved.<br>
-    <a href="https://www.facebook.com/candlewoodlake.oh" target="_blank"><i class="fa fa-2x fa-facebook-official"></i></a>
-</footer>
+    <footer class="ms-footer text-center">
+      <br> Copyright {{today | date:'yyyy'}} Candlewood Lake Association. All Rights Reserved.
+      <br>
+      <a href="https://www.facebook.com/candlewoodlake.oh" target="_blank">
+        <i class="fa fa-2x fa-facebook-official"></i>
+      </a>
+    </footer>
 
-</div>
-<script src="vendor/jquery/dist/jquery.min.js"></script>
-<script src="vendor/angular/angular.min.js"></script>
-<script src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
-<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="vendor/angular-bootstrap/ui-bootstrap.min.js"></script>
-<script src="vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script src="vendor/angular-aside/dist/js/angular-aside.min.js"></script>
-<script src="vendor/angular-file-upload/dist/angular-file-upload.min.js"></script>
-<script src="vendor/angular-cookies/angular-cookies.min.js"></script>
+  </div>
+  <script src="vendor/jquery/dist/jquery.min.js"></script>
+  <script src="vendor/angular/angular.min.js"></script>
+  <script src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="vendor/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="vendor/angular-aside/dist/js/angular-aside.min.js"></script>
+  <script src="vendor/angular-file-upload/dist/angular-file-upload.min.js"></script>
+  <script src="vendor/angular-cookies/angular-cookies.min.js"></script>
 
-<script src="/app/js/app.min.js"></script>
+  <script src="/app/js/app.min.js"></script>
+
 </body>
 
 </html>
