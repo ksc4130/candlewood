@@ -1,5 +1,5 @@
 {
   "terminal.integrated.env.osx": {
-    "PATH": "/Users/kylecurren/.platformio/penv/bin:/Users/kylecurren/.nvm/versions/node/v8.9.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands"
+    "PATH": "/Users/kylecurren/.platformio/penv/bin:/Users/kylecurren/.nvm/versions/node/v8.9.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands"
   }
 }
