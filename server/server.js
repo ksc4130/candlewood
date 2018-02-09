@@ -13,6 +13,7 @@ const mongoose = require('mongoose');
 
 const userRepo = require('./data/userRepo');
 const docRepo = require('./data/docRepo');
+const notificationRepo = require('./data/notificationRepo');
 const dbConfig = require('./data/dbconfig');
 
 dbConfig.connect();
@@ -248,6 +249,60 @@ app.post('/upload', isAuthenticated, function (req, res) {
     });
   });
 });
+//notifications
+
+//admin remove file
+app.delete('/notification/:id', isAdmin, (req, res) => {
+  notificationRepo.remove(req.params.id, (err) => {
+    if (err) {
+      //TODO: handle
+      res.status(500);
+      return res.json(err);
+    }
+
+    res.json();
+  });
+});
+
+app.get('/notification', (req, res) => {
+  const somebody = getCurrentUser(req);
+  notificationRepo.getAll((err, found) => {
+    if (err) return res.status(500).json(err);
+
+    return res.json(found.filter(doc => {
+      if (!somebody) {
+        return doc.isPub && (!doc.until || !doc.expired);
+      } else {
+        return !doc.until || !doc.expired;
+      }
+    }));
+  });
+});
+
+//admin get docs
+app.get('/admin/notification', isAdmin, (req, res) => {
+  notificationRepo.getAll((err, found) => {
+    if (err) return res.status(500).json(err);
+
+    return res.json(found);
+  });
+});
+app.post('/admin/notification', isAdmin, (req, res) => {
+  console.log('create notification', req.body);
+  notificationRepo.create({
+    title: req.body.title,
+    msg: req.body.msg,
+    type: req.body.type,
+    when: req.body.when,
+    until: req.body.until || '',
+    isPublic: req.body.isPublic || false,
+  }, (err, newNotification) => {
+    if (err) return res.status(500).json(err);
+
+    res.json(newNotification);
+  });
+});
+//end notifications
 
 app.get('*', (req, res) => {
   //console.log('knock knock',req.path, req.originalUrl);

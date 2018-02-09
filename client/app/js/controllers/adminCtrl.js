@@ -2,14 +2,16 @@
   'use strict';
   angular.module('cwl.core')
     .controller('adminCtrl', adminCtrl);
-  adminCtrl.$inject = ['$scope', 'authSrv', 'FileUploader', '$location', 'docs', 'documentSrv'];
-  function adminCtrl($scope, authSrv, FileUploader, $location, docs, documentSrv) {
+  adminCtrl.$inject = ['$scope', 'authSrv', 'FileUploader', '$location', 'docs', 'documentSrv', 'notificationSrv', 'notifications'];
+  function adminCtrl($scope, authSrv, FileUploader, $location, docs, documentSrv, notificationSrv, notifications) {
     if (!authSrv.user()) {
       $location.path('/login');
     }
     $scope.user = authSrv.user();
     $scope.editUser = null;
     $scope.documents = docs;
+    $scope.notifications = notifications || [];
+    console.log('notifications', notifications);
     authSrv.getUsers().then(function (data) {
       if (data && data.length) {
         $scope.users = data;
@@ -19,6 +21,7 @@
       isAdmin: false,
       isActive: true
     };
+
     function createUploader() {
       $scope.uploader = new FileUploader({
         removeAfterUpload: true,
@@ -176,6 +179,33 @@
         });
       } else {
         $scope.error = 'Please fill out all fields.';
+      }
+    };
+
+    //notification
+    $scope.newNotification = {
+      when: new Date(),
+      until: null,
+      type: notificationSrv.types[0].type
+    };
+    $scope.notificationTypes = notificationSrv.types;
+
+    $scope.submitNotification = function(toSave) {
+      notificationSrv.createNotification(toSave).then(function(created) {
+        $scope.notifications.push(created);
+      });
+    };
+
+    $scope.removeNotification = function (notification) {
+      var found = $scope.notifications.filter(function (sItem) {
+        return sItem._id === notification._id;
+      })[0];
+      if (found) {
+        notificationSrv.deleteNotification(notification).then(function (resp) {
+          if (resp.status === 200) {
+            $scope.notifications.splice($scope.notifications.indexOf(found), 1);
+          }
+        });
       }
     };
 

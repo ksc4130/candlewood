@@ -19,6 +19,11 @@
     <div class="card card-hero animated slideInUp animation-delay-8 mb-6">
       <div class="card-block">
         <div class="row">
+          <div ng-repeat="notification in notifications" class="col-md-12">
+              <div class="alert alert-{{notification.type}}" role="alert">
+                  <strong>{{notification.title}}</strong> {{notification.msg}}
+                </div>
+          </div>
           <!-- <div class="col-md-12">
             <div class="alert alert-warning" role="alert" style="margin-bottom: 20px; margin-top: 20px;">
               <h4 class="alert-heading text-uppercase text-center" style="font-weight: bold; margin-bottom: 5px; margin-top: 5px; font-size: 20px;">The Front Gate will not be staffed on Christmas Day so that our employees can spend the holiday with their families.  Guests will need to use the Kantech system to enter Candlewood Lake.

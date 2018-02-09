@@ -1,287 +1,392 @@
 <div class="container" ng-show="user">
-    <div class="row"><br>
-        <h1 class="text-center">Administrator Dashboard</h1><br>
-        <div class="col-md-6 col-sm-12">
-            <div class="panel panel-default" ng-hide="editDoc">
-                <div class="panel-heading">
-                    Upload A New Document
-                </div>
-                <div class="panel-body">
-                    <form ng-submit="submit()">
-                        <div>
-                            <input class="form-control" placeholder="Name" ng-model="newDoc.name">
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-sm-12">
-                                <label class="text-center">Visible</label>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="form-group col-md-6">
-                                <p class="input-group" style="margin-bottom: 0">
-                                    <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newDoc.when" is-open="open"/>
-                                    <span class="input-group-btn" style="padding: 0">
-                                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open = !open" style="padding: 6px 12px; margin-bottom: 0;">
-                                        <i class="fa fa-calendar" style="margin-right: 0"></i>
-                                    </button>
-                                  </span>
-                                </p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <p class="input-group" style="margin-bottom: 0">
-                                    <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newDoc.until" is-open="open12"/>
-                                    <span class="input-group-btn" style="padding: 0">
-                                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open12 = !open12" style="padding: 6px 12px; margin-bottom: 0;">
-                                        <i class="fa fa-calendar" style="margin-right: 0"></i>
-                                    </button>
-                                  </span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" ng-options="type.type as type.name for type in types" ng-model="newDoc.type">
-                                <option value="">Select a Document Type</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input id="uploader" class="form-control" type="file" nv-file-select uploader="uploader">
-                        </div>
-                        <div class="form-group">
-                            <label>Public <input type="checkbox" ng-model="newDoc.isPublic"></label>
-                        </div>
-                        <div class="alert alert-danger" ng-show="uploadError">
-                          {{uploadError.message ? uploadError.message : uploadError}}
-                        </div>
-                        <button class="btn btn-block btn-raised btn-primary" type="submit">
-                          <span ng-show="!uploader.isUploading">Upload</span>
-                          <i class="fa fa-spinner fa-pulse" ng-show="uploader.isUploading"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <div class="panel panel-default" ng-show="editDoc">
-                <div class="panel-heading">
-                    Update Document
-                </div>
-                <div class="panel-body">
-                    <form ng-submit="updateDoc()">
-                        <div>
-                            <input class="form-control" placeholder="Name" ng-model="editDoc.name">
-                        </div>
-                        <div style="margin-bottom: 0px" class="form-group col-md-12">
-                            <label style="width: 100%;" class="text-center">Visibility Range</label>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <p class="input-group" style="margin-bottom: 0">
-                                <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="editDoc.when" is-open="open2"/>
-                                <span class="input-group-btn" style="padding: 0">
-                                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open2 = !open2" style="padding: 6px 12px; margin-bottom: 0;">
-                                        <i class="fa fa-calendar" style="margin-right: 0"></i>
-                                    </button>
-                                  </span>
-                            </p>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <p class="input-group" style="margin-bottom: 0">
-                                <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="editDoc.until" is-open="open22"/>
-                                <span class="input-group-btn" style="padding: 0">
-                                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open22 = !open22" style="padding: 6px 12px; margin-bottom: 0;">
-                                        <i class="fa fa-calendar" style="margin-right: 0"></i>
-                                    </button>
-                                  </span>
-                            </p>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" ng-options="type.type as type.name for type in types" ng-model="editDoc.type">
-                                <option value="">Select a Document Type</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Public <input type="checkbox" ng-model="editDoc.isPublic"></label>
-                        </div>
-                        <div class="alert alert-danger" ng-show="editDoc.error">
-                          {{editDoc.error.message ? editDoc.error.message : editDoc.error}}
-                        </div>
-                      <button type="button" class="btn btn-default btn-raised pull-left" ng-click="editDoc = null">Cancel</button>
-                        <button class="btn btn-raised btn-primary pull-right" type="submit">
-                          <span ng-show="!editDoc.saving">Save</span>
-                          <i class="fa fa-spinner fa-pulse" ng-show="editDoc.saving"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Manage Documents
-                </div>
-                <div class="panel-body">
-                    <div class="list-group" ng-show="documents && documents.length">
-                      <div class="list-group-item">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <select class="form-control form-group" ng-options="type.type as type.name for type in types" ng-model="typeFilter">
-                              <option value="">All Documents</option>
-                            </select>
-                            <div class="form-group right has-feedback">
-                              <input type="text" class="form-control" ng-model="search" placeholder="Type to search...">
-                              <span style="right: 15px" class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="list-group-item" ng-repeat="document in filteredDocuments() | filter:search">
-                        <span ng-show="document.expired" class="text-warning">Expired </span><i ng-show="document.isPublic" title="This document is visible to the public" class="fa fa-users"></i> Name: {{document.name}}
-                        <button class="btn btn-xs btn-raised btn-primary pull-right" ng-click="selectDoc(document)">
-                          <i class="fa fa-pencil" style="margin-right: 0"></i>
-                        </button><div class="clearfix"></div>
-                        Visible: {{document.when | date:'M/d/yyyy'}} - <span ng-show="document.until">{{document.until | date:'M/d/yyyy'}}</span><span ng-hide="document.until">forever</span>
-                        <button class="btn btn-danger btn-xs btn-raised pull-right" ng-click="removeDoc(document)">
-                          <i class="fa fa-times" style="margin-right: 0"></i>
-                        </button><div class="clearfix"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
+  <div class="row">
+    <br>
+    <h1 class="text-center">Administrator Dashboard</h1>
+    <br>
+    <div class="col-md-6 col-sm-12">
+
+      <!-- notifications-->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Create new Notification
         </div>
-        <div class="col-md-6 col-sm-12">
-          <div class="panel panel-default" ng-show="!editUser">
-            <div class="panel-heading">
-              Add New User
+        <div class="panel-body">
+          <form ng-submit="submitNotification(newNotification)">
+            <div>
+              <input class="form-control" placeholder="Title (optional)" ng-model="newNotification.title">
             </div>
-            <div class="panel-body">
-              <form autocomplete="off" ng-submit="register()">
-                <fieldset>
-                  <div class="form-group is-empty" style="margin-top: 0">
-                    <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                      <input type="text" id="register-firstName" ng-model="newUser.firstName" placeholder="First Name" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group is-empty">
-                    <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                      <input type="text" id="register-lastname" ng-model="newUser.lastName" placeholder="Last Name" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group is-empty">
-                    <div class="input-group">
-                                    <span class="input-group-addon">
-                                         <i class="fa fa-envelope"></i>
-                                     </span>
-                      <input type="email" id="register-email" name="regEmail" ng-model="newUser.email" placeholder="Email" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group is-empty">
-                    <div class="input-group">
-                                    <span class="input-group-addon">
-                                         <i class="fa fa-hashtag"></i>
-                                     </span>
-                      <input type="text" id="register-lotNumber" name="regLotNumber" ng-model="newUser.lotNumber" placeholder="Unit/Lot #" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group is-empty">
-                    <div class="input-group">
-                                     <span class="input-group-addon">
-                                           <i class="fa fa-lock"></i>
-                                     </span>
-                      <input type="password" id="register-password" ng-model="newUser.pwd" placeholder="Password" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group is-empty">
-                    <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-lock"></i>
-                                    </span>
-                      <input type="password" id="register-password-confirm" ng-model="newUser.passwordConfirm" placeholder="Confirm Password" class="form-control">
-                    </div>
-                  </div>
-                  <div class="alert alert-danger" ng-show="error">
-                    {{error}}
-                  </div>
-                  <button class="btn btn-raised btn-block btn-primary" type="submit">Add User</button>
-                </fieldset>
-              </form>
+            <div>
+              <input class="form-control" placeholder="Message (optional)" ng-model="newNotification.msg">
             </div>
-          </div>
-          <div class="panel panel-default" ng-show="editUser">
-            <div class="panel-heading">
-              Edit User
+            <!-- <div class="row">
+              <div class="form-group col-sm-12">
+                <label class="text-center">Visible</label>
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group col-md-6">
+                <p class="input-group" style="margin-bottom: 0">
+                  <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newNotification.when" is-open="open"
+                  />
+                  <span class="input-group-btn" style="padding: 0">
+                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open = !open" style="padding: 6px 12px; margin-bottom: 0;">
+                      <i class="fa fa-calendar" style="margin-right: 0"></i>
+                    </button>
+                  </span>
+                </p>
+              </div>
+              <div class="form-group col-md-6">
+                <p class="input-group" style="margin-bottom: 0">
+                  <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newNotification.until" is-open="open12"
+                  />
+                  <span class="input-group-btn" style="padding: 0">
+                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open12 = !open12" style="padding: 6px 12px; margin-bottom: 0;">
+                      <i class="fa fa-calendar" style="margin-right: 0"></i>
+                    </button>
+                  </span>
+                </p>
+              </div>
+            </div> -->
+            <div class="form-group">
+              <label class="form-label">Color</label>
+              <select class="form-control" ng-options="type.type as type.name for type in notificationTypes" ng-model="newNotification.type">
+                <option value="">Select a Notification Type</option>
+              </select>
             </div>
-            <div class="panel-body">
-              <form autocomplete="off" ng-submit="updateUser()">
-                <fieldset>
-                  <div class="form-group is-empty" style="margin-top: 0">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                          <i class="fa fa-user"></i>
-                      </span>
-                      <input type="text" ng-model="editUser.firstName" placeholder="First Name" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group is-empty">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                          <i class="fa fa-user"></i>
-                      </span>
-                      <input type="text" ng-model="editUser.lastName" placeholder="Last Name" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group is-empty">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                           <i class="fa fa-envelope"></i>
-                       </span>
-                      <input type="email" ng-model="editUser.email" placeholder="Email" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group is-empty">
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                           <i class="fa fa-hashtag"></i>
-                       </span>
-                      <input type="text" ng-model="editUser.lotNumber" placeholder="Lot #" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group is-empty">
-                    <input type="checkbox" class="checkbox-inline" ng-model="editUser.isAdmin" style="margin: 0 20px 0 0 ;"> Admin Account
-                    <input type="checkbox" class="checkbox-inline" ng-model="editUser.isActive" style="margin: 0 20px;"> Approved Account
-                  </div>
-                  <div class="alert alert-danger" ng-show="editUser.error">
-                    An error occurred.
-                  </div>
-                  <button type="button" class="btn btn-default btn-raised pull-left" ng-click="editUser = null">Cancel</button>
-                  <button class="btn btn-raised btn-primary pull-right" type="submit">
-                    <span ng-show="!editUser.saving">Save</span>
-                    <i class="fa fa-spinner fa-pulse" ng-show="editUser.saving"></i>
+
+            <!-- <div class="form-group">
+              <label>Public
+                <input type="checkbox" ng-model="newNotification.isPublic">
+              </label>
+            </div> -->
+
+            <button ng-disabled="savingNotification" class="btn btn-block btn-raised btn-primary" type="submit">
+              Submit
+              <i class="fa fa-spinner fa-pulse" ng-show="savingNotification"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Manage Notifications
+        </div>
+        <div class="panel-body">
+          <div class="list-group" ng-show="notifications && notifications.length">
+            <div class="list-group-item" ng-repeat="notification in notifications">
+              <span ng-show="notification.expired" class="text-warning">Expired </span>
+              <i ng-show="notification.isPublic" title="This notification is visible to the public" class="fa fa-users"></i>
+              <div class="clearfix"></div>
+              Visible: {{notification.when | date:'M/d/yyyy'}} -
+              <span ng-show="notification.until">{{notification.until | date:'M/d/yyyy'}}</span>
+              <span ng-hide="notification.until">forever</span>
+              <div class="col-md-12">
+                <div class="alert alert-{{notification.type}}" role="alert">
+                  <strong>{{notification.title}}</strong> {{notification.msg}}
+                  <button type="button" class="close" ng-click="removeNotification(notification)" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                   </button>
-                </fieldset>
-              </form>
+                </div>
+              </div>
+              <div class="clearfix"></div>
             </div>
           </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Manage Users <small>({{users.length}})</small>
-                </div>
-                <div class="panel-body">
-                    <div class="list-group">
-                        <div class="list-group-item" ng-repeat="user in users track by $index">
-                          <i class="fa fa-user" title="{{user.isActive ? 'Active': 'Inactive'}}" ng-class="{'text-success': user.isActive, 'text-grey': !user.isActive}" style="font-size: 1.3em"></i> &nbsp;
-                          <i class="fa fa-cog" title="Administrator" ng-show="user.isAdmin" style="font-size: 1.3em"></i> {{user.firstName}} {{user.lastName}}
-                          <button class="btn btn-xs btn-raised btn-primary pull-right" ng-click="selectUser(user)">
-                            <i class="fa fa-pencil" style="margin-right: 0"></i>
-                          </button><div class="clearfix"></div>
-                          {{user.email}}
-                          <button class="btn btn-danger btn-xs btn-raised pull-right" ng-click="deleteUser(user)">
-                            <i class="fa" ng-class="{'fa-times': !user.deleting, 'fa-spinner fa-pulse': user.deleting}" style="margin-right: 0"></i>
-                          </button><div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
         </div>
+      </div>
+      <!--end notification-->
+
+      <div class="panel panel-default" ng-hide="editDoc">
+        <div class="panel-heading">
+          Upload A New Document
+        </div>
+        <div class="panel-body">
+          <form ng-submit="submit()">
+            <div>
+              <input class="form-control" placeholder="Name" ng-model="newDoc.name">
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-12">
+                <label class="text-center">Visible</label>
+              </div>
+              <div class="clearfix"></div>
+              <div class="form-group col-md-6">
+                <p class="input-group" style="margin-bottom: 0">
+                  <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newDoc.when" is-open="open" />
+                  <span class="input-group-btn" style="padding: 0">
+                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open = !open" style="padding: 6px 12px; margin-bottom: 0;">
+                      <i class="fa fa-calendar" style="margin-right: 0"></i>
+                    </button>
+                  </span>
+                </p>
+              </div>
+              <div class="form-group col-md-6">
+                <p class="input-group" style="margin-bottom: 0">
+                  <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newDoc.until" is-open="open12" />
+                  <span class="input-group-btn" style="padding: 0">
+                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open12 = !open12" style="padding: 6px 12px; margin-bottom: 0;">
+                      <i class="fa fa-calendar" style="margin-right: 0"></i>
+                    </button>
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <select class="form-control" ng-options="type.type as type.name for type in types" ng-model="newDoc.type">
+                <option value="">Select a Document Type</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input id="uploader" class="form-control" type="file" nv-file-select uploader="uploader">
+            </div>
+            <div class="form-group">
+              <label>Public
+                <input type="checkbox" ng-model="newDoc.isPublic">
+              </label>
+            </div>
+            <div class="alert alert-danger" ng-show="uploadError">
+              {{uploadError.message ? uploadError.message : uploadError}}
+            </div>
+            <button class="btn btn-block btn-raised btn-primary" type="submit">
+              <span ng-show="!uploader.isUploading">Upload</span>
+              <i class="fa fa-spinner fa-pulse" ng-show="uploader.isUploading"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default" ng-show="editDoc">
+        <div class="panel-heading">
+          Update Document
+        </div>
+        <div class="panel-body">
+          <form ng-submit="updateDoc()">
+            <div>
+              <input class="form-control" placeholder="Name" ng-model="editDoc.name">
+            </div>
+            <div style="margin-bottom: 0px" class="form-group col-md-12">
+              <label style="width: 100%;" class="text-center">Visibility Range</label>
+            </div>
+            <div class="form-group col-md-6">
+              <p class="input-group" style="margin-bottom: 0">
+                <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="editDoc.when" is-open="open2" />
+                <span class="input-group-btn" style="padding: 0">
+                  <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open2 = !open2" style="padding: 6px 12px; margin-bottom: 0;">
+                    <i class="fa fa-calendar" style="margin-right: 0"></i>
+                  </button>
+                </span>
+              </p>
+            </div>
+            <div class="form-group col-md-6">
+              <p class="input-group" style="margin-bottom: 0">
+                <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="editDoc.until" is-open="open22" />
+                <span class="input-group-btn" style="padding: 0">
+                  <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open22 = !open22" style="padding: 6px 12px; margin-bottom: 0;">
+                    <i class="fa fa-calendar" style="margin-right: 0"></i>
+                  </button>
+                </span>
+              </p>
+            </div>
+            <div class="form-group">
+              <select class="form-control" ng-options="type.type as type.name for type in types" ng-model="editDoc.type">
+                <option value="">Select a Document Type</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Public
+                <input type="checkbox" ng-model="editDoc.isPublic">
+              </label>
+            </div>
+            <div class="alert alert-danger" ng-show="editDoc.error">
+              {{editDoc.error.message ? editDoc.error.message : editDoc.error}}
+            </div>
+            <button type="button" class="btn btn-default btn-raised pull-left" ng-click="editDoc = null">Cancel</button>
+            <button class="btn btn-raised btn-primary pull-right" type="submit">
+              <span ng-show="!editDoc.saving">Save</span>
+              <i class="fa fa-spinner fa-pulse" ng-show="editDoc.saving"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Manage Documents
+        </div>
+        <div class="panel-body">
+          <div class="list-group" ng-show="documents && documents.length">
+            <div class="list-group-item">
+              <div class="row">
+                <div class="col-sm-12">
+                  <select class="form-control form-group" ng-options="type.type as type.name for type in types" ng-model="typeFilter">
+                    <option value="">All Documents</option>
+                  </select>
+                  <div class="form-group right has-feedback">
+                    <input type="text" class="form-control" ng-model="search" placeholder="Type to search...">
+                    <span style="right: 15px" class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="list-group-item" ng-repeat="document in filteredDocuments() | filter:search">
+              <span ng-show="document.expired" class="text-warning">Expired </span>
+              <i ng-show="document.isPublic" title="This document is visible to the public" class="fa fa-users"></i> Name: {{document.name}}
+              <button class="btn btn-xs btn-raised btn-primary pull-right" ng-click="selectDoc(document)">
+                <i class="fa fa-pencil" style="margin-right: 0"></i>
+              </button>
+              <div class="clearfix"></div>
+              Visible: {{document.when | date:'M/d/yyyy'}} -
+              <span ng-show="document.until">{{document.until | date:'M/d/yyyy'}}</span>
+              <span ng-hide="document.until">forever</span>
+              <button class="btn btn-danger btn-xs btn-raised pull-right" ng-click="removeDoc(document)">
+                <i class="fa fa-times" style="margin-right: 0"></i>
+              </button>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="col-md-6 col-sm-12">
+      <div class="panel panel-default" ng-show="!editUser">
+        <div class="panel-heading">
+          Add New User
+        </div>
+        <div class="panel-body">
+          <form autocomplete="off" ng-submit="register()">
+            <fieldset>
+              <div class="form-group is-empty" style="margin-top: 0">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                  </span>
+                  <input type="text" id="register-firstName" ng-model="newUser.firstName" placeholder="First Name" class="form-control">
+                </div>
+              </div>
+              <div class="form-group is-empty">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                  </span>
+                  <input type="text" id="register-lastname" ng-model="newUser.lastName" placeholder="Last Name" class="form-control">
+                </div>
+              </div>
+              <div class="form-group is-empty">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-envelope"></i>
+                  </span>
+                  <input type="email" id="register-email" name="regEmail" ng-model="newUser.email" placeholder="Email" class="form-control">
+                </div>
+              </div>
+              <div class="form-group is-empty">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-hashtag"></i>
+                  </span>
+                  <input type="text" id="register-lotNumber" name="regLotNumber" ng-model="newUser.lotNumber" placeholder="Unit/Lot #" class="form-control">
+                </div>
+              </div>
+              <div class="form-group is-empty">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-lock"></i>
+                  </span>
+                  <input type="password" id="register-password" ng-model="newUser.pwd" placeholder="Password" class="form-control">
+                </div>
+              </div>
+              <div class="form-group is-empty">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-lock"></i>
+                  </span>
+                  <input type="password" id="register-password-confirm" ng-model="newUser.passwordConfirm" placeholder="Confirm Password" class="form-control">
+                </div>
+              </div>
+              <div class="alert alert-danger" ng-show="error">
+                {{error}}
+              </div>
+              <button class="btn btn-raised btn-block btn-primary" type="submit">Add User</button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default" ng-show="editUser">
+        <div class="panel-heading">
+          Edit User
+        </div>
+        <div class="panel-body">
+          <form autocomplete="off" ng-submit="updateUser()">
+            <fieldset>
+              <div class="form-group is-empty" style="margin-top: 0">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                  </span>
+                  <input type="text" ng-model="editUser.firstName" placeholder="First Name" class="form-control">
+                </div>
+              </div>
+              <div class="form-group is-empty">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                  </span>
+                  <input type="text" ng-model="editUser.lastName" placeholder="Last Name" class="form-control">
+                </div>
+              </div>
+              <div class="form-group is-empty">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-envelope"></i>
+                  </span>
+                  <input type="email" ng-model="editUser.email" placeholder="Email" class="form-control">
+                </div>
+              </div>
+              <div class="form-group is-empty">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-hashtag"></i>
+                  </span>
+                  <input type="text" ng-model="editUser.lotNumber" placeholder="Lot #" class="form-control">
+                </div>
+              </div>
+              <div class="form-group is-empty">
+                <input type="checkbox" class="checkbox-inline" ng-model="editUser.isAdmin" style="margin: 0 20px 0 0 ;"> Admin Account
+                <input type="checkbox" class="checkbox-inline" ng-model="editUser.isActive" style="margin: 0 20px;"> Approved Account
+              </div>
+              <div class="alert alert-danger" ng-show="editUser.error">
+                An error occurred.
+              </div>
+              <button type="button" class="btn btn-default btn-raised pull-left" ng-click="editUser = null">Cancel</button>
+              <button class="btn btn-raised btn-primary pull-right" type="submit">
+                <span ng-show="!editUser.saving">Save</span>
+                <i class="fa fa-spinner fa-pulse" ng-show="editUser.saving"></i>
+              </button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Manage Users
+          <small>({{users.length}})</small>
+        </div>
+        <div class="panel-body">
+          <div class="list-group">
+            <div class="list-group-item" ng-repeat="user in users track by $index">
+              <i class="fa fa-user" title="{{user.isActive ? 'Active': 'Inactive'}}" ng-class="{'text-success': user.isActive, 'text-grey': !user.isActive}"
+                style="font-size: 1.3em"></i> &nbsp;
+              <i class="fa fa-cog" title="Administrator" ng-show="user.isAdmin" style="font-size: 1.3em"></i> {{user.firstName}} {{user.lastName}}
+              <button class="btn btn-xs btn-raised btn-primary pull-right" ng-click="selectUser(user)">
+                <i class="fa fa-pencil" style="margin-right: 0"></i>
+              </button>
+              <div class="clearfix"></div>
+              {{user.email}}
+              <button class="btn btn-danger btn-xs btn-raised pull-right" ng-click="deleteUser(user)">
+                <i class="fa" ng-class="{'fa-times': !user.deleting, 'fa-spinner fa-pulse': user.deleting}" style="margin-right: 0"></i>
+              </button>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

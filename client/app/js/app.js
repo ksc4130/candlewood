@@ -40,6 +40,9 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
       resolve: {
         docs: ['documentSrv', function (documentSrv) {
           return documentSrv.getDocuments(true);
+        }],
+        notifications: ['notificationSrv', function (notificationSrv) {
+          return notificationSrv.getNotifications(true);
         }]
       }
     }).state('documents', {
@@ -55,7 +58,12 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
     }).state('home', {
       url: '/',
       templateUrl: '/app/views/_home.html',
-      controller: 'homeCtrl'
+      controller: 'homeCtrl',
+      resolve: {
+        notifications: ['notificationSrv', function (notificationSrv) {
+          return notificationSrv.getNotifications();
+        }]
+      }
     }).state('contact', {
       url: '/contact',
       templateUrl: '/app/views/_contact.html'
