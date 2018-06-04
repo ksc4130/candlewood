@@ -19,7 +19,7 @@
     <div class="card card-hero animated slideInUp animation-delay-8 mb-6">
       <div class="card-block">
         <div class="row">
-          <div ng-repeat="notification in notifications" class="col-md-12">
+          <div ng-repeat="notification in notifications | orderBy:'index'" class="col-md-12">
               <div class="alert alert-{{notification.type}}" role="alert">
                   <strong>{{notification.title}}</strong> {{notification.msg}}
                 </div>

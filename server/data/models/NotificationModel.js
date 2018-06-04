@@ -8,7 +8,8 @@ const schema = new mongoose.Schema({
   when: Date,
   untilStr: String,
   isPublic: Boolean,
-  created: Date
+  created: Date,
+  index: Number
 });
 
 schema.methods.isPub = function () {

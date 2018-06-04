@@ -6,10 +6,60 @@ module.exports = {
   getAll,
   remove,
   create,
+  update
 };
 
+function update(docs, cb) {
+  const updated = [];
+  let cnt = 0;
+  let errs = null;
+  function finished() {
+    cnt += 1;
+    if (cnt === docs.length) {
+      cb(errs, updated);
+    }
+  }
+  docs.forEach(doc => {
+    NotificationModel.findById(doc._id, (err, n) => {
+      /*
+      title: req.body.title,
+      msg: req.body.msg,
+      type: req.body.type,
+      when: req.body.when,
+      until: req.body.until || '',
+      isPublic: req.body.isPublic
+      */
+      if (err || !n) {
+        if (err) {
+          errs = errs || [];
+          errs.push(err);
+        }
+        finished();
+        return;
+      }
+      n.title = doc.title;
+      n.msg = doc.msg;
+      n.type = doc.type;
+      n.when = doc.when;
+      n.until = doc.until;
+      n.isPublic = doc.isPublic;
+      n.index = doc.index;
+      n.save((err, saved) => {
+        if (err) {
+          errs = errs || [];
+          errs.push(err);
+          finished();
+          return;
+        }
+        updated.push(saved);
+        finished();
+      });
+    });
+  });
+}
+
 function mapModelToObj(doc) {
-  if(!doc) return null;
+  if (!doc) return null;
 
   const n = util._extend({}, (doc || {})._doc);
   n.expired = doc.expired;

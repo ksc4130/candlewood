@@ -182,11 +182,43 @@
       }
     };
 
+    $scope.setIndex = function(notification, direction) {
+      var index = notification.index;
+
+      $scope.notifications.forEach(function(n) {
+        if(notification._id === n._id) {
+          return;
+        }
+
+        console.log('loop', n.title, n.index);
+        if(direction === 'up') {
+          if(n.index === index - 1 && n.index < $scope.notifications.length -1) {
+            n.index += 1
+          }
+        } else {
+          if(n.index === index + 1 && n.index > 0) {
+            n.index -= 1
+          }
+        }
+        console.log('loop-b', n.title, n.index);
+      });
+      notification.index = direction === 'up' ? index <= 0 ? 0 : index - 1 : index >= $scope.notifications.length -1 ? $scope.notifications.length -1 : index + 1;
+      console.log('working', notification.title, direction, index, notification.index);
+      console.log('updating', $scope.notifications);
+      notificationSrv.updateAllNotifications($scope.notifications).then(function(updated) {
+        console.log('notifications update resp', updated);
+        $scope.notifications = updated;
+      }).catch(function(err) {
+        console.log('notifications update error', err);
+      });
+    }
+
     //notification
     $scope.newNotification = {
       when: new Date(),
       until: null,
-      type: notificationSrv.types[0].type
+      type: notificationSrv.types[0].type,
+      index: $scope.notifications.length
     };
     $scope.notificationTypes = notificationSrv.types;
 

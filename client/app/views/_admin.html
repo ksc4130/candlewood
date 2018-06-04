@@ -72,9 +72,15 @@
         </div>
         <div class="panel-body">
           <div class="list-group" ng-show="notifications && notifications.length">
-            <div class="list-group-item" ng-repeat="notification in notifications">
+            <div class="list-group-item" ng-repeat="notification in notifications | orderBy:'index'">
               <span ng-show="notification.expired" class="text-warning">Expired </span>
               <i ng-show="notification.isPublic" title="This notification is visible to the public" class="fa fa-users"></i>
+              <button ng-disabled="$first" ng-click="setIndex(notification, 'up')" class="btn-default btn btn-xs">
+                <i style="margin:0;" class="fa fa-2x fa-bold fa-angle-up"></i>
+              </button>
+              <button ng-disabled="$last" ng-click="setIndex(notification, 'down')" class="btn btn-xs">
+                <i style="margin:0;" class="fa fa-2x fa-bold fa-angle-down"></i>
+              </button>
               <div class="clearfix"></div>
               Visible: {{notification.when | date:'M/d/yyyy'}} -
               <span ng-show="notification.until">{{notification.until | date:'M/d/yyyy'}}</span>
@@ -366,10 +372,16 @@
         <div class="panel-heading">
           Manage Users
           <small>({{users.length}})</small>
+          <div class="form-group is-empty">
+              <div class="form-group right has-feedback">
+                  <input type="search" class="form-control" ng-model="userSearch" placeholder="Type to search...">
+                  <span style="right: 15px" class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
         </div>
         <div class="panel-body">
           <div class="list-group">
-            <div class="list-group-item" ng-repeat="user in users track by $index">
+            <div class="list-group-item" ng-repeat="user in users | filter:userSearch track by $index">
               <i class="fa fa-user" title="{{user.isActive ? 'Active': 'Inactive'}}" ng-class="{'text-success': user.isActive, 'text-grey': !user.isActive}"
                 style="font-size: 1.3em"></i> &nbsp;
               <i class="fa fa-cog" title="Administrator" ng-show="user.isAdmin" style="font-size: 1.3em"></i> {{user.firstName}} {{user.lastName}}

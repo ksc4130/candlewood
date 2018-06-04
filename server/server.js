@@ -287,6 +287,14 @@ app.get('/admin/notification', isAdmin, (req, res) => {
     return res.json(found);
   });
 });
+app.put('/admin/notification/all', isAdmin, (req, res) => {
+  console.log('create notification', req.body);
+  notificationRepo.update(req.body, (errs, updated) => {
+    if (errs && errs.length) return res.status(500).json(err);
+
+    res.json(updated);
+  });
+});
 app.post('/admin/notification', isAdmin, (req, res) => {
   console.log('create notification', req.body);
   notificationRepo.create({
@@ -296,6 +304,7 @@ app.post('/admin/notification', isAdmin, (req, res) => {
     when: req.body.when,
     until: req.body.until || '',
     isPublic: req.body.isPublic || false,
+    index: req.body.index || 0
   }, (err, newNotification) => {
     if (err) return res.status(500).json(err);
 

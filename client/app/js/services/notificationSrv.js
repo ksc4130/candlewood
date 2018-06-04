@@ -21,6 +21,20 @@
       return df.promise;
     }
 
+    function updateAllNotifications(notifications) {
+      var df = $q.defer();
+      $http.put('/admin/notification/all', notifications).then(function (resp) {
+        if (resp.status === 200) {
+          df.resolve(resp.data);
+        } else {
+          df.reject(resp);
+        }
+      }, function (resp) {
+        df.reject(resp);
+      });
+      return df.promise;
+    }
+
     function createNotification(notification) {
       var df = $q.defer();
       $http.post('/admin/notification', notification).then(function (resp) {
@@ -50,6 +64,7 @@
     }
 
     return {
+      updateAllNotifications: updateAllNotifications,
       createNotification: createNotification,
       getNotifications: getNotifications,
       deleteNotification: deleteNotification,
