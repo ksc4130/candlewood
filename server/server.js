@@ -159,6 +159,11 @@ app.get('/doc/:id', (req, res) => {
       return res.json(err);
     }
 
+    if(!doc) {
+      res.status(404);
+      return res.json({ msg: 'unable to find requested document' });
+    }
+
     if (doc.expired) {
       res.status(400);
       return res.json({ msg: 'request document has expired' });
