@@ -221,6 +221,7 @@
       index: $scope.notifications.length
     };
     $scope.notificationTypes = notificationSrv.types;
+    console.log('notification types', $scope.notificationTypes);
 
     $scope.submitNotification = function(toSave) {
       notificationSrv.createNotification(toSave).then(function(created) {
