@@ -35,3 +35,5 @@ client/vendor
 
 server/uploads/*
 
+.env
+

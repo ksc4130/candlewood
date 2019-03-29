@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const isProd = process.env.NODE_ENV === 'production';
 
 const config = {
-  url: `mongodb://192.168.1.11/${isProd ? 'cwprod' : 'cwdev'}`
+  url: `mongodb://${process.env.DATABASE_HOST}/${isProd ? 'cwprod' : 'cwdev'}`
 };
 
 config.connect = () => {
@@ -11,4 +11,3 @@ config.connect = () => {
 };
 
 module.exports = config;
-
