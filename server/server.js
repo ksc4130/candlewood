@@ -305,7 +305,7 @@ app.get('/admin/notification', isAdmin, (req, res) => {
 app.put('/admin/notification/all', isAdmin, (req, res) => {
   console.log('create notification', req.body);
   notificationRepo.update(req.body, (errs, updated) => {
-    if (errs && errs.length) return res.status(500).json(err);
+    if (errs && errs.length) return res.status(500).json(errs);
 
     res.json(updated);
   });
