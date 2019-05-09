@@ -1,4 +1,6 @@
 /*jslint node: true */
+require('dotenv').config();
+
 const path = require('path');
 const uuidv1 = require('uuid/v1');
 const fileUpload = require('express-fileupload');
@@ -59,14 +61,16 @@ app.post('/account/login', (req, res) => {
     }
     let token = uuidv1();
 
-    const user = !data ? null : {
-      email: data.email,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      token,
-      isAdmin: data.isAdmin,
-      isActive: data.isActive//may not need this
-    };
+    const user = !data
+      ? null
+      : {
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        token,
+        isAdmin: data.isAdmin,
+        isActive: data.isActive //may not need this
+      };
 
     //TODO: expire
     userTokens.push(user);
@@ -110,7 +114,7 @@ app.put('/user', isAdmin, (req, res) => {
 
 app.delete('/user/:id', isAdmin, (req, res) => {
   console.log(req.params.id);
-  userRepo.remove(req.params.id, (err) => {
+  userRepo.remove(req.params.id, err => {
     if (err) {
       //TODO: handle
       res.status(500);
@@ -137,7 +141,7 @@ app.put('/doc', isAdmin, (req, res) => {
 
 //admin remove file
 app.delete('/doc/:id', isAdmin, (req, res) => {
-  docRepo.remove(req.params.id, (err) => {
+  docRepo.remove(req.params.id, err => {
     if (err) {
       //TODO: handle
       res.status(500);
@@ -147,7 +151,6 @@ app.delete('/doc/:id', isAdmin, (req, res) => {
     res.json();
   });
 });
-
 
 //get doc
 app.get('/doc/:id', (req, res) => {
@@ -159,7 +162,7 @@ app.get('/doc/:id', (req, res) => {
       return res.json(err);
     }
 
-    if(!doc) {
+    if (!doc) {
       res.status(404);
       return res.json({ msg: 'unable to find requested document' });
     }
@@ -187,9 +190,11 @@ app.get('/calendar', (req, res) => {
   docRepo.getAll((err, found) => {
     if (err) return res.status(500).json(err);
 
-    return res.json(found.filter(doc => {
-      return doc.type === 'monthly-calendar' && (!doc.until || !doc.expired);
-    })[0]);
+    return res.json(
+      found.filter(doc => {
+        return doc.type === 'monthly-calendar' && (!doc.until || !doc.expired);
+      })[0]
+    );
   });
 });
 
@@ -197,9 +202,11 @@ app.get('/calendar', (req, res) => {
   docRepo.getAll((err, found) => {
     if (err) return res.status(500).json(err);
 
-    return res.json(found.filter(doc => {
-      return doc.type === 'monthly-calendar' && (!doc.until || !doc.expired);
-    })[0]);
+    return res.json(
+      found.filter(doc => {
+        return doc.type === 'monthly-calendar' && (!doc.until || !doc.expired);
+      })[0]
+    );
   });
 });
 
@@ -208,13 +215,15 @@ app.get('/doc', (req, res) => {
   docRepo.getAll((err, found) => {
     if (err) return res.status(500).json(err);
 
-    return res.json(found.filter(doc => {
-      if (!somebody) {
-        return doc.isPub && (!doc.until || !doc.expired);
-      } else {
-        return !doc.until || !doc.expired;
-      }
-    }));
+    return res.json(
+      found.filter(doc => {
+        if (!somebody) {
+          return doc.isPub && (!doc.until || !doc.expired);
+        } else {
+          return !doc.until || !doc.expired;
+        }
+      })
+    );
   });
 });
 
@@ -227,38 +236,37 @@ app.get('/admin/doc', isAdmin, (req, res) => {
   });
 });
 
-
-
-app.post('/upload', isAuthenticated, function (req, res) {
-  if (!req.files)
-    return res.status(400).send('No files were uploaded.');
+app.post('/upload', isAuthenticated, function(req, res) {
+  if (!req.files) return res.status(400).send('No files were uploaded.');
 
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   const fname = `${uuidv1()}.${req.files.file.name.split('.').reverse()[0]}`;
 
-
   // Use the mv() method to place the file somewhere on your server
-  fs.writeFile(`${__dirname}/uploads/${fname}`, req.files.file.data, (err) => {
+  fs.writeFile(`${__dirname}/uploads/${fname}`, req.files.file.data, err => {
     if (err) return res.status(500).json(err);
-    docRepo.create({
-      name: req.body.name,
-      type: req.body.type,
-      src: fname,
-      when: req.body.when,
-      until: req.body.until || '',
-      isPublic: req.body.isPublic || false,
-    }, (err, newDoc) => {
-      if (err) return res.status(500).json(err);
+    docRepo.create(
+      {
+        name: req.body.name,
+        type: req.body.type,
+        src: fname,
+        when: req.body.when,
+        until: req.body.until || '',
+        isPublic: req.body.isPublic || false
+      },
+      (err, newDoc) => {
+        if (err) return res.status(500).json(err);
 
-      res.json(newDoc);
-    });
+        res.json(newDoc);
+      }
+    );
   });
 });
 //notifications
 
 //admin remove file
 app.delete('/notification/:id', isAdmin, (req, res) => {
-  notificationRepo.remove(req.params.id, (err) => {
+  notificationRepo.remove(req.params.id, err => {
     if (err) {
       //TODO: handle
       res.status(500);
@@ -274,13 +282,15 @@ app.get('/notification', (req, res) => {
   notificationRepo.getAll((err, found) => {
     if (err) return res.status(500).json(err);
 
-    return res.json(found.filter(doc => {
-      if (!somebody) {
-        return doc.isPub && (!doc.until || !doc.expired);
-      } else {
-        return !doc.until || !doc.expired;
-      }
-    }));
+    return res.json(
+      found.filter(doc => {
+        if (!somebody) {
+          return doc.isPub && (!doc.until || !doc.expired);
+        } else {
+          return !doc.until || !doc.expired;
+        }
+      })
+    );
   });
 });
 
@@ -302,19 +312,22 @@ app.put('/admin/notification/all', isAdmin, (req, res) => {
 });
 app.post('/admin/notification', isAdmin, (req, res) => {
   console.log('create notification', req.body);
-  notificationRepo.create({
-    title: req.body.title,
-    msg: req.body.msg,
-    type: req.body.type,
-    when: req.body.when,
-    until: req.body.until || '',
-    isPublic: req.body.isPublic || false,
-    index: req.body.index || 0
-  }, (err, newNotification) => {
-    if (err) return res.status(500).json(err);
+  notificationRepo.create(
+    {
+      title: req.body.title,
+      msg: req.body.msg,
+      type: req.body.type,
+      when: req.body.when,
+      until: req.body.until || '',
+      isPublic: req.body.isPublic || false,
+      index: req.body.index || 0
+    },
+    (err, newNotification) => {
+      if (err) return res.status(500).json(err);
 
-    res.json(newNotification);
-  });
+      res.json(newNotification);
+    }
+  );
 });
 //end notifications
 
@@ -348,7 +361,7 @@ function isAdmin(req, res, next) {
 }
 
 function getCurrentUser(req) {
-  const token = req.cookies.t;// req.headers['x-session-token'];
+  const token = req.cookies.t; // req.headers['x-session-token'];
   return !token ? null : userTokens.filter(x => x.token === token)[0];
 }
 
@@ -357,17 +370,18 @@ setTimeout(() => {
   if (process.env.NODE_ENV !== 'production') {
     userRepo.login('test@test.com', 'Test123!', (err, user) => {
       if (err || !user) {
-        userRepo.register({
-          email: 'test@test.com',
-          firstName: 'test',
-          lastName: 'testlast',
-          pwd: 'Test123!',
-          isAdmin: true,
-          isActive: true
-        }, (e, u) => console.log(e, u));
+        userRepo.register(
+          {
+            email: 'test@test.com',
+            firstName: 'test',
+            lastName: 'testlast',
+            pwd: 'Test123!',
+            isAdmin: true,
+            isActive: true
+          },
+          (e, u) => console.log(e, u)
+        );
       }
     });
   }
 }, 1000);
-
-
