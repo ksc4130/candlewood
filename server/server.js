@@ -1,4 +1,6 @@
 /*jslint node: true */
+require('dotenv').config();
+
 const path = require('path');
 const uuidv1 = require('uuid/v1');
 const fileUpload = require('express-fileupload');
@@ -172,13 +174,13 @@ app.post('/account/login', (req, res) => {
     const user = !data
       ? null
       : {
-          email: data.email,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          token,
-          isAdmin: data.isAdmin,
-          isActive: data.isActive //may not need this
-        };
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        token,
+        isAdmin: data.isAdmin,
+        isActive: data.isActive //may not need this
+      };
 
     //TODO: expire
     userTokens.push(user);
@@ -413,7 +415,7 @@ app.get('/admin/notification', isAdmin, (req, res) => {
 app.put('/admin/notification/all', isAdmin, (req, res) => {
   console.log('create notification', req.body);
   notificationRepo.update(req.body, (errs, updated) => {
-    if (errs && errs.length) return res.status(500).json(err);
+    if (errs && errs.length) return res.status(500).json(errs);
 
     res.json(updated);
   });
