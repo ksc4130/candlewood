@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+    <div class="panel panel-default" ng-show="!editUser">
+      <div class="panel-heading">
+        Make a Payment
+      </div>
+      <div class="panel-body">
+        <form autocomplete="off" ng-submit="submit()">
+          <fieldset>
+            <div class="form-group is-empty" style="margin-top: 0">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-home"></i>
+                </span>
+                <input
+                  type="text"
+                  id="lotNumber"
+                  ng-model="cardTransReq.lotNumber"
+                  placeholder="Lot #"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="form-group is-empty" style="margin-top: 0">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-credit-card"></i>
+                </span>
+                <input
+                  type="text"
+                  id="ssl_card_number"
+                  ng-model="cardTransReq.ssl_card_number"
+                  placeholder="Card #"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="form-group is-empty">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </span>
+                <input
+                  type="text"
+                  id="ssl_exp_date"
+                  ng-model="cardTransReq.ssl_exp_date"
+                  placeholder="Expiration Date MMYY"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="form-group is-empty">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-money"></i>
+                </span>
+                <input
+                  type="number"
+                  id="ssl_amount"
+                  name="ssl_amount"
+                  ng-model="cardTransReq.ssl_amount"
+                  placeholder="Amount"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="form-group is-empty">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-lock"></i>
+                </span>
+                <input
+                  type="text"
+                  id="ssl_cvv2cvc2"
+                  name="ssl_cvv2cvc2"
+                  ng-model="cardTransReq.ssl_cvv2cvc2"
+                  placeholder="CVV"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="alert alert-danger" ng-show="error">
+              {{ error }}
+            </div>
+            <button class="btn btn-raised btn-block btn-primary" type="submit">
+              Submit Payment
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,8 +15,15 @@ const mongoose = require('mongoose');
 
 const userRepo = require('./data/userRepo');
 const docRepo = require('./data/docRepo');
+const paymentRepo = require('./data/paymentRepo');
+const PaymentModel = require('./data/models/PaymentModel');
 const notificationRepo = require('./data/notificationRepo');
 const dbConfig = require('./data/dbconfig');
+
+const request = require('request');
+const convert = require('xml-js');
+
+const CardTransReq = require('.//data/models/CardTransReq');
 
 dbConfig.connect();
 
@@ -35,6 +42,109 @@ app.use(cookieParser());
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
+
+app.post('/payment', isAuthenticated, (req, res) => {
+  //  https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do
+
+  // extend data
+  console.log(req.body);
+  const token = req.cookies.t;
+  const somebody = userTokens.filter(x => token && x.token === token)[0];
+  console.log('sombody', somebody);
+  let payment = {
+    user_id: somebody._id,
+    createdAt: new Date(),
+    amount: req.body.ssl_amount,
+    status: 'Pending',
+    message: null,
+    for: null,
+    lotNumber: req.body.lotNumber
+  };
+
+  const transReq = { txn: Object.assign({}, CardTransReq, req.body) };
+  var payload = convert.js2xml(transReq, {
+    compact: true,
+    ignoreAttributes: true
+  });
+
+  console.log('payload', payload);
+
+  paymentRepo.create(payment, (err, pm) => {
+    if (err) {
+      return res.json({ err, payment: pm });
+    }
+
+    payment._id = pm._id;
+
+    request.post(
+      {
+        url: `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do?xmldata=${payload}`
+      },
+      function optionalCallback(err, httpResponse, body) {
+        if (err) {
+          console.error('payment req failed:', err);
+          return res.json({ err });
+        }
+
+        var result = convert.xml2js(body, {
+          compact: true,
+          ignoreAttributes: true
+        });
+
+        if (result.txn.errorCode) {
+          payment.message = result.txn.errorMessage._text;
+          payment.status = 'Failed';
+        } else {
+          payment.message = result.txn.ssl_result_message._text;
+          payment.refId = result.txn.ssl_txn_id._text;
+          payment.status = result.txn.ssl_result_message._text;
+          payment.refCard = result.txn.ssl_card_number._text;
+          payment.refApprovalCode = result.txn.ssl_approval_code._text;
+        }
+
+        payment.refData = body;
+
+        console.log('***resp', err, body, result, payment);
+
+        PaymentModel.update({ _id: payment._id }, payment, (err, saved) => {
+          res.json({ err, payment: saved });
+        });
+      }
+    );
+  });
+
+  /*
+<txn>
+  <ssl_issue_points/>
+  <ssl_card_number>41**********9990</ssl_card_number>
+  <ssl_departure_date/>
+  <ssl_result>0</ssl_result>
+  <ssl_txn_id>00000000-0000-0000-0000-00000000000</ssl_txn_id>
+  <ssl_loyalty_program/>
+  <ssl_avs_response>X</ssl_avs_response>
+  <ssl_approval_code>123456</ssl_approval_code>
+  <ssl_account_status/>
+  <ssl_amount>1.00</ssl_amount>
+  <ssl_txn_time>02/25/2019 09:21:16 AM</ssl_txn_time>
+  <ssl_promo_code/>
+  <ssl_exp_date>1220</ssl_exp_date>
+  <ssl_card_short_description>VISA</ssl_card_short_description>
+  <ssl_completion_date/>
+  <ssl_card_type>CREDITCARD</ssl_card_type>
+  <ssl_access_code/>
+  <ssl_transaction_type>SALE</ssl_transaction_type>
+  <ssl_loyalty_account_balance/>
+  <ssl_salestax/>
+  <ssl_enrollment/>
+  <ssl_account_balance>0.00</ssl_account_balance>
+  <ssl_ps2000_data/>
+  <ssl_result_message>APPROVED</ssl_result_message>
+  <ssl_invoice_number/>
+  <ssl_cvv2_response>P</ssl_cvv2_response>
+  <ssl_tender_amount/>
+</txn>
+  */
+});
 
 app.post('/account/user', (req, res) => {
   console.log('register route', req.body.user);
