@@ -23,7 +23,7 @@ const dbConfig = require('./data/dbconfig');
 const request = require('request');
 const convert = require('xml-js');
 
-const CardTransReq = require('.//data/models/CardTransReq');
+const CardTransReq = require('./data/models/CardTransReq');
 
 dbConfig.connect();
 
@@ -44,7 +44,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 app.post('/payment', isAuthenticated, (req, res) => {
-  //  https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do
+  // https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do
 
   // extend data
   console.log(req.body);

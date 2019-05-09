@@ -50,13 +50,13 @@ function config(
       resolve: {
         hideTypeNav: function() {
           return false;
-        },
-        docs: [
-          'documentSrv',
-          function(documentSrv) {
-            return documentSrv.getDocuments();
-          }
-        ]
+        }
+        // docs: [
+        //   'documentSrv',
+        //   function(documentSrv) {
+        //     return documentSrv.getDocuments();
+        //   }
+        // ]
       }
     })
     // .state('memberDocuments', {
