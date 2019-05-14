@@ -1,8 +1,8 @@
 module.exports = {
   ssl_transaction_type: 'ccsale',
-  ssl_merchant_id: '007572',
-  ssl_user_id: 'webpage',
-  ssl_pin: 'EZF3RH',
+  ssl_merchant_id: process.env.ACCOUNT_ID,
+  ssl_user_id: process.env.USER_ID,
+  ssl_pin: process.env.PASSWORD,
   ssl_card_number: '4124939999999990',
   ssl_exp_date: '1220',
   ssl_amount: 1.0,
