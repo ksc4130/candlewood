@@ -79,7 +79,9 @@ app.post('/payment', isAuthenticated, (req, res) => {
 
     request.post(
       {
-        url: `https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do?xmldata=${payload}`
+        // demo: https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do
+        // prod: https://api.convergepay.com/VirtualMerchant/processxml.do
+        url: `${process.env.URL}?xmldata=${payload}`
       },
       function optionalCallback(err, httpResponse, body) {
         if (err) {
