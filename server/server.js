@@ -67,6 +67,7 @@ app.post('/payment', isAuthenticated, (req, res) => {
     ignoreAttributes: true
   });
 
+  console.log('cardTransReq values', CardTransReq);
   console.log('payload', payload);
 
   paymentRepo.create(payment, (err, pm) => {
