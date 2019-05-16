@@ -4,6 +4,7 @@ module.exports = {
   ssl_user_id: process.env.USER_ID,
   ssl_pin: process.env.PASSWORD,
   ssl_first_name: 'Kyle',
+  ssl_last_name: 'Curren',
   ssl_card_number: '4124939999999990',
   ssl_exp_date: '1220',
   ssl_amount: 1.0,
