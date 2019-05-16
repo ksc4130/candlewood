@@ -110,7 +110,7 @@ app.post('/payment', isAuthenticated, (req, res) => {
         console.log('***resp', err, body, result, payment);
 
         PaymentModel.update({ _id: payment._id }, payment, (err, saved) => {
-          res.json({ err, payment: saved });
+          res.json({ err, payment });
         });
       }
     );
