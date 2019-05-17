@@ -61,7 +61,9 @@ app.post('/payment', isAuthenticated, (req, res) => {
     message: null,
     for: req.body.for,
     notes: req.body.notes,
-    lotNumber: req.body.lotNumber
+    lotNumber: req.body.lotNumber,
+    address: req.body.ssl_avs_address,
+    zip: req.body.ssl_avs_zip
   };
 
   const transReq = { txn: Object.assign({}, CardTransReq, req.body) };
@@ -204,14 +206,14 @@ app.post('/account/login', (req, res) => {
     const user = !data
       ? null
       : {
-          _id: data._id,
-          email: data.email,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          token,
-          isAdmin: data.isAdmin,
-          isActive: data.isActive //may not need this
-        };
+        _id: data._id,
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        token,
+        isAdmin: data.isAdmin,
+        isActive: data.isActive //may not need this
+      };
 
     //TODO: expire
     userTokens.push(user);

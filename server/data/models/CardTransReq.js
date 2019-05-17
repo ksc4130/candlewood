@@ -5,6 +5,8 @@ module.exports = {
   ssl_pin: process.env.PASSWORD,
   ssl_first_name: '',
   ssl_last_name: '',
+  ssl_avs_address: '',
+  ssl_avs_zip: '',
   ssl_card_number: '',
   ssl_exp_date: '',
   ssl_amount: 0,
