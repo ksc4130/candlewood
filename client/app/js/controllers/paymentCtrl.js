@@ -11,6 +11,10 @@
     'hideTypeNav'
   ];
   function paymentCtrl($scope, $http, $q, authSrv, $location, hideTypeNav) {
+    if (!authSrv.user()) {
+      $location.path('/login');
+    }
+
     $scope.hideTypeNav = hideTypeNav;
 
     $scope.loading = false;
