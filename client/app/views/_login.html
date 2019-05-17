@@ -5,7 +5,7 @@
             <h1 ng-show="tab === 2" class="text-center">Register</h1>
             <h1 ng-show="tab === 3" class="text-center">Recover Password</h1>
             <div ng-show="tab === 1">
-                <form autocomplete="off" ng-submit="login()">
+                <form ng-submit="login()">
                     <fieldset>
                         <div class="form-group label-floating is-empty">
                             <div class="input-group">
@@ -20,7 +20,7 @@
                                <span class="input-group-addon">
                                   <i class="fa fa-lock"></i>
                                </span>
-                                <input type="password" id="login-password" ng-model="user.pwd" placeholder="Password" class="form-control">
+                                <input autocomplete="off"  type="password" id="login-password" ng-model="user.pwd" placeholder="Password" class="form-control">
                             </div>
                         </div>
                         <div class="alert alert-danger" ng-show="error">
