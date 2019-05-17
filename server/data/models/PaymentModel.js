@@ -42,7 +42,7 @@ module.exports = mongoose.model('Payment', {
   status: String,
   message: String,
   for: String,
-  note: String,
+  notes: String,
   refId: String,
   refData: String,
   refCard: String,
