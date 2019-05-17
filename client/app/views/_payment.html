@@ -55,7 +55,7 @@
                       <i class="fa fa-folder"></i>
                     </span>
                     <select
-                      ng-options="opt in forOptions track by $index"
+                      ng-options="opt as opt for opt in forOptions track by $index"
                       ng-model="cardTransReq.for"
                     ></select>
                   </div>
