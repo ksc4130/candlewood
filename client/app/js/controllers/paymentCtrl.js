@@ -13,7 +13,7 @@
   function paymentCtrl($scope, $http, $q, authSrv, $location, hideTypeNav) {
     $scope.hideTypeNav = hideTypeNav;
 
-    $scope.loading = false;
+    $scope.loading = true;
     $scope.success = false;
     $scope.message = '';
     $scope.failed = false;
@@ -53,14 +53,18 @@
             } else {
               $scope.failed = true;
               $scope.error =
-                'We were unable complete your payment. Your transaction ID is ' +
+                (resp.data.payment.message ||
+                  'We were unable complete your payment.') +
+                ' Your transaction ID is ' +
                 resp.data.payment._id;
             }
             df.resolve(resp.data);
           } else {
             $scope.failed = true;
             $scope.error =
-              'We were unable complete your payment. Your transaction ID is ' +
+              (resp.data.payment.message ||
+                'We were unable complete your payment.') +
+              ' Your transaction ID is ' +
               resp.data.payment._id;
             df.reject(resp);
           }
@@ -70,7 +74,9 @@
           $scope.loading = false;
           $scope.failed = true;
           $scope.error =
-            'We were unable complete your payment. Your transaction ID is ' +
+            (resp.data.payment.message ||
+              'We were unable complete your payment.') +
+            ' Your transaction ID is ' +
             resp.data.payment._id;
           console.log('payment error', resp);
           df.reject(resp);
