@@ -54,7 +54,7 @@
               $scope.message =
                 'Your payment has been processed. Your transaction ID is ' +
                 resp.data.payment._id +
-                ' ' +
+                ' and approval code is ' +
                 resp.data.payment.refApprovalCode;
             } else {
               $scope.failed = true;
@@ -63,7 +63,7 @@
                   'We were unable complete your payment.') +
                 ' Your transaction ID is ' +
                 resp.data.payment._id +
-                ' ' +
+                ' and approval code is ' +
                 resp.data.payment.refApprovalCode;
             }
             df.resolve(resp.data);
@@ -74,7 +74,7 @@
                 'We were unable complete your payment.') +
               ' Your transaction ID is ' +
               resp.data.payment._id +
-              ' ' +
+              ' and approval code is ' +
               resp.data.payment.refApprovalCode;
             df.reject(resp);
           }
@@ -88,7 +88,7 @@
               'We were unable complete your payment.') +
             ' Your transaction ID is ' +
             resp.data.payment._id +
-            ' ' +
+            ' and approval code is ' +
             resp.data.payment.refApprovalCode;
           console.log('payment error', resp);
           df.reject(resp);
