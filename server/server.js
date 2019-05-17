@@ -50,6 +50,9 @@ app.post('/payment', isAuthenticated, (req, res) => {
   console.log(req.body);
   const somebody = getCurrentUser(req);
   console.log('sombody', somebody);
+  if (!somebody) {
+    return res.json('unauthorized');
+  }
   let payment = {
     user_id: somebody._id,
     createdAt: new Date(),
@@ -71,7 +74,10 @@ app.post('/payment', isAuthenticated, (req, res) => {
 
   paymentRepo.create(payment, (err, pm) => {
     if (err) {
-      return res.json({ err, payment: { _id: pm._id, message: pm.message } });
+      return res.json({
+        err,
+        payment: { _id: pm._id, status: pm.status, message: pm.message }
+      });
     }
 
     payment._id = pm._id;
@@ -87,7 +93,11 @@ app.post('/payment', isAuthenticated, (req, res) => {
           console.error('payment req failed:', err);
           return res.json({
             err,
-            payment: { _id: pm._id, message: pm.message }
+            payment: {
+              _id: payment._id,
+              status: payment.status,
+              message: payment.message
+            }
           });
         }
 
@@ -112,7 +122,14 @@ app.post('/payment', isAuthenticated, (req, res) => {
         console.log('***resp', err, body, result, payment);
 
         PaymentModel.update({ _id: payment._id }, payment, (err, saved) => {
-          res.json({ err, payment: { _id: pm._id, message: pm.message } });
+          res.json({
+            err,
+            payment: {
+              _id: payment._id,
+              status: payment.status,
+              message: payment.message
+            }
+          });
         });
       }
     );
@@ -179,6 +196,7 @@ app.post('/account/login', (req, res) => {
     const user = !data
       ? null
       : {
+        _id: data._id,
         email: data.email,
         firstName: data.firstName,
         lastName: data.lastName,
