@@ -62,7 +62,10 @@
         function(resp) {
           console.log('payment', resp);
           if (resp.status === 200) {
-            if (resp.data.payment.status === 'APPROVED') {
+            if (
+              resp.data.payment.status === 'APPROVED' ||
+              resp.data.payment.status === 'APPROVAL'
+            ) {
               $scope.success = true;
               $scope.message =
                 'Your payment has been processed. Your transaction ID is ' +
