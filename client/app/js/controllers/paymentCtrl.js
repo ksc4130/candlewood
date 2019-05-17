@@ -24,6 +24,15 @@
     $scope.error = '';
     $scope.ref = '';
 
+    $scope.forOptions = [
+      'Assessment',
+      'Excess Water',
+      'Violation',
+      'Fitness Membership',
+      'Boat Dock Rental',
+      'Other'
+    ];
+
     $scope.cardTransReq = {
       ssl_first_name: '',
       ssl_last_name: '',
@@ -31,7 +40,9 @@
       ssl_exp_date: '',
       ssl_amount: null,
       ssl_cvv2cvc2: null,
-      lotNumber: ''
+      lotNumber: '',
+      for: $scope.forOptions[0],
+      notes: ''
     };
 
     console.log('first:', $scope.cardTransReq.ssl_first_name);

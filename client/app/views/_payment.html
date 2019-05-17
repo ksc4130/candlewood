@@ -8,9 +8,9 @@
         <form ng-submit="submit()">
           <fieldset>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group is-empty" style="margin-top: 0">
-                  <label>Lot Number</label>
+                  <label>Unit/Lot Number</label>
                   <div class="input-group">
                     <span class="input-group-addon">
                       <i class="fa fa-home"></i>
@@ -20,14 +20,14 @@
                       type="text"
                       id="lotNumber"
                       ng-model="cardTransReq.lotNumber"
-                      placeholder="Lot #"
+                      placeholder="Unit/Lot #"
                       class="form-control"
                     />
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group is-empty" style="margin-top: 0">
                   <label>Amount</label>
                   <div class="input-group">
@@ -41,6 +41,43 @@
                       name="ssl_amount"
                       ng-model="cardTransReq.ssl_amount"
                       placeholder="Amount"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group is-empty" style="margin-top: 0">
+                  <label>What are you paying for?</label>
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-folder"></i>
+                    </span>
+                    <select
+                      ng-options="opt in forOptions track by $index"
+                      ng-model="cardTransReq.for"
+                    ></select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group is-empty" style="margin-top: 0">
+                  <label>Additional notes, references, or description.</label>
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="fa fa-file-text"></i>
+                    </span>
+                    <input
+                      required
+                      type="text"
+                      id="notes"
+                      name="notes"
+                      ng-model="cardTransReq.notes"
+                      placeholder="Additional notes, references, or description."
                       class="form-control"
                     />
                   </div>

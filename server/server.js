@@ -59,7 +59,8 @@ app.post('/payment', isAuthenticated, (req, res) => {
     amount: req.body.ssl_amount,
     status: 'Pending',
     message: null,
-    for: null,
+    for: req.body.for,
+    notes: req.body.notes,
     lotNumber: req.body.lotNumber
   };
 
@@ -203,14 +204,14 @@ app.post('/account/login', (req, res) => {
     const user = !data
       ? null
       : {
-        _id: data._id,
-        email: data.email,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        token,
-        isAdmin: data.isAdmin,
-        isActive: data.isActive //may not need this
-      };
+          _id: data._id,
+          email: data.email,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          token,
+          isAdmin: data.isAdmin,
+          isActive: data.isActive //may not need this
+        };
 
     //TODO: expire
     userTokens.push(user);
