@@ -41,7 +41,7 @@
       ssl_amount: null,
       ssl_cvv2cvc2: null,
       lotNumber: '',
-      for: $scope.forOptions[0],
+      for: '',
       notes: ''
     };
 
