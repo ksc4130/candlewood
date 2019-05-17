@@ -13,7 +13,7 @@
   function paymentCtrl($scope, $http, $q, authSrv, $location, hideTypeNav) {
     $scope.hideTypeNav = hideTypeNav;
 
-    $scope.loading = true;
+    $scope.loading = false;
     $scope.success = false;
     $scope.message = '';
     $scope.failed = false;
@@ -21,13 +21,13 @@
     $scope.ref = '';
 
     $scope.cardTransReq = {
-      ssl_first_name: 'Kyle',
-      ssl_last_name: 'Curren',
-      ssl_card_number: '4124939999999990',
-      ssl_exp_date: '1220',
-      ssl_amount: 1.0,
-      ssl_cvv2cvc2: 123,
-      lotNumber: 'a-15'
+      ssl_first_name: '',
+      ssl_last_name: '',
+      ssl_card_number: '',
+      ssl_exp_date: '',
+      ssl_amount: null,
+      ssl_cvv2cvc2: null,
+      lotNumber: ''
     };
 
     console.log('first:', $scope.cardTransReq.ssl_first_name);

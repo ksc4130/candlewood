@@ -23,6 +23,24 @@
                 />
               </div>
             </div>
+            <div class="form-group is-empty">
+              <label>Amount</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-money"></i>
+                </span>
+                <input
+                  required
+                  type="number"
+                  id="ssl_amount"
+                  name="ssl_amount"
+                  ng-model="cardTransReq.ssl_amount"
+                  placeholder="Amount"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <legend>Card Information</legend>
             <div class="form-group is-empty" style="margin-top: 0">
               <label>First Name</label>
               <div class="input-group">
@@ -64,7 +82,7 @@
                 <input
                   required
                   autocomplete="off"
-                  type="text"
+                  type="number"
                   id="ssl_card_number"
                   ng-model="cardTransReq.ssl_card_number"
                   placeholder="Card #"
@@ -81,7 +99,9 @@
                 <input
                   required
                   autocomplete="off"
-                  type="text"
+                  type="number"
+                  minlength="4"
+                  maxlength="4"
                   id="ssl_exp_date"
                   ng-model="cardTransReq.ssl_exp_date"
                   placeholder="Expiration Date MMYY"
@@ -98,28 +118,13 @@
                 <input
                   required
                   autocomplete="off"
-                  type="text"
+                  type="number"
+                  minlength="3"
+                  maxlength="3"
                   id="ssl_cvv2cvc2"
                   name="ssl_cvv2cvc2"
                   ng-model="cardTransReq.ssl_cvv2cvc2"
                   placeholder="CVV"
-                  class="form-control"
-                />
-              </div>
-            </div>
-            <div class="form-group is-empty">
-              <label>Amount</label>
-              <div class="input-group">
-                <span class="input-group-addon">
-                  <i class="fa fa-money"></i>
-                </span>
-                <input
-                  required
-                  type="number"
-                  id="ssl_amount"
-                  name="ssl_amount"
-                  ng-model="cardTransReq.ssl_amount"
-                  placeholder="Amount"
                   class="form-control"
                 />
               </div>

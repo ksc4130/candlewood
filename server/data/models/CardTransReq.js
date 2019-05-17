@@ -24,4 +24,12 @@ module.exports = {
     <ssl_amount>1.00</ssl_amount>
     <ssl_cvv2cvc2>123</ssl_cvv2cvc2>
 </txn>
+
+ssl_first_name: 'Kyle',
+      ssl_last_name: 'Curren',
+      ssl_card_number: '4124939999999990',
+      ssl_exp_date: '1220',
+      ssl_amount: 1.0,
+      ssl_cvv2cvc2: 123,
+      lotNumber: 'a-15'
 */
