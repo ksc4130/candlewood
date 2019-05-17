@@ -38,6 +38,8 @@
       ssl_last_name: '',
       ssl_card_number: '',
       ssl_exp_date: '',
+      ssl_avs_address: '',
+      ssl_avs_zip: '',
       ssl_amount: null,
       ssl_cvv2cvc2: null,
       lotNumber: '',
