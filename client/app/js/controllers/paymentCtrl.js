@@ -27,6 +27,9 @@
         function(resp) {
           console.log('payment', resp);
           if (resp.status === 200) {
+            if (resp.data.payment.status === 'APPROVED') {
+            } else {
+            }
             df.resolve(resp.data);
           } else {
             df.reject(resp);
