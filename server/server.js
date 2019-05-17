@@ -76,7 +76,12 @@ app.post('/payment', isAuthenticated, (req, res) => {
     if (err) {
       return res.json({
         err,
-        payment: { _id: pm._id, status: pm.status, message: pm.message }
+        payment: {
+          _id: pm._id,
+          status: pm.status,
+          message: pm.message,
+          refApprovalCode: pm.refApprovalCode
+        }
       });
     }
 
@@ -96,7 +101,8 @@ app.post('/payment', isAuthenticated, (req, res) => {
             payment: {
               _id: payment._id,
               status: payment.status,
-              message: payment.message
+              message: payment.message,
+              refApprovalCode: payment.refApprovalCode
             }
           });
         }
@@ -127,7 +133,8 @@ app.post('/payment', isAuthenticated, (req, res) => {
             payment: {
               _id: payment._id,
               status: payment.status,
-              message: payment.message
+              message: payment.message,
+              refApprovalCode: payment.refApprovalCode
             }
           });
         });

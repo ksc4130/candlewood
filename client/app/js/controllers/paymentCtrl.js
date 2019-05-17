@@ -53,14 +53,18 @@
               $scope.success = true;
               $scope.message =
                 'Your payment has been processed. Your transaction ID is ' +
-                resp.data.payment._id;
+                resp.data.payment._id +
+                ' ' +
+                resp.data.payment.refApprovalCode;
             } else {
               $scope.failed = true;
               $scope.error =
                 (resp.data.payment.message ||
                   'We were unable complete your payment.') +
                 ' Your transaction ID is ' +
-                resp.data.payment._id;
+                resp.data.payment._id +
+                ' ' +
+                resp.data.payment.refApprovalCode;
             }
             df.resolve(resp.data);
           } else {
@@ -69,7 +73,9 @@
               (resp.data.payment.message ||
                 'We were unable complete your payment.') +
               ' Your transaction ID is ' +
-              resp.data.payment._id;
+              resp.data.payment._id +
+              ' ' +
+              resp.data.payment.refApprovalCode;
             df.reject(resp);
           }
           $scope.loading = false;
@@ -81,7 +87,9 @@
             (resp.data.payment.message ||
               'We were unable complete your payment.') +
             ' Your transaction ID is ' +
-            resp.data.payment._id;
+            resp.data.payment._id +
+            ' ' +
+            resp.data.payment.refApprovalCode;
           console.log('payment error', resp);
           df.reject(resp);
         }
