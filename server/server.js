@@ -48,8 +48,7 @@ app.post('/payment', isAuthenticated, (req, res) => {
 
   // extend data
   console.log(req.body);
-  const token = req.cookies.t;
-  const somebody = userTokens.filter(x => token && x.token === token)[0];
+  const somebody = getCurrentUser(req);
   console.log('sombody', somebody);
   let payment = {
     user_id: somebody._id,
@@ -72,7 +71,7 @@ app.post('/payment', isAuthenticated, (req, res) => {
 
   paymentRepo.create(payment, (err, pm) => {
     if (err) {
-      return res.json({ err, payment: pm });
+      return res.json({ err, payment: { _id: pm._id, message: pm.message } });
     }
 
     payment._id = pm._id;
@@ -86,7 +85,10 @@ app.post('/payment', isAuthenticated, (req, res) => {
       function optionalCallback(err, httpResponse, body) {
         if (err) {
           console.error('payment req failed:', err);
-          return res.json({ err });
+          return res.json({
+            err,
+            payment: { _id: pm._id, message: pm.message }
+          });
         }
 
         var result = convert.xml2js(body, {
@@ -110,7 +112,7 @@ app.post('/payment', isAuthenticated, (req, res) => {
         console.log('***resp', err, body, result, payment);
 
         PaymentModel.update({ _id: payment._id }, payment, (err, saved) => {
-          res.json({ err, payment });
+          res.json({ err, payment: { _id: pm._id, message: pm.message } });
         });
       }
     );
