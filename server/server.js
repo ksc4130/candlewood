@@ -80,7 +80,7 @@ app.post('/payment', isAuthenticated, (req, res) => {
           _id: pm._id,
           status: pm.status,
           message: pm.message,
-          refApprovalCode: pm.refApprovalCode
+          refApprovalCode: pm.refApprovalCode || ''
         }
       });
     }
@@ -102,7 +102,7 @@ app.post('/payment', isAuthenticated, (req, res) => {
               _id: payment._id,
               status: payment.status,
               message: payment.message,
-              refApprovalCode: payment.refApprovalCode
+              refApprovalCode: payment.refApprovalCode || ''
             }
           });
         }
@@ -134,7 +134,7 @@ app.post('/payment', isAuthenticated, (req, res) => {
               _id: payment._id,
               status: payment.status,
               message: payment.message,
-              refApprovalCode: payment.refApprovalCode
+              refApprovalCode: payment.refApprovalCode || ''
             }
           });
         });
