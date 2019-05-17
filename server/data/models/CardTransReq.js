@@ -3,13 +3,13 @@ module.exports = {
   ssl_merchant_id: process.env.ACCOUNT_ID,
   ssl_user_id: process.env.USER_ID,
   ssl_pin: process.env.PASSWORD,
-  ssl_first_name: 'Kyle',
-  ssl_last_name: 'Curren',
-  ssl_card_number: '4124939999999990',
-  ssl_exp_date: '1220',
-  ssl_amount: 1.0,
-  ssl_test_mode: true,
-  ssl_cvv2cvc2: 123
+  ssl_first_name: '',
+  ssl_last_name: '',
+  ssl_card_number: '',
+  ssl_exp_date: '',
+  ssl_amount: 0,
+  ssl_test_mode: process.env.URL.toLowerCase().indexOf('api.demo') > -1,
+  ssl_cvv2cvc2: 0
 };
 
 /*
