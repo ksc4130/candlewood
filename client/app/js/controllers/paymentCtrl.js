@@ -30,6 +30,9 @@
       lotNumber: 'a-15'
     };
 
+    console.log('first:', $scope.cardTransReq.ssl_first_name);
+    console.log('last:', $scope.cardTransReq.ssl_last_name);
+
     $scope.submit = function() {
       $scope.loading = true;
       $scope.success = false;
