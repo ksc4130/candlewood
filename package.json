@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch-client": "cd client/app/js && nodemon compress.js",
+    "build-client": "cd client/app/js && node compress.js",
     "watch-server": "nodemon server/server.js",
     "dev": "run-p watch-client watch-server",
     "start": "cd client/app/js && node compress.js && cd ../../../ && node ./server/server.js",
