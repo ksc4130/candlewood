@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr ng-repeat="payment in payments">
             <td>
               Name: {{ payment.user.firstName }} {{ payment.user.lastName }}
               <br />

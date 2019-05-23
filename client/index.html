@@ -242,17 +242,29 @@
                   <li ng-show="user">
                     <a href="/payment">Make a Payment</a>
                   </li>
-                  <li ng-show="user && user.isAdmin && state.current.name !== 'admin'" class="dropdown">
-                    <a href="" class="dropdown-toggle animated fadeIn animation-delay-5" data-toggle="dropdown" data-hover="dropdown"
-                      data-name="page" aria-expanded="false">Admin
+                  <li
+                    ng-show="user && user.isAdmin && state.current.name !== 'admin'"
+                    class="dropdown"
+                  >
+                    <a
+                      href=""
+                      class="dropdown-toggle animated fadeIn animation-delay-5"
+                      data-toggle="dropdown"
+                      data-hover="dropdown"
+                      data-name="page"
+                      aria-expanded="false"
+                      >Admin
                       <i class="fa fa-angle-right"></i>
                       <div class="ripple-container"></div>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-left animated-2x animated fadeIn">
+                    <ul
+                      class="dropdown-menu dropdown-menu-left animated-2x animated fadeIn"
+                    >
                       <li>
-                        <a class="btn-circle btn-circle-primary pointer" href="/admin/payment" title="Manage payments"></a>
-                        <i class="fa fa-cog"></i>
-                        </a>
+                        <a href="/admin/payment" title="Manage payments"
+                          >Manage payments</a
+                        >
+                      </li>
                     </ul>
                   </li>
                 </ul>
