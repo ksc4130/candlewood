@@ -39,7 +39,7 @@ function getAdminPayments() {
     PaymentModel.aggregate(
       [
         {
-          $project: {
+          $addFields: {
             user_id: {
               $toObjectId: '$user_id'
             }
