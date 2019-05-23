@@ -13,7 +13,7 @@
     'notifications',
     '$http'
   ];
-  function adminCtrl(
+  function adminPaymentsCtrl(
     $scope,
     authSrv,
     FileUploader,
