@@ -373,8 +373,12 @@ app.get('/doc', (req, res) => {
 app.get('/admin/payment', isAdmin, (req, res) => {
   paymentRepo
     .getAdminPayments()
-    .then(res.json)
-    .catch(res.status(500).json);
+    .then(payments => {
+      res.json(payments);
+    })
+    .catch(err => {
+      res.status(500).json({ err });
+    });
 });
 
 //admin get docs
