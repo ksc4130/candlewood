@@ -24,7 +24,7 @@
               <br />
               Email: {{ payment.user.email }}
             </td>
-            <td>{{ payment.createdAt | date: 'MM/DD/YYYY hh:mm a' }}</td>
+            <td>{{ payment.createdAt | date: 'MM/dd/yyyy hh:mm a' }}</td>
             <td>{{ payment.for }}</td>
             <td>{{ payment.amount | currency }}</td>
             <td>{{ payment.status }}</td>
