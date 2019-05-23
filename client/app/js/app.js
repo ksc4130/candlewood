@@ -88,8 +88,8 @@ function config(
         ]
       }
     })
-    .state('admin/payment', {
-      url: '/admin/payment',
+    .state('mangage/payment', {
+      url: '/manage/payment',
       templateUrl: '/app/views/_adminPayments.html',
       controller: 'adminPaymentsCtrl',
       resolve: {}
