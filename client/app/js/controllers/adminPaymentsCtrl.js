@@ -2,28 +2,8 @@
   'use strict';
   // eslint-disable-next-line no-undef
   angular.module('cwl.core').controller('adminPaymentsCtrl', adminPaymentsCtrl);
-  adminPaymentsCtrl.$inject = [
-    '$scope',
-    'authSrv',
-    'FileUploader',
-    '$location',
-    'docs',
-    'documentSrv',
-    'notificationSrv',
-    'notifications',
-    '$http'
-  ];
-  function adminPaymentsCtrl(
-    $scope,
-    authSrv,
-    FileUploader,
-    $location,
-    docs,
-    documentSrv,
-    notificationSrv,
-    notifications,
-    $http
-  ) {
+  adminPaymentsCtrl.$inject = ['$scope', 'authSrv', '$location', '$http'];
+  function adminPaymentsCtrl($scope, authSrv, $location, $http) {
     if (!authSrv.user()) {
       $location.path('/login');
     }
