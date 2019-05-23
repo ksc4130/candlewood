@@ -55,7 +55,8 @@ function getAdminPayments() {
         },
         {
           $unwind: '$user'
-        }
+        },
+        { $sort: { createdAt: -1 } }
       ],
       (err, payments) => {
         if (err) return rej(err);
