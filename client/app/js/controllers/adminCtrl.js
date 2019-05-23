@@ -28,7 +28,7 @@
       $location.path('/login');
     }
 
-    $http.get('/payment').then(function(resp) {
+    $http.get('/admin/payment').then(function(resp) {
       console.log('payments', resp);
     });
 
@@ -87,8 +87,8 @@
       if ($scope.documents) {
         return $scope.typeFilter
           ? $scope.documents.filter(function(sItem) {
-              return sItem.type === $scope.typeFilter;
-            })
+            return sItem.type === $scope.typeFilter;
+          })
           : $scope.documents;
       }
       return null;
@@ -258,8 +258,8 @@
             ? 0
             : index - 1
           : index >= $scope.notifications.length - 1
-          ? $scope.notifications.length - 1
-          : index + 1;
+            ? $scope.notifications.length - 1
+            : index + 1;
       console.log(
         'working',
         notification.title,
