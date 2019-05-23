@@ -370,6 +370,13 @@ app.get('/doc', (req, res) => {
   });
 });
 
+app.get('/admin/payment', isAdmin, (req, res) => {
+  paymentRepo
+    .getAdminPayments()
+    .then(res.json)
+    .catch(res.status(500).json);
+});
+
 //admin get docs
 app.get('/admin/doc', isAdmin, (req, res) => {
   docRepo.getAll((err, found) => {

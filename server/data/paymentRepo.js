@@ -5,7 +5,8 @@ const PaymentModel = require('./models/PaymentModel');
 module.exports = {
   // getAll,
   // remove,
-  create
+  create,
+  getAdminPayments
   // update,
   // getById
 };
@@ -30,6 +31,35 @@ function create(payment, cb) {
 
     // return cb(err, mapModelToObj(test));
     return cb(err, test);
+  });
+}
+
+function getAdminPayments() {
+  return new Promise((res, rej) => {
+    PaymentModel.aggregate(
+      [
+        {
+          $project: {
+            user_id: {
+              $toObjectId: '$user_id'
+            }
+          }
+        },
+        {
+          $lookup: {
+            localField: 'user_id',
+            from: 'users',
+            foreignField: '_id',
+            as: 'user'
+          }
+        }
+      ],
+      (err, payments) => {
+        if (err) return rej(err);
+
+        res(payments);
+      }
+    );
   });
 }
 
