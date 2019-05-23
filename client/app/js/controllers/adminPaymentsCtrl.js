@@ -1,8 +1,8 @@
 (function() {
   'use strict';
   // eslint-disable-next-line no-undef
-  angular.module('cwl.core').controller('adminCtrl', adminCtrl);
-  adminCtrl.$inject = [
+  angular.module('cwl.core').controller('adminPaymentsCtrl', adminPaymentsCtrl);
+  adminPaymentsCtrl.$inject = [
     '$scope',
     'authSrv',
     'FileUploader',
