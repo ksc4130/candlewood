@@ -52,6 +52,9 @@ function getAdminPayments() {
             foreignField: '_id',
             as: 'user'
           }
+        },
+        {
+          $unwind: '$user'
         }
       ],
       (err, payments) => {

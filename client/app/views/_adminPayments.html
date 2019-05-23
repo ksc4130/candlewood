@@ -1,0 +1,38 @@
+<div class="container" ng-show="user">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>For</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Notes</th>
+            <th>Approval Code</th>
+            <th>Ref Id</th>
+            <th>Trans Id</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              Name: {{ payment.user.firstName }} {{ payment.user.lastName }}
+              <br />
+              Unit/lot: {{ payment.user.lotNumber }}
+              <br />
+              Email: {{ payment.user.email }}
+            </td>
+            <td>{{ payment.for }}</td>
+            <td>{{ payment.amount | currency }}</td>
+            <td>{{ payment.status }}</td>
+            <td>{{payments.notes</td>
+            <td>{{ refApprovalCode }}</td>
+            <td>{{ refId }}</td>
+            <td>{{ payment._id }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
