@@ -34,6 +34,7 @@
         size: 'sm',
         backdrop: true,
         controller: ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+          $scope.user = authSrv.user();
           $scope.close = function () {
             $uibModalInstance.dismiss();
           };
