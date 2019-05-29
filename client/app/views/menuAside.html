@@ -1,108 +1,190 @@
-
 <div class="ms-slidebar sb-slidebar sb-left sb-style-overlay sb-active">
-    <div class="sb-slidebar-container">
-        <header class="ms-slidebar-header">
-            <div class="ms-slidebar-login">
-                <a href="#" class="withripple" ng-click="go(1)">
-                    <i class="fa fa-user"></i> Login
-                </a>
-                <a href="#" class="withripple" ng-click="go(2)">
-                    <i class="fa fa-user-plus"></i> Register
-                </a>
-            </div>
-            <div class="ms-slidebar-title">
-                <div class="ms-slidebar-t">
-                    <h3>Candlewood
-                        <span>Lake</span>
-                    </h3>
-                </div>
-            </div>
-        </header>
-        <ul class="ms-slidebar-menu" id="slidebar-menu" role="tablist" aria-multiselectable="true">
-            <li>
-                <a class="link" href="/about" ng-click="close()">About</a>
-            </li>
-            <li class="panel" >
-                <a class="link" ng-class="{'collapsed': isCollapsed}" role="button" ng-click="isCollapsed = !isCollapsed">Explore</a>
-                <ul class="panel-collapse" uib-collapse="!isCollapsed">
-                    <li>
-                        <a class="link" href="/explore/lake" ng-click="close()">The Lake</a>
-                    </li>
-                    <li>
-                        <a class="link" href="/explore/pools" ng-click="close()">Swimming Pools</a>
-                    </li>
-                    <li>
-                        <a class="link" href="/explore/beach" ng-click="close()">Beach</a>
-                    </li>
-                    <li>
-                        <a class="link" href="/explore/activities" ng-click="close()">More Activities</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a class="link" href="/explore/community" ng-click="close()">The Community</a>
-                    </li>
-                    <li>
-                        <a class="link" href="/explore/amenities" ng-click="close()">Amenities</a>
-                    </li>
-                    <li>
-                        <a class="link" href="/explore/nearby" ng-click="close()">Nearby</a>
-                    </li>
-                    <li>
-                        <a class="link" href="/explore/clubs" ng-click="close()">Clubs &amp; Organizations</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="panel">
-                <a class="link" ng-class="{'collapsed': isCollapsed2}" role="button" ng-click="isCollapsed2 = !isCollapsed2">Events</a>
-                <ul class="panel-collapse" uib-collapse="!isCollapsed2">
-                    <li>
-                        <a class="link" href="/events/upcoming" ng-click="close()">Upcoming Events</a>
-                    </li>
-                    <li>
-                        <a class="link" href="/events/ongoing" ng-click="close()">Ongoing Events</a>
-                    </li>
-                    <li>
-                        <a class="link" href="/events/july-fourth" ng-click="close()">Fourth of July</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="panel">
-                <a class="link" ng-class="{'collapsed': isCollapsed3}" role="button" ng-click="isCollapsed3 = !isCollapsed3">Real Estate</a>
-                <ul class="panel-collapse" uib-collapse="!isCollapsed3">
-                    <li>
-                        <a class="link" href="/real-estate/information" ng-click="close()">Information</a>
-                    </li>
-                    <li>
-                        <a class="link" href="/real-estate/for-sale" ng-click="close()">For Sale</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="panel">
-                <a class="link" ng-class="{'collapsed': isCollapsed4}" role="button" ng-click="isCollapsed4 = !isCollapsed4">News</a>
-                <ul class="panel-collapse" uib-collapse="!isCollapsed4">
-                    <li>
-                        <a class="link" href="/news/chronicle" ng-click="close()">Candlewood Chronicle</a>
-                    </li>
-                    <li>
-                        <a class="link" href="/news/candlewood" ng-click="close()">The Candlewood News</a>
-                    </li>
-                    <li>
-                        <a class="link" href="/news/calendar" ng-click="close()">Monthly Calendar</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a class="link" href="/map" ng-click="close()">Map &amp; Directions</a>
-            </li>
-            <li>
-                <a class="link" href="/documents" ng-click="close()">Documents</a>
-            </li>
-            <li>
-                <a class="link" href="/faqs" ng-click="close()">FAQs</a>
-            </li>
-            <li>
-                <a class="link" href="/contact" ng-click="close()">Contact</a>
-            </li>
+  <div class="sb-slidebar-container">
+    <header class="ms-slidebar-header">
+      <div class="ms-slidebar-login">
+        <a href="#" class="withripple" ng-click="go(1)">
+          <i class="fa fa-user"></i> Login
+        </a>
+        <a href="#" class="withripple" ng-click="go(2)">
+          <i class="fa fa-user-plus"></i> Register
+        </a>
+      </div>
+      <div class="ms-slidebar-title">
+        <div class="ms-slidebar-t">
+          <h3>
+            Candlewood
+            <span>Lake</span>
+          </h3>
+        </div>
+      </div>
+    </header>
+    <ul
+      class="ms-slidebar-menu"
+      id="slidebar-menu"
+      role="tablist"
+      aria-multiselectable="true"
+    >
+      <li>
+        <a class="link" href="/about" ng-click="close()">About</a>
+      </li>
+      <li class="panel">
+        <a
+          class="link"
+          ng-class="{'collapsed': isCollapsed}"
+          role="button"
+          ng-click="isCollapsed = !isCollapsed"
+          >Explore</a
+        >
+        <ul class="panel-collapse" uib-collapse="!isCollapsed">
+          <li>
+            <a class="link" href="/explore/lake" ng-click="close()">The Lake</a>
+          </li>
+          <li>
+            <a class="link" href="/explore/pools" ng-click="close()"
+              >Swimming Pools</a
+            >
+          </li>
+          <li>
+            <a class="link" href="/explore/beach" ng-click="close()">Beach</a>
+          </li>
+          <li>
+            <a class="link" href="/explore/activities" ng-click="close()"
+              >More Activities</a
+            >
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a class="link" href="/explore/community" ng-click="close()"
+              >The Community</a
+            >
+          </li>
+          <li>
+            <a class="link" href="/explore/amenities" ng-click="close()"
+              >Amenities</a
+            >
+          </li>
+          <li>
+            <a class="link" href="/explore/nearby" ng-click="close()">Nearby</a>
+          </li>
+          <li>
+            <a class="link" href="/explore/clubs" ng-click="close()"
+              >Clubs &amp; Organizations</a
+            >
+          </li>
         </ul>
-    </div>
+      </li>
+      <li class="panel">
+        <a
+          class="link"
+          ng-class="{'collapsed': isCollapsed2}"
+          role="button"
+          ng-click="isCollapsed2 = !isCollapsed2"
+          >Events</a
+        >
+        <ul class="panel-collapse" uib-collapse="!isCollapsed2">
+          <li>
+            <a class="link" href="/events/upcoming" ng-click="close()"
+              >Upcoming Events</a
+            >
+          </li>
+          <li>
+            <a class="link" href="/events/ongoing" ng-click="close()"
+              >Ongoing Events</a
+            >
+          </li>
+          <li>
+            <a class="link" href="/events/july-fourth" ng-click="close()"
+              >Fourth of July</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li class="panel">
+        <a
+          class="link"
+          ng-class="{'collapsed': isCollapsed3}"
+          role="button"
+          ng-click="isCollapsed3 = !isCollapsed3"
+          >Real Estate</a
+        >
+        <ul class="panel-collapse" uib-collapse="!isCollapsed3">
+          <li>
+            <a class="link" href="/real-estate/information" ng-click="close()"
+              >Information</a
+            >
+          </li>
+          <li>
+            <a class="link" href="/real-estate/for-sale" ng-click="close()"
+              >For Sale</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li class="panel">
+        <a
+          class="link"
+          ng-class="{'collapsed': isCollapsed4}"
+          role="button"
+          ng-click="isCollapsed4 = !isCollapsed4"
+          >News</a
+        >
+        <ul class="panel-collapse" uib-collapse="!isCollapsed4">
+          <li>
+            <a class="link" href="/news/chronicle" ng-click="close()"
+              >Candlewood Chronicle</a
+            >
+          </li>
+          <li>
+            <a class="link" href="/news/candlewood" ng-click="close()"
+              >The Candlewood News</a
+            >
+          </li>
+          <li>
+            <a class="link" href="/news/calendar" ng-click="close()"
+              >Monthly Calendar</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a class="link" href="/map" ng-click="close()">Map &amp; Directions</a>
+      </li>
+      <li>
+        <a class="link" href="/documents" ng-click="close()">Documents</a>
+      </li>
+      <li>
+        <a class="link" href="/faqs" ng-click="close()">FAQs</a>
+      </li>
+      <li>
+        <a class="link" href="/contact" ng-click="close()">Contact</a>
+      </li>
+      <li ng-show="user">
+        <a href="/payment">Make a Payment</a>
+      </li>
+
+      <li
+        class="panel"
+        ng-show="user && user.isAdmin && state.current.name !== 'admin'"
+      >
+        <a
+          class="link"
+          ng-class="{'collapsed': isCollapsed5}"
+          role="button"
+          ng-click="isCollapsed5 = !isCollapsed5"
+          >Admin</a
+        >
+        <ul class="panel-collapse" uib-collapse="!isCollapsed5">
+          <li>
+            <a
+              class="link"
+              ng-click="close()"
+              href="/manage/payment"
+              title="Manage payments"
+              >Manage payments</a
+            >
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
 </div>
