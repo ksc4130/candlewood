@@ -156,10 +156,13 @@
         <a class="link" href="/faqs" ng-click="close()">FAQs</a>
       </li>
       <li>
-        <a class="link" href="/contact" ng-click="close()">Contact</a>
+        <a class="link" href="/contact" ng-click="close()"
+          >Contact1{{ user | json }}</a
+        >
       </li>
+
       <li ng-show="user">
-        <a href="/payment">Make a Payment</a>
+        <a class="link" href="/payment">Make a Payment</a>
       </li>
 
       <li
