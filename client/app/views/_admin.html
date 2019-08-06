@@ -1,10 +1,15 @@
 <div class="container" ng-show="user">
+  <style>
+    .panel-body {
+      max-height: 1000px;
+      overflow: auto;
+    }
+  </style>
   <div class="row">
-    <br>
+    <br />
     <h1 class="text-center">Administrator Dashboard</h1>
-    <br>
+    <br />
     <div class="col-md-6 col-sm-12">
-
       <!-- notifications-->
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -13,10 +18,18 @@
         <div class="panel-body">
           <form ng-submit="submitNotification(newNotification)">
             <div>
-              <input class="form-control" placeholder="Title (optional)" ng-model="newNotification.title">
+              <input
+                class="form-control"
+                placeholder="Title (optional)"
+                ng-model="newNotification.title"
+              />
             </div>
             <div>
-              <input class="form-control" placeholder="Message (optional)" ng-model="newNotification.msg">
+              <input
+                class="form-control"
+                placeholder="Message (optional)"
+                ng-model="newNotification.msg"
+              />
             </div>
             <!-- <div class="row">
               <div class="form-group col-sm-12">
@@ -48,7 +61,11 @@
             </div> -->
             <div class="form-group">
               <label class="form-label">Color</label>
-              <select class="form-control" ng-options="type.type as type.name for type in notificationTypes" ng-model="newNotification.type">
+              <select
+                class="form-control"
+                ng-options="type.type as type.name for type in notificationTypes"
+                ng-model="newNotification.type"
+              >
                 <option value="">Select a Notification Type</option>
               </select>
             </div>
@@ -59,9 +76,16 @@
               </label>
             </div> -->
 
-            <button ng-disabled="savingNotification" class="btn btn-block btn-raised btn-primary" type="submit">
+            <button
+              ng-disabled="savingNotification"
+              class="btn btn-block btn-raised btn-primary"
+              type="submit"
+            >
               Submit
-              <i class="fa fa-spinner fa-pulse" ng-show="savingNotification"></i>
+              <i
+                class="fa fa-spinner fa-pulse"
+                ng-show="savingNotification"
+              ></i>
             </button>
           </form>
         </div>
@@ -71,24 +95,52 @@
           Manage Notifications
         </div>
         <div class="panel-body">
-          <div class="list-group" ng-show="notifications && notifications.length">
-            <div class="list-group-item" ng-repeat="notification in notifications | orderBy:'index'">
-              <span ng-show="notification.expired" class="text-warning">Expired </span>
-              <i ng-show="notification.isPublic" title="This notification is visible to the public" class="fa fa-users"></i>
-              <button ng-disabled="$first" ng-click="setIndex(notification, 'up')" class="btn-default btn btn-xs">
+          <div
+            class="list-group"
+            ng-show="notifications && notifications.length"
+          >
+            <div
+              class="list-group-item"
+              ng-repeat="notification in notifications | orderBy:'index'"
+            >
+              <span ng-show="notification.expired" class="text-warning"
+                >Expired
+              </span>
+              <i
+                ng-show="notification.isPublic"
+                title="This notification is visible to the public"
+                class="fa fa-users"
+              ></i>
+              <button
+                ng-disabled="$first"
+                ng-click="setIndex(notification, 'up')"
+                class="btn-default btn btn-xs"
+              >
                 <i style="margin:0;" class="fa fa-2x fa-bold fa-angle-up"></i>
               </button>
-              <button ng-disabled="$last" ng-click="setIndex(notification, 'down')" class="btn btn-xs">
+              <button
+                ng-disabled="$last"
+                ng-click="setIndex(notification, 'down')"
+                class="btn btn-xs"
+              >
                 <i style="margin:0;" class="fa fa-2x fa-bold fa-angle-down"></i>
               </button>
               <div class="clearfix"></div>
-              Visible: {{notification.when | date:'M/d/yyyy'}} -
-              <span ng-show="notification.until">{{notification.until | date:'M/d/yyyy'}}</span>
+              Visible: {{ notification.when | date: 'M/d/yyyy' }} -
+              <span ng-show="notification.until">{{
+                notification.until | date: 'M/d/yyyy'
+              }}</span>
               <span ng-hide="notification.until">forever</span>
               <div class="col-md-12">
-                <div class="alert alert-{{notification.type}}" role="alert">
-                  <strong>{{notification.title}}</strong> {{notification.msg}}
-                  <button type="button" class="close" ng-click="removeNotification(notification)" aria-label="Close">
+                <div class="alert alert-{{ notification.type }}" role="alert">
+                  <strong>{{ notification.title }}</strong>
+                  {{ notification.msg }}
+                  <button
+                    type="button"
+                    class="close"
+                    ng-click="removeNotification(notification)"
+                    aria-label="Close"
+                  >
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -107,7 +159,11 @@
         <div class="panel-body">
           <form ng-submit="submit()">
             <div>
-              <input class="form-control" placeholder="Name" ng-model="newDoc.name">
+              <input
+                class="form-control"
+                placeholder="Name"
+                ng-model="newDoc.name"
+              />
             </div>
             <div class="row">
               <div class="form-group col-sm-12">
@@ -116,9 +172,20 @@
               <div class="clearfix"></div>
               <div class="form-group col-md-6">
                 <p class="input-group" style="margin-bottom: 0">
-                  <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newDoc.when" is-open="open" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    uib-datepicker-popup="MM/dd/yyyy"
+                    ng-model="newDoc.when"
+                    is-open="open"
+                  />
                   <span class="input-group-btn" style="padding: 0">
-                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open = !open" style="padding: 6px 12px; margin-bottom: 0;">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      ng-click="$event.stopPropagation(); open = !open"
+                      style="padding: 6px 12px; margin-bottom: 0;"
+                    >
                       <i class="fa fa-calendar" style="margin-right: 0"></i>
                     </button>
                   </span>
@@ -126,9 +193,20 @@
               </div>
               <div class="form-group col-md-6">
                 <p class="input-group" style="margin-bottom: 0">
-                  <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newDoc.until" is-open="open12" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    uib-datepicker-popup="MM/dd/yyyy"
+                    ng-model="newDoc.until"
+                    is-open="open12"
+                  />
                   <span class="input-group-btn" style="padding: 0">
-                    <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open12 = !open12" style="padding: 6px 12px; margin-bottom: 0;">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      ng-click="$event.stopPropagation(); open12 = !open12"
+                      style="padding: 6px 12px; margin-bottom: 0;"
+                    >
                       <i class="fa fa-calendar" style="margin-right: 0"></i>
                     </button>
                   </span>
@@ -136,24 +214,38 @@
               </div>
             </div>
             <div class="form-group">
-              <select class="form-control" ng-options="type.type as type.name for type in types" ng-model="newDoc.type">
+              <select
+                class="form-control"
+                ng-options="type.type as type.name for type in types"
+                ng-model="newDoc.type"
+              >
                 <option value="">Select a Document Type</option>
               </select>
             </div>
             <div class="form-group">
-              <input id="uploader" class="form-control" type="file" nv-file-select uploader="uploader">
+              <input
+                id="uploader"
+                class="form-control"
+                type="file"
+                nv-file-select
+                uploader="uploader"
+              />
             </div>
             <div class="form-group">
-              <label>Public
-                <input type="checkbox" ng-model="newDoc.isPublic">
+              <label
+                >Public
+                <input type="checkbox" ng-model="newDoc.isPublic" />
               </label>
             </div>
             <div class="alert alert-danger" ng-show="uploadError">
-              {{uploadError.message ? uploadError.message : uploadError}}
+              {{ uploadError.message ? uploadError.message : uploadError }}
             </div>
             <button class="btn btn-block btn-raised btn-primary" type="submit">
               <span ng-show="!uploader.isUploading">Upload</span>
-              <i class="fa fa-spinner fa-pulse" ng-show="uploader.isUploading"></i>
+              <i
+                class="fa fa-spinner fa-pulse"
+                ng-show="uploader.isUploading"
+              ></i>
             </button>
           </form>
         </div>
@@ -165,16 +257,33 @@
         <div class="panel-body">
           <form ng-submit="updateDoc()">
             <div>
-              <input class="form-control" placeholder="Name" ng-model="editDoc.name">
+              <input
+                class="form-control"
+                placeholder="Name"
+                ng-model="editDoc.name"
+              />
             </div>
             <div style="margin-bottom: 0px" class="form-group col-md-12">
-              <label style="width: 100%;" class="text-center">Visibility Range</label>
+              <label style="width: 100%;" class="text-center"
+                >Visibility Range</label
+              >
             </div>
             <div class="form-group col-md-6">
               <p class="input-group" style="margin-bottom: 0">
-                <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="editDoc.when" is-open="open2" />
+                <input
+                  type="text"
+                  class="form-control"
+                  uib-datepicker-popup="MM/dd/yyyy"
+                  ng-model="editDoc.when"
+                  is-open="open2"
+                />
                 <span class="input-group-btn" style="padding: 0">
-                  <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open2 = !open2" style="padding: 6px 12px; margin-bottom: 0;">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    ng-click="$event.stopPropagation(); open2 = !open2"
+                    style="padding: 6px 12px; margin-bottom: 0;"
+                  >
                     <i class="fa fa-calendar" style="margin-right: 0"></i>
                   </button>
                 </span>
@@ -182,28 +291,52 @@
             </div>
             <div class="form-group col-md-6">
               <p class="input-group" style="margin-bottom: 0">
-                <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="editDoc.until" is-open="open22" />
+                <input
+                  type="text"
+                  class="form-control"
+                  uib-datepicker-popup="MM/dd/yyyy"
+                  ng-model="editDoc.until"
+                  is-open="open22"
+                />
                 <span class="input-group-btn" style="padding: 0">
-                  <button type="button" class="btn btn-primary" ng-click="$event.stopPropagation(); open22 = !open22" style="padding: 6px 12px; margin-bottom: 0;">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    ng-click="$event.stopPropagation(); open22 = !open22"
+                    style="padding: 6px 12px; margin-bottom: 0;"
+                  >
                     <i class="fa fa-calendar" style="margin-right: 0"></i>
                   </button>
                 </span>
               </p>
             </div>
             <div class="form-group">
-              <select class="form-control" ng-options="type.type as type.name for type in types" ng-model="editDoc.type">
+              <select
+                class="form-control"
+                ng-options="type.type as type.name for type in types"
+                ng-model="editDoc.type"
+              >
                 <option value="">Select a Document Type</option>
               </select>
             </div>
             <div class="form-group">
-              <label>Public
-                <input type="checkbox" ng-model="editDoc.isPublic">
+              <label
+                >Public
+                <input type="checkbox" ng-model="editDoc.isPublic" />
               </label>
             </div>
             <div class="alert alert-danger" ng-show="editDoc.error">
-              {{editDoc.error.message ? editDoc.error.message : editDoc.error}}
+              {{
+                editDoc.error.message ? editDoc.error.message : editDoc.error
+              }}
             </div>
-            <button type="button" class="btn btn-default btn-raised pull-left" ng-click="editDoc = null">Cancel</button>
+            <button
+              type="button"
+              class="btn btn-default btn-raised pull-left"
+              ng-click="editDoc = null"
+            >
+              Cancel
+            </button>
             <button class="btn btn-raised btn-primary pull-right" type="submit">
               <span ng-show="!editDoc.saving">Save</span>
               <i class="fa fa-spinner fa-pulse" ng-show="editDoc.saving"></i>
@@ -220,27 +353,58 @@
             <div class="list-group-item">
               <div class="row">
                 <div class="col-sm-12">
-                  <select class="form-control form-group" ng-options="type.type as type.name for type in types" ng-model="typeFilter">
+                  <select
+                    class="form-control form-group"
+                    ng-options="type.type as type.name for type in types"
+                    ng-model="typeFilter"
+                  >
                     <option value="">All Documents</option>
                   </select>
                   <div class="form-group right has-feedback">
-                    <input type="text" class="form-control" ng-model="search" placeholder="Type to search...">
-                    <span style="right: 15px" class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      ng-model="search"
+                      placeholder="Type to search..."
+                    />
+                    <span
+                      style="right: 15px"
+                      class="glyphicon glyphicon-search form-control-feedback"
+                      aria-hidden="true"
+                    ></span>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="list-group-item" ng-repeat="document in filteredDocuments() | filter:search">
-              <span ng-show="document.expired" class="text-warning">Expired </span>
-              <i ng-show="document.isPublic" title="This document is visible to the public" class="fa fa-users"></i> Name: {{document.name}}
-              <button class="btn btn-xs btn-raised btn-primary pull-right" ng-click="selectDoc(document)">
+            <div
+              class="list-group-item"
+              ng-repeat="document in filteredDocuments() | filter:search"
+            >
+              <span ng-show="document.expired" class="text-warning"
+                >Expired
+              </span>
+              <i
+                ng-show="document.isPublic"
+                title="This document is visible to the public"
+                class="fa fa-users"
+              ></i>
+              Name: {{ document.name }}
+              <button
+                class="btn btn-xs btn-raised btn-primary pull-right"
+                ng-click="selectDoc(document)"
+              >
                 <i class="fa fa-pencil" style="margin-right: 0"></i>
               </button>
               <div class="clearfix"></div>
-              Visible: {{document.when | date:'M/d/yyyy'}} -
-              <span ng-show="document.until">{{document.until | date:'M/d/yyyy'}}</span>
+              Visible: {{ document.when | date: 'M/d/yyyy' }} -
+              <span ng-show="document.until">{{
+                document.until | date: 'M/d/yyyy'
+              }}</span>
               <span ng-hide="document.until">forever</span>
-              <button class="btn btn-danger btn-xs btn-raised pull-right" ng-click="removeDoc(document)">
+              <button
+                class="btn btn-danger btn-xs btn-raised pull-right"
+                ng-click="removeDoc(document)"
+              >
                 <i class="fa fa-times" style="margin-right: 0"></i>
               </button>
               <div class="clearfix"></div>
@@ -262,7 +426,13 @@
                   <span class="input-group-addon">
                     <i class="fa fa-user"></i>
                   </span>
-                  <input type="text" id="register-firstName" ng-model="newUser.firstName" placeholder="First Name" class="form-control">
+                  <input
+                    type="text"
+                    id="register-firstName"
+                    ng-model="newUser.firstName"
+                    placeholder="First Name"
+                    class="form-control"
+                  />
                 </div>
               </div>
               <div class="form-group is-empty">
@@ -270,7 +440,13 @@
                   <span class="input-group-addon">
                     <i class="fa fa-user"></i>
                   </span>
-                  <input type="text" id="register-lastname" ng-model="newUser.lastName" placeholder="Last Name" class="form-control">
+                  <input
+                    type="text"
+                    id="register-lastname"
+                    ng-model="newUser.lastName"
+                    placeholder="Last Name"
+                    class="form-control"
+                  />
                 </div>
               </div>
               <div class="form-group is-empty">
@@ -278,7 +454,14 @@
                   <span class="input-group-addon">
                     <i class="fa fa-envelope"></i>
                   </span>
-                  <input type="email" id="register-email" name="regEmail" ng-model="newUser.email" placeholder="Email" class="form-control">
+                  <input
+                    type="email"
+                    id="register-email"
+                    name="regEmail"
+                    ng-model="newUser.email"
+                    placeholder="Email"
+                    class="form-control"
+                  />
                 </div>
               </div>
               <div class="form-group is-empty">
@@ -286,7 +469,14 @@
                   <span class="input-group-addon">
                     <i class="fa fa-hashtag"></i>
                   </span>
-                  <input type="text" id="register-lotNumber" name="regLotNumber" ng-model="newUser.lotNumber" placeholder="Unit/Lot #" class="form-control">
+                  <input
+                    type="text"
+                    id="register-lotNumber"
+                    name="regLotNumber"
+                    ng-model="newUser.lotNumber"
+                    placeholder="Unit/Lot #"
+                    class="form-control"
+                  />
                 </div>
               </div>
               <div class="form-group is-empty">
@@ -294,7 +484,13 @@
                   <span class="input-group-addon">
                     <i class="fa fa-lock"></i>
                   </span>
-                  <input type="password" id="register-password" ng-model="newUser.pwd" placeholder="Password" class="form-control">
+                  <input
+                    type="password"
+                    id="register-password"
+                    ng-model="newUser.pwd"
+                    placeholder="Password"
+                    class="form-control"
+                  />
                 </div>
               </div>
               <div class="form-group is-empty">
@@ -302,13 +498,24 @@
                   <span class="input-group-addon">
                     <i class="fa fa-lock"></i>
                   </span>
-                  <input type="password" id="register-password-confirm" ng-model="newUser.passwordConfirm" placeholder="Confirm Password" class="form-control">
+                  <input
+                    type="password"
+                    id="register-password-confirm"
+                    ng-model="newUser.passwordConfirm"
+                    placeholder="Confirm Password"
+                    class="form-control"
+                  />
                 </div>
               </div>
               <div class="alert alert-danger" ng-show="error">
-                {{error}}
+                {{ error }}
               </div>
-              <button class="btn btn-raised btn-block btn-primary" type="submit">Add User</button>
+              <button
+                class="btn btn-raised btn-block btn-primary"
+                type="submit"
+              >
+                Add User
+              </button>
             </fieldset>
           </form>
         </div>
@@ -325,7 +532,12 @@
                   <span class="input-group-addon">
                     <i class="fa fa-user"></i>
                   </span>
-                  <input type="text" ng-model="editUser.firstName" placeholder="First Name" class="form-control">
+                  <input
+                    type="text"
+                    ng-model="editUser.firstName"
+                    placeholder="First Name"
+                    class="form-control"
+                  />
                 </div>
               </div>
               <div class="form-group is-empty">
@@ -333,7 +545,12 @@
                   <span class="input-group-addon">
                     <i class="fa fa-user"></i>
                   </span>
-                  <input type="text" ng-model="editUser.lastName" placeholder="Last Name" class="form-control">
+                  <input
+                    type="text"
+                    ng-model="editUser.lastName"
+                    placeholder="Last Name"
+                    class="form-control"
+                  />
                 </div>
               </div>
               <div class="form-group is-empty">
@@ -341,7 +558,12 @@
                   <span class="input-group-addon">
                     <i class="fa fa-envelope"></i>
                   </span>
-                  <input type="email" ng-model="editUser.email" placeholder="Email" class="form-control">
+                  <input
+                    type="email"
+                    ng-model="editUser.email"
+                    placeholder="Email"
+                    class="form-control"
+                  />
                 </div>
               </div>
               <div class="form-group is-empty">
@@ -349,18 +571,44 @@
                   <span class="input-group-addon">
                     <i class="fa fa-hashtag"></i>
                   </span>
-                  <input type="text" ng-model="editUser.lotNumber" placeholder="Lot #" class="form-control">
+                  <input
+                    type="text"
+                    ng-model="editUser.lotNumber"
+                    placeholder="Lot #"
+                    class="form-control"
+                  />
                 </div>
               </div>
               <div class="form-group is-empty">
-                <input type="checkbox" class="checkbox-inline" ng-model="editUser.isAdmin" style="margin: 0 20px 0 0 ;"> Admin Account
-                <input type="checkbox" class="checkbox-inline" ng-model="editUser.isActive" style="margin: 0 20px;"> Approved Account
+                <input
+                  type="checkbox"
+                  class="checkbox-inline"
+                  ng-model="editUser.isAdmin"
+                  style="margin: 0 20px 0 0 ;"
+                />
+                Admin Account
+                <input
+                  type="checkbox"
+                  class="checkbox-inline"
+                  ng-model="editUser.isActive"
+                  style="margin: 0 20px;"
+                />
+                Approved Account
               </div>
               <div class="alert alert-danger" ng-show="editUser.error">
                 An error occurred.
               </div>
-              <button type="button" class="btn btn-default btn-raised pull-left" ng-click="editUser = null">Cancel</button>
-              <button class="btn btn-raised btn-primary pull-right" type="submit">
+              <button
+                type="button"
+                class="btn btn-default btn-raised pull-left"
+                ng-click="editUser = null"
+              >
+                Cancel
+              </button>
+              <button
+                class="btn btn-raised btn-primary pull-right"
+                type="submit"
+              >
                 <span ng-show="!editUser.saving">Save</span>
                 <i class="fa fa-spinner fa-pulse" ng-show="editUser.saving"></i>
               </button>
@@ -368,30 +616,63 @@
           </form>
         </div>
       </div>
-      <div style="max-height: 500px; overflow: auto;" class="panel panel-default">
+      <div class="panel panel-default">
         <div class="panel-heading">
           Manage Users
-          <small>({{users.length}})</small>
+          <small>({{ users.length }})</small>
           <div class="form-group is-empty">
-              <div class="form-group right has-feedback">
-                  <input type="search" class="form-control" ng-model="userSearch" placeholder="Type to search...">
-                  <span style="right: 15px" class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
-                </div>
+            <div class="form-group right has-feedback">
+              <input
+                type="search"
+                class="form-control"
+                ng-model="userSearch"
+                placeholder="Type to search..."
+              />
+              <span
+                style="right: 15px"
+                class="glyphicon glyphicon-search form-control-feedback"
+                aria-hidden="true"
+              ></span>
             </div>
+          </div>
         </div>
         <div class="panel-body">
           <div class="list-group">
-            <div class="list-group-item" ng-repeat="user in users | filter:userSearch track by $index">
-              <i class="fa fa-user" title="{{user.isActive ? 'Active': 'Inactive'}}" ng-class="{'text-success': user.isActive, 'text-grey': !user.isActive}"
-                style="font-size: 1.3em"></i> &nbsp;
-              <i class="fa fa-cog" title="Administrator" ng-show="user.isAdmin" style="font-size: 1.3em"></i> {{user.firstName}} {{user.lastName}}
-              <button class="btn btn-xs btn-raised btn-primary pull-right" ng-click="selectUser(user)">
+            <div
+              class="list-group-item"
+              ng-repeat="user in users | filter:userSearch track by $index"
+            >
+              <i
+                class="fa fa-user"
+                title="{{ user.isActive ? 'Active' : 'Inactive' }}"
+                ng-class="{'text-success': user.isActive, 'text-grey': !user.isActive}"
+                style="font-size: 1.3em"
+              ></i>
+              &nbsp;
+              <i
+                class="fa fa-cog"
+                title="Administrator"
+                ng-show="user.isAdmin"
+                style="font-size: 1.3em"
+              ></i>
+              {{ user.firstName }} {{ user.lastName }}
+              <button
+                class="btn btn-xs btn-raised btn-primary pull-right"
+                ng-click="selectUser(user)"
+              >
                 <i class="fa fa-pencil" style="margin-right: 0"></i>
               </button>
               <div class="clearfix"></div>
-              {{user.email}}
-              <button class="btn btn-danger btn-xs btn-raised pull-right" ng-click="deleteUser(user)">
-                <i class="fa" ng-class="{'fa-times': !user.deleting, 'fa-spinner fa-pulse': user.deleting}" style="margin-right: 0"></i>
+              {{ user.email }}
+              <button
+                class="btn btn-danger btn-xs btn-raised pull-right"
+                ng-click="deleteUser(user)"
+              >
+                <i
+                  class="fa"
+                  ng-class="{'fa-times': !user.deleting, 'fa-spinner fa-pulse': user.deleting}"
+                  style="margin-right: 0"
+                ></i>
               </button>
               <div class="clearfix"></div>
             </div>
