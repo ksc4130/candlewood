@@ -96,52 +96,50 @@
       deleteDocument: deleteDocument,
       getCalendar: getCalendar,
       types: [
-        ...[
-          {
-            type: 'monthly-calendar',
-            name: 'Monthly Calendar'
-          },
-          {
-            type: 'chronicle',
-            name: 'Chronicle'
-          },
-          {
-            type: 'upcoming-events',
-            name: 'Upcoming Events'
-          },
-          {
-            type: 'unit-maps',
-            name: 'Unit Maps'
-          },
-          {
-            type: 'policies',
-            name: 'Policies'
-          },
-          {
-            type: 'non-permits',
-            name: 'Non ECC Permits'
-          },
-          {
-            type: 'minutes',
-            name: 'Minutes'
-          },
-          {
-            type: 'ecc-permits',
-            name: 'ECC Permits'
-          },
-          {
-            type: 'agenda',
-            name: 'Agenda'
-          },
-          {
-            type: 'financial',
-            name: 'Financial'
-          },
-          {
-            type: 'board-meeting',
-            name: 'Board Meeting'
-          },
-        ].sort(x => x.type),
+        {
+          type: 'monthly-calendar',
+          name: 'Monthly Calendar'
+        },
+        {
+          type: 'chronicle',
+          name: 'Chronicle'
+        },
+        {
+          type: 'upcoming-events',
+          name: 'Upcoming Events'
+        },
+        {
+          type: 'unit-maps',
+          name: 'Unit Maps'
+        },
+        {
+          type: 'policies',
+          name: 'Policies'
+        },
+        {
+          type: 'non-permits',
+          name: 'Non ECC Permits'
+        },
+        {
+          type: 'minutes',
+          name: 'Minutes'
+        },
+        {
+          type: 'ecc-permits',
+          name: 'ECC Permits'
+        },
+        {
+          type: 'agenda',
+          name: 'Agenda'
+        },
+        {
+          type: 'financial',
+          name: 'Financial'
+        },
+        {
+          type: 'board-meeting',
+          name: 'Board Meeting'
+        },
         {
           type: 'other',
           name: 'Other'
