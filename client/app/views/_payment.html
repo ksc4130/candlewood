@@ -250,11 +250,12 @@
               {{ message }}
             </div>
             <button
-              ng-disabled="loading"
+              ng-disabled="loading || success"
               class="btn btn-raised btn-block btn-primary"
               type="submit"
             >
               <i ng-show="loading" class="fa fa-spin fa-spinner"></i>Submit
+              <i ng-show="success" class="fa fa-check fa-spinner"></i>Submit
               Payment
             </button>
           </fieldset>

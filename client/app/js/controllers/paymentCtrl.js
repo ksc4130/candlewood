@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
   // eslint-disable-next-line no-undef
   angular.module('cwl.core').controller('paymentCtrl', paymentCtrl);
@@ -50,7 +50,7 @@
     console.log('first:', $scope.cardTransReq.ssl_first_name);
     console.log('last:', $scope.cardTransReq.ssl_last_name);
 
-    $scope.submit = function() {
+    $scope.submit = function () {
       $scope.loading = true;
       $scope.success = false;
       $scope.message = '';
@@ -59,7 +59,7 @@
       console.log('submit');
       var df = $q.defer();
       $http.post('/payment', $scope.cardTransReq).then(
-        function(resp) {
+        function (resp) {
           console.log('payment', resp);
           if (resp.status === 200) {
             if (
@@ -96,7 +96,7 @@
           }
           $scope.loading = false;
         },
-        function(resp) {
+        function (resp) {
           $scope.loading = false;
           $scope.failed = true;
           $scope.error =
