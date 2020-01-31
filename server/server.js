@@ -44,6 +44,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 app.post('/payment', isAuthenticated, (req, res) => {
+  res.json(400, { msg: 'endpoint is no longer available' });
   // https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do
 
   // extend data
@@ -390,7 +391,7 @@ app.get('/admin/doc', isAdmin, (req, res) => {
   });
 });
 
-app.post('/upload', isAuthenticated, function(req, res) {
+app.post('/upload', isAuthenticated, function (req, res) {
   if (!req.files) return res.status(400).send('No files were uploaded.');
 
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file

@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const argon2 = require('argon2');
 const salt = '@do9%lakjsuv^32jcjdSDFHBjiijn12345SXFBWRT45ywFBW^Uthqwe%YU@4w5';
 const UserModel = require('./models/UserModel');
@@ -51,11 +50,11 @@ function register(user, cb) {
       return cb(err, null);
     }
 
-    if(data) {
+    if (data) {
       //user already exists
       if (!cb) return;
 
-      return cb({msg: 'Email already in use.'}, null);
+      return cb({ msg: 'Email already in use.' }, null);
     }
 
     const pwd = user.pwd;
@@ -78,7 +77,7 @@ function register(user, cb) {
         if (!cb) return;
 
         return cb(err, test);
-      })
+      });
     }).catch(err => {
       console.log('failed to create hash', err);
       if (!cb) return;
