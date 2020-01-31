@@ -8,7 +8,7 @@ var app = angular.module('cwl.core', [
 
 app.run([
   '$rootScope',
-  function($rootScope) {
+  function ($rootScope) {
     $rootScope.today = new Date();
   }
 ]);
@@ -37,28 +37,28 @@ function config(
       controller: 'loginCtrl',
       resolve: {
         tab: [
-          function() {
+          function () {
             return 1;
           }
         ]
       }
     })
-    .state('payment', {
-      url: '/payment',
-      templateUrl: '/app/views/_payment.html',
-      controller: 'paymentCtrl',
-      resolve: {
-        hideTypeNav: function() {
-          return false;
-        }
-        // docs: [
-        //   'documentSrv',
-        //   function(documentSrv) {
-        //     return documentSrv.getDocuments();
-        //   }
-        // ]
-      }
-    })
+    // .state('payment', {
+    //   url: '/payment',
+    //   templateUrl: '/app/views/_payment.html',
+    //   controller: 'paymentCtrl',
+    //   resolve: {
+    //     hideTypeNav: function() {
+    //       return false;
+    //     }
+    //     // docs: [
+    //     //   'documentSrv',
+    //     //   function(documentSrv) {
+    //     //     return documentSrv.getDocuments();
+    //     //   }
+    //     // ]
+    //   }
+    // })
     // .state('memberDocuments', {
     //   url: '/members/documents',
     //   templateUrl: '/app/views/_documents.html',
@@ -76,13 +76,13 @@ function config(
       resolve: {
         docs: [
           'documentSrv',
-          function(documentSrv) {
+          function (documentSrv) {
             return documentSrv.getDocuments(true);
           }
         ],
         notifications: [
           'notificationSrv',
-          function(notificationSrv) {
+          function (notificationSrv) {
             return notificationSrv.getNotifications(true);
           }
         ]
@@ -99,12 +99,12 @@ function config(
       templateUrl: '/app/views/_documents.html',
       controller: 'documentsCtrl',
       resolve: {
-        hideTypeNav: function() {
+        hideTypeNav: function () {
           return false;
         },
         docs: [
           'documentSrv',
-          function(documentSrv) {
+          function (documentSrv) {
             return documentSrv.getDocuments();
           }
         ]
@@ -117,7 +117,7 @@ function config(
       resolve: {
         notifications: [
           'notificationSrv',
-          function(notificationSrv) {
+          function (notificationSrv) {
             return notificationSrv.getNotifications();
           }
         ]
@@ -133,14 +133,14 @@ function config(
       controller: [
         '$scope',
         'calendar',
-        function($scope, calendar) {
+        function ($scope, calendar) {
           $scope.calendar = calendar;
         }
       ],
       resolve: {
         calendar: [
           'documentSrv',
-          function(documentSrv) {
+          function (documentSrv) {
             return documentSrv.getCalendar();
           }
         ]
@@ -151,13 +151,13 @@ function config(
       templateUrl: '/app/views/_documents.html',
       controller: 'documentsCtrl',
       resolve: {
-        hideTypeNav: function() {
+        hideTypeNav: function () {
           return true;
         },
         docs: [
           'documentSrv',
           '$q',
-          function(documentSrv) {
+          function (documentSrv) {
             return documentSrv.getDocumentsByType('chronicle');
           }
         ]
@@ -169,7 +169,7 @@ function config(
       controller: [
         '$scope',
         'docs',
-        function($scope, docs) {
+        function ($scope, docs) {
           console.log('docs ctrl', docs);
           $scope.docs = docs;
         }
@@ -178,7 +178,7 @@ function config(
         docs: [
           'documentSrv',
           '$q',
-          function(documentSrv) {
+          function (documentSrv) {
             return documentSrv.getDocumentsByType('upcoming-events');
           }
         ]
@@ -245,7 +245,7 @@ function config(
       templateUrl: '/app/views/_realEstateForSale.html',
       controller: [
         '$scope',
-        function($scope) {
+        function ($scope) {
           $scope.tab = 2;
         }
       ]
