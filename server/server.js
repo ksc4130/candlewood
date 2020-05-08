@@ -486,6 +486,11 @@ app.post('/admin/notification', isAdmin, (req, res) => {
 });
 //end notifications
 
+// app.get('/7958A799300AF6CC3DA2C05D9FE34081.txt', (req, res) => {
+//   //console.log('knock knock',req.path, req.originalUrl);
+//   res.sendFile(path.resolve(__dirname, '../client/7958A799300AF6CC3DA2C05D9FE34081.txt'));
+// });
+
 app.get('*', (req, res) => {
   //console.log('knock knock',req.path, req.originalUrl);
   res.sendFile(path.resolve(__dirname, '../client/index.html'));
