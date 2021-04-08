@@ -141,6 +141,10 @@
           name: 'Board Meeting'
         },
         {
+          type: 'security',
+          name: 'Security'
+        },
+        {
           type: 'other',
           name: 'Other'
         }
