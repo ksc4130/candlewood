@@ -38,7 +38,7 @@
     "express": "^4.15.4",
     "express-fileupload": "^0.1.4",
     "moment": "^2.18.1",
-    "mongoose": "^4.11.7",
+    "mongoose": "^4.13.21",
     "request": "^2.88.0",
     "uglify-js": "^2.8.16",
     "uuid": "^3.1.0",
